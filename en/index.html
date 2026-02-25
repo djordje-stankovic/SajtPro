@@ -205,15 +205,25 @@
       <p class="section-sub" style="max-width:560px;margin:0 auto 48px">
         This isn't a screenshot. This is a real website we built — scroll, click, explore.
       </p>
-      <div class="live-browser">
+      <div class="live-tabs" id="liveTabs">
+        <button class="live-tab active" data-src="https://skaskabrandy.com/" data-name="skaskabrandy.com">
+          <span class="live-tab-icon">S</span>
+          <span class="live-tab-label">Skaska Brandy</span>
+        </button>
+        <button class="live-tab" data-src="../../WebBuisnis/Bg/05-Impressio/index.html" data-name="impressio-studio.rs">
+          <span class="live-tab-icon">I</span>
+          <span class="live-tab-label">Impressio Studio</span>
+        </button>
+        <button class="live-tab" data-src="../../WebBuisnis/Nis/04-JSKM-Advokati/index.html" data-name="jskm-advokati.rs">
+          <span class="live-tab-icon">J</span>
+          <span class="live-tab-label">JSKM Advokati</span>
+        </button>
+      </div>
+      <div class="live-browser live-browser-wide">
         <div class="browser-dots"><span></span><span></span><span></span></div>
-        <div class="browser-bar">bella-napoli.sajtpro.rs</div>
+        <div class="browser-bar" id="liveBarUrl">skaskabrandy.com</div>
         <div class="live-browser-body">
-          <div class="live-placeholder">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            <p>Preview coming soon</p>
-            <span>Once we host our projects, a live interactive preview will appear here</span>
-          </div>
+          <iframe src="https://skaskabrandy.com/" class="live-iframe" id="liveIframe" title="SajtPro work"></iframe>
         </div>
       </div>
     </div>

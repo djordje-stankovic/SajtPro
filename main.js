@@ -222,6 +222,23 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   });
 })();
 
+// ===== Live Preview Tabs =====
+(function() {
+  var tabs = document.querySelectorAll('.live-tab');
+  var iframe = document.getElementById('liveIframe');
+  var barUrl = document.getElementById('liveBarUrl');
+  if (!tabs.length || !iframe) return;
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      iframe.src = tab.getAttribute('data-src');
+      if (barUrl) barUrl.textContent = tab.getAttribute('data-name');
+    });
+  });
+})();
+
 // ===== Close mobile menu on link click =====
 document.querySelectorAll('.nav-links a').forEach(function(a) {
   a.addEventListener('click', function() {
