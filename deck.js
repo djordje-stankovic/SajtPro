@@ -32,6 +32,10 @@
   function selectFlow(flow) {
     activeFlow = flow;
 
+    // Hide hint
+    var hint = document.querySelector('.flow-hint');
+    if (hint) hint.style.display = 'none';
+
     // Mark selected card
     flowCards.forEach(function (c) { c.classList.remove('selected'); });
     document.querySelector('.flow-card-' + flow).classList.add('selected');
@@ -107,7 +111,52 @@
   }
 
   function prev() {
+    if (currentIndex === 1 && activeFlow) {
+      // Going back from first flow slide to intro — reset flow
+      resetFlow();
+      return;
+    }
     goTo(currentIndex - 1);
+  }
+
+  function resetFlow() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    var currentSlide = visibleSlides[currentIndex];
+    var introSlide = allSlides[0];
+
+    // Exit current
+    currentSlide.classList.remove('active');
+    currentSlide.style.transform = 'translateX(60px)';
+    currentSlide.style.opacity = '0';
+
+    // Reset state
+    activeFlow = null;
+    currentIndex = 0;
+    visibleSlides = [introSlide];
+    flowCards.forEach(function (c) { c.classList.remove('selected'); });
+
+    // Show hint again
+    var hint = document.querySelector('.flow-hint');
+    if (hint) hint.style.display = '';
+
+    // Show intro
+    introSlide.style.transform = 'translateX(-60px)';
+    introSlide.style.opacity = '0';
+    void introSlide.offsetWidth;
+    introSlide.classList.add('active');
+    introSlide.style.transform = '';
+    introSlide.style.opacity = '';
+
+    buildDots();
+    updateUI();
+
+    setTimeout(function () {
+      currentSlide.style.transform = '';
+      currentSlide.style.opacity = '';
+      isAnimating = false;
+    }, 600);
   }
 
   // -------- Dots --------
@@ -134,15 +183,25 @@
     });
 
     // Arrows
+    var isLastSlide = currentIndex === visibleSlides.length - 1;
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === visibleSlides.length - 1;
-    // Hide next on intro if no flow picked
-    if (currentIndex === 0 && !activeFlow) {
+    nextBtn.disabled = isLastSlide;
+    // Hide both arrows on last slide (final/privacy)
+    if (isLastSlide) {
+      prevBtn.style.opacity = '0';
+      prevBtn.style.pointerEvents = 'none';
+      nextBtn.style.opacity = '0';
+      nextBtn.style.pointerEvents = 'none';
+    } else if (currentIndex === 0 && !activeFlow) {
       nextBtn.style.opacity = '0.3';
       nextBtn.style.pointerEvents = 'none';
+      prevBtn.style.opacity = '';
+      prevBtn.style.pointerEvents = '';
     } else {
       nextBtn.style.opacity = '';
       nextBtn.style.pointerEvents = '';
+      prevBtn.style.opacity = '';
+      prevBtn.style.pointerEvents = '';
     }
 
     // Step label
@@ -193,6 +252,47 @@
     if (dx < 0) next();
     else prev();
   }, { passive: true });
+
+  // -------- Restart button --------
+
+  var restartBtn = document.getElementById('deckRestart');
+  if (restartBtn) {
+    restartBtn.addEventListener('click', function () {
+      // Go back to intro and reset flow
+      if (isAnimating) return;
+      isAnimating = true;
+
+      var currentSlide = visibleSlides[currentIndex];
+      var introSlide = allSlides[0];
+
+      currentSlide.classList.remove('active');
+      currentSlide.style.opacity = '0';
+
+      activeFlow = null;
+      currentIndex = 0;
+      visibleSlides = [introSlide];
+      flowCards.forEach(function (c) { c.classList.remove('selected'); });
+
+      var hint = document.querySelector('.flow-hint');
+      if (hint) hint.style.display = '';
+
+      introSlide.style.transform = 'translateX(-60px)';
+      introSlide.style.opacity = '0';
+      void introSlide.offsetWidth;
+      introSlide.classList.add('active');
+      introSlide.style.transform = '';
+      introSlide.style.opacity = '';
+
+      buildDots();
+      updateUI();
+
+      setTimeout(function () {
+        currentSlide.style.transform = '';
+        currentSlide.style.opacity = '';
+        isAnimating = false;
+      }, 600);
+    });
+  }
 
   // -------- Init --------
 

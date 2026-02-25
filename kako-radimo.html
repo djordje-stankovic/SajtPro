@@ -40,6 +40,7 @@
           <span class="tag">Kako radimo</span>
           <h2>Dvosmeran put do<br><em class="italic-accent">vaseg novog sajta.</em></h2>
           <p>Izaberite scenario koji vam odgovara i saznajte kako izgleda proces od pocetka do kraja.</p>
+          <p class="flow-hint">Kliknite na jednu od opcija ispod</p>
           <div class="flow-picker">
             <div class="flow-card flow-card-a" data-flow="a">
               <div class="flow-card-icon">
@@ -197,32 +198,23 @@
         </div>
       </div>
 
-      <!-- Slide 5: CTA (shared) -->
+      <!-- Slide 5: Final (shared) -->
       <div class="deck-slide" data-slide="cta">
         <div class="slide-cta-bg"></div>
         <div class="slide-inner slide-cta-content">
-          <span class="tag">Spremni?</span>
-          <h2>Vas novi sajt<br>ceka na vas.</h2>
-          <div class="cta-stats">
-            <div>
-              <div class="cta-stat-num">127+</div>
-              <div class="cta-stat-label">Firmi smo pomogli</div>
-            </div>
-            <div>
-              <div class="cta-stat-num">15</div>
-              <div class="cta-stat-label">Gradova u Srbiji</div>
-            </div>
-            <div>
-              <div class="cta-stat-num">98%</div>
-              <div class="cta-stat-label">Zadovoljnih klijenata</div>
-            </div>
-          </div>
+          <span class="tag">To je to</span>
+          <h2>Jednostavno, zar ne?</h2>
+          <p>Bez komplikacija, bez skrivenih koraka. Vi vidite rezultat pre nego sto se obavezete na bilo sta.</p>
+          <p class="privacy-note">Vas preview link je privatan — samo vi i osobe kojima ga posaljete mogu da ga vide. Ne delimo ga ni sa kim.</p>
           <div class="cta-slide-buttons">
-            <a href="kontakt.html" class="btn btn-glow btn-lg">Zatrazite ponudu
+            <button class="btn btn-glass btn-lg" id="deckRestart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+              Pogledajte drugi put
+            </button>
+            <a href="index.html" class="btn btn-glow btn-lg">
+              Nazad na pocetnu
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="cenovnik.html" class="btn btn-glass btn-lg">Pogledajte cene</a>
-            <a href="portfolio.html" class="btn btn-glass btn-lg">Pogledajte radove</a>
           </div>
         </div>
       </div>
@@ -231,10 +223,12 @@
 
     <!-- Navigation Arrows -->
     <button class="deck-nav-arrow deck-arrow-left" id="deckPrev" disabled>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span class="arrow-label">Nazad</span>
     </button>
     <button class="deck-nav-arrow deck-arrow-right" id="deckNext">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span class="arrow-label">Dalje</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
 
     <!-- Dots -->
