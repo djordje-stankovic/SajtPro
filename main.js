@@ -26,8 +26,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 
 // ===== Scroll Reveal =====
 (function() {
-  var reveals = document.querySelectorAll('.reveal, .service-card, .portfolio-item, .pf-card, .test-card, .diff-card, .timeline-item, .team-card, .pf-full-card, .split, .belief-section');
-  if (!reveals.length) return;
+  // Elements that need the .reveal class added (generic reveal pattern)
+  var genericReveals = document.querySelectorAll('.reveal, .service-card, .portfolio-item, .pf-card, .test-card, .diff-card, .timeline-item, .team-card, .pf-full-card, .split, .belief-section');
+  // Elements that have their OWN opacity:0 + transition in CSS (just need .revealed)
+  var selfAnimated = document.querySelectorAll('.hw-flow-card, .trust-item, .included-item');
 
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -38,8 +40,11 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  reveals.forEach(function(el) {
+  genericReveals.forEach(function(el) {
     el.classList.add('reveal');
+    observer.observe(el);
+  });
+  selfAnimated.forEach(function(el) {
     observer.observe(el);
   });
 })();
@@ -73,6 +78,49 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   }, { threshold: 0.5 });
 
   counters.forEach(function(c) { observer.observe(c); });
+})();
+
+// ===== Testimonial Spotlight =====
+(function() {
+  var stage = document.getElementById('tspotStage');
+  if (!stage) return;
+  var slides = stage.querySelectorAll('.tspot-slide');
+  var dots = document.querySelectorAll('.tspot-dot');
+  var prevBtn = document.getElementById('tspotPrev');
+  var nextBtn = document.getElementById('tspotNext');
+  var current = 0;
+  var total = slides.length;
+  var autoTimer = null;
+
+  function goTo(i) {
+    if (i < 0) i = total - 1;
+    if (i >= total) i = 0;
+    slides[current].classList.remove('active');
+    slides[current].style.transform = 'translateY(-30px)';
+    slides[current].style.opacity = '0';
+    current = i;
+    slides[current].style.transform = 'translateY(30px)';
+    slides[current].style.opacity = '0';
+    void slides[current].offsetWidth;
+    slides[current].classList.add('active');
+    slides[current].style.transform = '';
+    slides[current].style.opacity = '';
+    dots.forEach(function(d, idx) { d.classList.toggle('active', idx === current); });
+    resetAuto();
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function() { goTo(current + 1); }, 6000);
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() { goTo(parseInt(dot.getAttribute('data-i'))); });
+  });
+
+  resetAuto();
 })();
 
 // ===== Close mobile menu on link click =====

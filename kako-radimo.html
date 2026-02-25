@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kako Radimo — SajtPro</title>
+  <meta name="description" content="Pogledajte kako SajtPro pravi sajtove. Dva puta do vaseg novog sajta — mi vas trazimo ili vi kontaktirate nas.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="kako-radimo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+</head>
+<body style="overflow:hidden;">
+
+  <div class="deck" id="deck">
+
+    <!-- Progress Bar -->
+    <div class="deck-progress" id="deckProgress"></div>
+
+    <!-- Top Bar -->
+    <div class="deck-bar">
+      <a href="index.html" class="deck-bar-logo">
+        <span class="logo-mark">S</span>
+        <span class="logo-word">SajtPro<span class="logo-dot">.</span></span>
+      </a>
+      <span class="deck-bar-step" id="deckStep"></span>
+      <a href="index.html" class="deck-bar-close">
+        Zatvori
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </a>
+    </div>
+
+    <!-- Slides -->
+    <div class="deck-slides" id="deckSlides">
+
+      <!-- Slide 0: Intro / Flow Picker -->
+      <div class="deck-slide active" data-slide="intro">
+        <div class="slide-inner">
+          <span class="tag">Kako radimo</span>
+          <h2>Dvosmeran put do<br><em class="italic-accent">vaseg novog sajta.</em></h2>
+          <p>Izaberite scenario koji vam odgovara i saznajte kako izgleda proces od pocetka do kraja.</p>
+          <div class="flow-picker">
+            <div class="flow-card flow-card-a" data-flow="a">
+              <div class="flow-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              </div>
+              <h3>Dobili ste email od nas</h3>
+              <p>Mi smo vas pronasli, dizajnirali predlog i poslali vam ga na uvid.</p>
+            </div>
+            <div class="flow-card flow-card-b" data-flow="b">
+              <div class="flow-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              </div>
+              <h3>Sami ste nas nasli</h3>
+              <p>Zelite novi sajt i dosli ste do nas putem pretrage, preporuke ili drustvenih mreza.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 1A: Pronalazimo vas -->
+      <div class="deck-slide" data-slide="1a" data-flow="a">
+        <div class="slide-inner">
+          <div class="radar-wrap">
+            <div class="radar-dot"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+          </div>
+          <span class="tag">Korak 1</span>
+          <h2>Pronalazimo vas biznis</h2>
+          <p>Nas tim svakodnevno pretrazuje lokalne firme ciji sajtovi su zastareli ili ne postoje. Analiziramo industriju, konkurenciju i potencijal za rast.</p>
+        </div>
+      </div>
+
+      <!-- Slide 2A: Dizajniramo predlog -->
+      <div class="deck-slide" data-slide="2a" data-flow="a">
+        <div class="slide-inner">
+          <div class="build-browser">
+            <div class="build-browser-bar"><span></span><span></span><span></span></div>
+            <div class="build-body">
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+            </div>
+          </div>
+          <span class="tag">Korak 2</span>
+          <h2>Dizajniramo predlog</h2>
+          <p>Na svoju inicijativu dizajniramo potpuno nov sajt za vas biznis. Ne skicu, ne wireframe — gotov, funkcionalan predlog koji mozete da vidite uzivo.</p>
+        </div>
+      </div>
+
+      <!-- Slide 3A: Email sa ponudom -->
+      <div class="deck-slide" data-slide="3a" data-flow="a">
+        <div class="slide-inner">
+          <div class="envelope-wrap">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body"></div>
+            <div class="envelope-letter"></div>
+            <div class="envelope-badge">72h</div>
+          </div>
+          <span class="tag">Korak 3</span>
+          <h2>Saljemo vam preview</h2>
+          <p>Dobijate email sa zasticenim linkom koji je aktivan 72 sata. Mozete da razgledate predlog na telefonu i racunaru — potpuno bez obaveza.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4A: Vi odlucujete -->
+      <div class="deck-slide" data-slide="4a" data-flow="a">
+        <div class="slide-inner">
+          <span class="tag">Korak 4</span>
+          <h2>Vi odlucujete</h2>
+          <p>Ako vam se svidi — birate paket koji vam odgovara. Ako ne — nista se ne desava. Nema pritiska, nema obaveza.</p>
+          <div class="mini-packages">
+            <div class="mini-pkg">
+              <div class="mini-pkg-name">Osnovni</div>
+              <div class="mini-pkg-price">149 <span>EUR</span></div>
+            </div>
+            <div class="mini-pkg">
+              <div class="mini-pkg-name">Biznis</div>
+              <div class="mini-pkg-price">99 <span>EUR + 25/mes</span></div>
+            </div>
+            <div class="mini-pkg">
+              <div class="mini-pkg-name">Premium</div>
+              <div class="mini-pkg-price">149 <span>EUR + 45/mes</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 1B: Kontaktirajte nas -->
+      <div class="deck-slide" data-slide="1b" data-flow="b">
+        <div class="slide-inner">
+          <div class="form-illust">
+            <div class="form-illust-row"></div>
+            <div class="form-illust-row"></div>
+            <div class="form-illust-row"></div>
+            <div class="form-illust-row"></div>
+            <div class="form-illust-btn"></div>
+          </div>
+          <span class="tag">Korak 1</span>
+          <h2>Javite nam se</h2>
+          <p>Popunite kontakt formu, posaljite email ili pozovite. Razgovaracemo o vasem biznisu, potrebama i ciljevima — bez obaveza.</p>
+        </div>
+      </div>
+
+      <!-- Slide 2B: Dizajniramo za 5 dana -->
+      <div class="deck-slide" data-slide="2b" data-flow="b">
+        <div class="slide-inner">
+          <div class="build-browser">
+            <div class="build-browser-bar"><span></span><span></span><span></span></div>
+            <div class="build-body">
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+              <div class="build-line"></div>
+            </div>
+          </div>
+          <span class="tag">Korak 2</span>
+          <h2>Dizajniramo za 5 dana</h2>
+          <p>Na osnovu razgovora kreiramo kompletno nov sajt prilagodjen vasem biznisu. Prosecno vreme izrade: 5 radnih dana.</p>
+        </div>
+      </div>
+
+      <!-- Slide 3B: 2 runde izmena -->
+      <div class="deck-slide" data-slide="3b" data-flow="b">
+        <div class="slide-inner">
+          <div class="chat-wrap">
+            <div class="chat-bubble chat-bubble-left">Mozete li da promenite boju naslova?</div>
+            <div class="chat-bubble chat-bubble-right">Naravno! Evo azurirane verzije.</div>
+            <div class="chat-bubble chat-bubble-left">Savrseno, bas tako sam zamislio!</div>
+          </div>
+          <span class="tag">Korak 3</span>
+          <h2>2 runde izmena</h2>
+          <p>Svaki paket ukljucuje 2 runde izmena. Kazete nam sta biste promenili — tekst, slike, boje, raspored — i mi prilagodjamo dok ne bude tacno onako kako zelite.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4B: Sajt ide online -->
+      <div class="deck-slide" data-slide="4b" data-flow="b">
+        <div class="slide-inner">
+          <div class="globe-wrap">
+            <div class="globe-circle">
+              <div class="globe-meridian"></div>
+            </div>
+            <div class="globe-check">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+          </div>
+          <span class="tag">Korak 4</span>
+          <h2>Vas sajt ide online</h2>
+          <p>Povezujemo domen, postavljamo SSL, kreiramo email adrese. Vas nov sajt je aktivan i vidljiv celom svetu.</p>
+        </div>
+      </div>
+
+      <!-- Slide 5: CTA (shared) -->
+      <div class="deck-slide" data-slide="cta">
+        <div class="slide-cta-bg"></div>
+        <div class="slide-inner slide-cta-content">
+          <span class="tag">Spremni?</span>
+          <h2>Vas novi sajt<br>ceka na vas.</h2>
+          <div class="cta-stats">
+            <div>
+              <div class="cta-stat-num">127+</div>
+              <div class="cta-stat-label">Firmi smo pomogli</div>
+            </div>
+            <div>
+              <div class="cta-stat-num">15</div>
+              <div class="cta-stat-label">Gradova u Srbiji</div>
+            </div>
+            <div>
+              <div class="cta-stat-num">98%</div>
+              <div class="cta-stat-label">Zadovoljnih klijenata</div>
+            </div>
+          </div>
+          <div class="cta-slide-buttons">
+            <a href="kontakt.html" class="btn btn-glow btn-lg">Zatrazite ponudu
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="cenovnik.html" class="btn btn-glass btn-lg">Pogledajte cene</a>
+            <a href="portfolio.html" class="btn btn-glass btn-lg">Pogledajte radove</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="deck-nav-arrow deck-arrow-left" id="deckPrev" disabled>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <button class="deck-nav-arrow deck-arrow-right" id="deckNext">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="deck-dots" id="deckDots"></div>
+
+  </div>
+
+  <script src="deck.js"></script>
+</body>
+</html>

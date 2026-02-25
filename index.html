@@ -6,6 +6,28 @@
   <title>SajtPro — Svaki Biznis Zasluzuje Sajt</title>
   <meta name="description" content="Pravimo moderne, brze i pristupacne sajtove za lokalne firme. U 2026, online prisustvo nije luksuz — vec potreba.">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SajtPro",
+    "url": "https://sajtpro.rs",
+    "logo": "https://sajtpro.rs/logo.png",
+    "description": "Pravimo moderne, brze i pristupacne sajtove za lokalne firme u Srbiji.",
+    "email": "info@sajtpro.rs",
+    "telephone": "+38160000000",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "RS"
+    },
+    "sameAs": [],
+    "areaServed": {
+      "@type": "Country",
+      "name": "Serbia"
+    },
+    "serviceType": ["Web Design", "Website Redesign", "Web Hosting", "SEO"]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
@@ -25,8 +47,10 @@
         <a href="index.html" class="active">Pocetna</a>
         <a href="o-nama.html">O nama</a>
         <a href="portfolio.html">Portfolio</a>
+        <a href="kako-radimo.html">Kako radimo</a>
+        <a href="cenovnik.html">Cene</a>
         <a href="kontakt.html">Kontakt</a>
-        <a href="kontakt.html" class="nav-cta">Besplatna ponuda</a>
+        <a href="kontakt.html" class="nav-cta">Kontaktirajte nas</a>
         <a href="en/index.html" class="nav-lang">EN</a>
       </div>
     </div>
@@ -52,7 +76,7 @@
         </p>
         <div class="hero-buttons">
           <a href="kontakt.html" class="btn btn-glow">
-            <span>Zatrazite besplatnu ponudu</span>
+            <span>Zatrazite ponudu</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href="portfolio.html" class="btn btn-glass">Pogledajte radove</a>
@@ -125,7 +149,7 @@
       </h2>
       <p class="mission-desc">
         Mi ne cekamo da nam se klijenti jave. Aktivno trazimo firme ciji sajtovi ne odrazavaju kvalitet
-        njihovog posla i pokazujemo im kako moze bolje. Besplatno, bez obaveza.
+        njihovog posla i pokazujemo im kako moze bolje — konkretno, sa gotovim predlogom.
       </p>
       <div class="mission-stats">
         <div class="m-stat">
@@ -144,51 +168,38 @@
     </div>
   </section>
 
-  <!-- How We Work — The Story -->
+  <!-- How We Work — Two Flows -->
   <section class="section">
     <div class="container">
       <div class="section-head text-center">
         <span class="tag">Kako radimo</span>
-        <h2>Mi trazimo vas — ne vi nas.</h2>
-        <p class="section-sub">Drugaciji pristup web dizajnu. Mi ne cekamo upite —<br>donosimo vam gotov predlog.</p>
+        <h2>Dvosmeran put do<br>vaseg novog sajta.</h2>
+        <p class="section-sub">Bilo da smo mi vas nasli ili ste vi dosli do nas — proces je jednostavan i transparentan.</p>
       </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <span class="timeline-num">01</span>
-          </div>
-          <div class="timeline-content">
-            <h3>Pronalazimo vas biznis</h3>
-            <p>Nas tim pretrazuje lokalne firme ciji sajtovi su zastareli ili ne postoje. Analiziramo industriju, konkurenciju i potencijal.</p>
-          </div>
+      <div class="flow-cards-grid">
+        <div class="hw-flow-card hw-flow-card-a">
+          <h3><span class="hw-bar"></span> Mi trazimo vas</h3>
+          <ul class="hw-flow-steps">
+            <li><span class="hw-step-num">01</span> Pronalazimo vas biznis</li>
+            <li><span class="hw-step-num">02</span> Dizajniramo predlog</li>
+            <li><span class="hw-step-num">03</span> Saljemo preview</li>
+            <li><span class="hw-step-num">04</span> Vi odlucujete</li>
+          </ul>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <span class="timeline-num">02</span>
-          </div>
-          <div class="timeline-content">
-            <h3>Pravimo predlog — besplatno</h3>
-            <p>Dizajniramo potpuno nov sajt za vas biznis. Ne skicu, ne wireframe — gotov, funkcionalan predlog koji mozete da vidite uzivo.</p>
-          </div>
+        <div class="hw-flow-card hw-flow-card-b">
+          <h3><span class="hw-bar"></span> Vi kontaktirate nas</h3>
+          <ul class="hw-flow-steps">
+            <li><span class="hw-step-num">01</span> Javite nam se</li>
+            <li><span class="hw-step-num">02</span> Dizajniramo za 5 dana</li>
+            <li><span class="hw-step-num">03</span> Doradjujemo zajedno</li>
+            <li><span class="hw-step-num">04</span> Sajt je online</li>
+          </ul>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <span class="timeline-num">03</span>
-          </div>
-          <div class="timeline-content">
-            <h3>Saljemo vam preview</h3>
-            <p>Dobijate email sa zasticenim linkom. Mozete da razgledate predlog na telefonu i racunaru — potpuno bez obaveza.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <span class="timeline-num">04</span>
-          </div>
-          <div class="timeline-content">
-            <h3>Vi odlucujete</h3>
-            <p>Ako vam se svidi — dogovaramo detalje. Ako ne — nista se ne desava. Nema pritiska, nema ugovora unapred.</p>
-          </div>
-        </div>
+      </div>
+      <div class="text-center">
+        <a href="kako-radimo.html" class="btn btn-glass">Pogledajte detaljno
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -249,46 +260,82 @@
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="section">
-    <div class="container">
+  <!-- Testimonial Spotlight -->
+  <section class="section tspot">
+    <div class="tspot-bg"></div>
+    <div class="container tspot-inner">
       <div class="section-head text-center">
         <span class="tag">Utisci klijenata</span>
         <h2>Ne verujte nama —<br>verujte njima.</h2>
       </div>
-      <div class="testimonials">
-        <div class="test-card">
-          <div class="test-quote">"</div>
-          <p>Dobili smo email sa predlogom novog sajta — nismo ni trazili. Kad smo videli kako izgleda, odmah smo rekli DA. Za dve nedelje imali smo nov sajt i vec primali vise poziva.</p>
-          <div class="test-author">
-            <div class="test-avatar">MN</div>
-            <div>
-              <strong>Marko Nikolic</strong>
-              <span>Vlasnik, AutoServis Nikolic</span>
-            </div>
+      <div class="tspot-stage" id="tspotStage">
+        <div class="tspot-slide active" data-tspot="0">
+          <div class="tspot-quote-mark">"</div>
+          <div class="tspot-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
+          <p class="tspot-text">Dobili smo email sa predlogom novog sajta — nismo ni trazili. Kad smo videli kako izgleda, odmah smo rekli DA. Za dve nedelje imali smo nov sajt i vec primali vise poziva.</p>
+          <div class="tspot-author">
+            <div class="tspot-avatar">MN</div>
+            <div class="tspot-author-info"><strong>Marko Nikolic</strong><span>Vlasnik, AutoServis Nikolic</span></div>
           </div>
         </div>
-        <div class="test-card">
-          <div class="test-quote">"</div>
-          <p>Godinama smo imali sajt koji smo platili i zaboravili. Kad sam videla predlog od SajtPro ekipe, bila sam odusevljena. Profesionalci koji znaju sta rade.</p>
-          <div class="test-author">
-            <div class="test-avatar">JP</div>
-            <div>
-              <strong>Jelena Petrovic</strong>
-              <span>Vlasnica, Salon Lepote Maja</span>
-            </div>
+        <div class="tspot-slide" data-tspot="1">
+          <div class="tspot-quote-mark">"</div>
+          <div class="tspot-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
+          <p class="tspot-text">Godinama smo imali sajt koji smo platili i zaboravili. Kad sam videla predlog od SajtPro ekipe, bila sam odusevljena. Profesionalci koji znaju sta rade.</p>
+          <div class="tspot-author">
+            <div class="tspot-avatar">JP</div>
+            <div class="tspot-author-info"><strong>Jelena Petrovic</strong><span>Vlasnica, Salon Lepote Maja</span></div>
           </div>
         </div>
-        <div class="test-card">
-          <div class="test-quote">"</div>
-          <p>Najlaksi poslovni dogovor ikada. Pokazali su mi gotov sajt, svidelo mi se, i za nedelju dana je bio online. Bez komplikacija, bez tehnickog zargona.</p>
-          <div class="test-author">
-            <div class="test-avatar">DJ</div>
-            <div>
-              <strong>Dragan Jovic</strong>
-              <span>Vlasnik, Stolarija Jovic</span>
-            </div>
+        <div class="tspot-slide" data-tspot="2">
+          <div class="tspot-quote-mark">"</div>
+          <div class="tspot-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
+          <p class="tspot-text">Najlaksi poslovni dogovor ikada. Pokazali su mi gotov sajt, svidelo mi se, i za nedelju dana je bio online. Bez komplikacija, bez tehnickog zargona.</p>
+          <div class="tspot-author">
+            <div class="tspot-avatar">DJ</div>
+            <div class="tspot-author-info"><strong>Dragan Jovic</strong><span>Vlasnik, Stolarija Jovic</span></div>
           </div>
+        </div>
+      </div>
+      <div class="tspot-nav">
+        <button class="tspot-arrow" id="tspotPrev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+        <div class="tspot-dots" id="tspotDots">
+          <button class="tspot-dot active" data-i="0"></button>
+          <button class="tspot-dot" data-i="1"></button>
+          <button class="tspot-dot" data-i="2"></button>
+        </div>
+        <button class="tspot-arrow" id="tspotNext"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="section" style="padding-top:0; padding-bottom:0;">
+    <div class="container">
+      <div class="trust-strip">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <span>Vidite pre placanja</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span>Bez obaveza</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span>Odgovor za 24h</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <span>Lokalni tim</span>
         </div>
       </div>
     </div>
@@ -300,7 +347,7 @@
       <div class="cta-card">
         <div class="cta-text">
           <h2>Hocete da vidite kako bi vas sajt mogao da izgleda?</h2>
-          <p>Javite nam se — napravicemo vam besplatan predlog. Bez obaveza, bez sitnih slova.</p>
+          <p>Javite nam se — dizajniracemo predlog vaseg novog sajta. Bez obaveza, bez sitnih slova.</p>
         </div>
         <div class="cta-buttons">
           <a href="kontakt.html" class="btn btn-white btn-lg">
@@ -329,6 +376,8 @@
           <a href="index.html">Pocetna</a>
           <a href="o-nama.html">O nama</a>
           <a href="portfolio.html">Portfolio</a>
+          <a href="kako-radimo.html">Kako radimo</a>
+          <a href="cenovnik.html">Cene</a>
           <a href="kontakt.html">Kontakt</a>
         </div>
         <div class="footer-col">

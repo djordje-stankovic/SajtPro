@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaša Ponuda — SajtPro</title>
+  <meta name="description" content="Pogledajte personalizovanu ponudu za vaš novi sajt i odaberite opciju koja vam odgovara.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ponuda.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-mark">S</span>
+        <span class="logo-word">SajtPro<span class="logo-dot">.</span></span>
+      </a>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger"><span></span><span></span><span></span></label>
+      <div class="nav-links">
+        <a href="index.html">Pocetna</a>
+        <a href="o-nama.html">O nama</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="kako-radimo.html">Kako radimo</a>
+        <a href="cenovnik.html">Cene</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="kontakt.html" class="nav-cta">Kontaktirajte nas</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero - Personalized -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="tag">Personalizovana ponuda</span>
+      <h1>Vaš novi sajt je spreman,<br><em class="italic-accent" id="firma-name">poštovani klijente.</em></h1>
+      <p class="page-hero-sub">Pogledajte kako bi vaš novi sajt mogao da izgleda i odaberite opciju koja vam najviše odgovara.</p>
+    </div>
+  </section>
+
+  <!-- Stepper -->
+  <section class="section" style="padding-top:20px;">
+    <div class="container">
+      <div class="stepper">
+        <div class="step step-done">
+          <div class="step-marker">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-label">Primili ste preview</div>
+        </div>
+        <div class="step-line step-line-active"></div>
+        <div class="step step-active">
+          <div class="step-marker step-marker-active">
+            <span>2</span>
+          </div>
+          <div class="step-label">Odaberite opciju</div>
+          <div class="step-badge">Vi ste ovde</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-marker">
+            <span>3</span>
+          </div>
+          <div class="step-label">Prilagođavanje</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-marker">
+            <span>4</span>
+          </div>
+          <div class="step-label">Vaš sajt je online</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preview Link -->
+  <section class="section" style="padding-top:20px; padding-bottom:40px;">
+    <div class="container text-center">
+      <div class="preview-card">
+        <div class="preview-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Pogledajte vaš novi sajt</h3>
+        <p>Testirajte na telefonu i na računaru - sajt se prilagođava svim uređajima.</p>
+        <a href="#" id="preview-link" class="btn btn-glow btn-lg" target="_blank">
+          Otvorite preview
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="section section-dark" id="paketi">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="tag">Korak 2</span>
+        <h2>Odaberite opciju<br>koja vam odgovara.</h2>
+        <p class="section-sub">Tri jasna paketa, bez skrivenih troškova. Svaki uključuje sajt koji ste upravo videli.</p>
+      </div>
+
+      <div class="packages-grid">
+
+        <!-- Package 1: Samo fajlovi -->
+        <div class="pkg-card">
+          <div class="pkg-header">
+            <span class="pkg-tag">Osnovni</span>
+            <h3>Samo fajlovi</h3>
+            <p class="pkg-desc">Za firme koje imaju svog čoveka za hosting</p>
+          </div>
+          <div class="pkg-price">
+            <span class="pkg-amount">149</span>
+            <span class="pkg-currency">EUR</span>
+            <span class="pkg-period">jednokratno</span>
+          </div>
+          <ul class="pkg-features">
+            <li class="pkg-feat-yes">Kompletno nov, moderan sajt</li>
+            <li class="pkg-feat-yes">Responsive (telefon, tablet, desktop)</li>
+            <li class="pkg-feat-yes">Do 5 stranica</li>
+            <li class="pkg-feat-yes">2 runde izmena pre predaje</li>
+            <li class="pkg-feat-yes">Predaja svih fajlova (HTML/CSS/JS + slike)</li>
+            <li class="pkg-feat-yes">Kontakt forma + Google mapa</li>
+            <li class="pkg-feat-no">Hosting i domen</li>
+            <li class="pkg-feat-no">Mesečno održavanje</li>
+            <li class="pkg-feat-no">Email na vašem domenu</li>
+          </ul>
+          <a href="kontakt.html" class="btn btn-glass btn-block">Izaberite ovaj paket</a>
+        </div>
+
+        <!-- Package 2: Biznis (recommended) -->
+        <div class="pkg-card pkg-card-featured">
+          <div class="pkg-ribbon">Preporučujemo</div>
+          <div class="pkg-header">
+            <span class="pkg-tag">Biznis</span>
+            <h3>Sajt + Hosting</h3>
+            <p class="pkg-desc">Mi se brinemo o svemu - vi se bavite poslom</p>
+          </div>
+          <div class="pkg-price">
+            <span class="pkg-amount">99</span>
+            <span class="pkg-currency">EUR</span>
+            <span class="pkg-period">setup</span>
+            <span class="pkg-monthly">+ 25 EUR / mesečno</span>
+          </div>
+          <ul class="pkg-features">
+            <li class="pkg-feat-yes">Sve iz Osnovnog paketa</li>
+            <li class="pkg-feat-yes">Brz hosting (SSD, 99.9% uptime)</li>
+            <li class="pkg-feat-yes">SSL sertifikat (katanac u browseru)</li>
+            <li class="pkg-feat-yes">Do 5 email adresa na vašem domenu</li>
+            <li class="pkg-feat-yes">Povezivanje sa postojećim domenom</li>
+            <li class="pkg-feat-yes">Google My Business optimizacija</li>
+            <li class="pkg-feat-yes">Sitne izmene do 30 min mesečno</li>
+            <li class="pkg-feat-yes">Mesečni backup sajta</li>
+            <li class="pkg-feat-yes">2 runde izmena pre puštanja</li>
+          </ul>
+          <a href="kontakt.html" class="btn btn-glow btn-block btn-lg">Izaberite ovaj paket</a>
+        </div>
+
+        <!-- Package 3: Premium -->
+        <div class="pkg-card">
+          <div class="pkg-header">
+            <span class="pkg-tag">Premium</span>
+            <h3>Kompletna briga</h3>
+            <p class="pkg-desc">Za firme kojima sajt direktno donosi klijente</p>
+          </div>
+          <div class="pkg-price">
+            <span class="pkg-amount">149</span>
+            <span class="pkg-currency">EUR</span>
+            <span class="pkg-period">setup</span>
+            <span class="pkg-monthly">+ 45 EUR / mesečno</span>
+          </div>
+          <ul class="pkg-features">
+            <li class="pkg-feat-yes">Sve iz Biznis paketa</li>
+            <li class="pkg-feat-yes">Do 10 stranica</li>
+            <li class="pkg-feat-yes">Do 10 email adresa</li>
+            <li class="pkg-feat-yes">Izmene do 1h mesečno</li>
+            <li class="pkg-feat-yes">SEO optimizacija (meta, sitemap, schema)</li>
+            <li class="pkg-feat-yes">Mesečni izveštaj poseta (Analytics)</li>
+            <li class="pkg-feat-yes">Prioritetna podrška (odgovor 24h)</li>
+            <li class="pkg-feat-yes">Godišnje osvežavanje dizajna</li>
+            <li class="pkg-feat-yes">Povezivanje sa društvenim mrežama</li>
+          </ul>
+          <a href="kontakt.html" class="btn btn-glass btn-block">Izaberite ovaj paket</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works After -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="tag">Sledeći koraci</span>
+        <h2>Kako dalje?</h2>
+        <p class="section-sub">Odgovorite na email ili nas kontaktirajte - mi ćemo se pobrinuti za sve ostalo.</p>
+      </div>
+      <div class="next-steps">
+        <div class="ns-card">
+          <div class="ns-num">3</div>
+          <h3>Prilagođavanje</h3>
+          <p>Kažete nam šta biste promenili - tekst, slike, boje, raspored. Imate 2 runde izmena uključene u svaki paket da sajt bude tačno onakav kakav želite.</p>
+        </div>
+        <div class="ns-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="ns-card">
+          <div class="ns-num">4</div>
+          <h3>Vaš sajt je online</h3>
+          <p>Povezujemo domen, postavljamo SSL, kreiramo email adrese na vašem domenu. Vaš novi sajt je aktivan i vidljiv celom svetu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal / Protection Notice -->
+  <section class="section section-dark" style="padding: 60px 0;">
+    <div class="container">
+      <div class="legal-notice">
+        <div class="legal-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="legal-text">
+          <strong>Zaštita sadržaja i autorska prava</strong>
+          <p>Ovaj preview sajt je intelektualna svojina SajtPro agencije i pripremljen je isključivo za vas kao demonstracija naših mogućnosti. Sadržaj, dizajn i kod sajta ostaju vlasništvo SajtPro-a do momenta kupovine jednog od paketa. Kopiranje, reprodukcija ili korišćenje bilo kog dela ovog predloga bez dogovora sa SajtPro-om nije dozvoljeno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-text">
+          <h2>Imate pitanja?</h2>
+          <p>Javite nam se - odgovaramo u roku od 24h. Bez pritiska, bez obaveza.</p>
+        </div>
+        <div class="cta-buttons">
+          <a href="kontakt.html" class="btn btn-white btn-lg">
+            Kontaktirajte nas
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <span class="logo-mark">S</span>
+            <span class="logo-word">SajtPro<span class="logo-dot">.</span></span>
+          </a>
+          <p>Pravimo sajtove koji donose rezultate.<br>Za lokalne firme, sa lokalnim razumevanjem.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Stranice</h4>
+          <a href="index.html">Pocetna</a>
+          <a href="o-nama.html">O nama</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="kako-radimo.html">Kako radimo</a>
+          <a href="cenovnik.html">Cene</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <a href="mailto:info@sajtpro.rs">info@sajtpro.rs</a>
+          <a href="tel:+38160000000">+381 60 000 0000</a>
+          <span>Srbija</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 SajtPro. Sva prava zadrzana.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="ponuda.js"></script>
+</body>
+</html>
