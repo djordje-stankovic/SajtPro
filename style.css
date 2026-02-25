@@ -268,7 +268,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ========== SECTIONS ========== */
 
-.section { padding: 120px 0; position: relative; }
+.section { padding: 120px 0; position: relative; overflow: hidden; }
 
 /* Auto gradient divider between consecutive sections */
 .section + .section::before,
@@ -969,7 +969,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ========== CTA BANNER ========== */
 
-.cta-banner { padding: 40px 0 80px; position: relative; }
+.cta-banner { padding: 40px 0 80px; position: relative; overflow: hidden; }
 .cta-card {
   background: linear-gradient(135deg, var(--accent), #7c3aed);
   border-radius: var(--r-lg); padding: 64px; display: flex;
@@ -1045,6 +1045,7 @@ a { color: inherit; text-decoration: none; }
   border-top: 1px solid var(--border);
   padding: 60px 0 30px;
   position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, #0c0b10 0%, var(--bg) 40%);
 }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
