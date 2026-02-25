@@ -1151,6 +1151,13 @@ a { color: inherit; text-decoration: none; }
   }
   .nav-links a { padding: 14px 0; font-size: 15px; border-bottom: 1px solid var(--border); width: 100%; }
   .nav-cta { margin-top: 12px; text-align: center; border-bottom: none !important; }
+  .nav-lang {
+    width: auto !important;
+    align-self: flex-start;
+    margin-top: 16px;
+    border-bottom: none !important;
+    padding: 6px 16px !important;
+  }
   .menu-toggle:checked ~ .nav-links { right: 0; }
   .menu-toggle:checked ~ .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .menu-toggle:checked ~ .hamburger span:nth-child(2) { opacity: 0; }
@@ -1168,7 +1175,7 @@ a { color: inherit; text-decoration: none; }
   .cf-row { grid-template-columns: 1fr; }
   .flow-cards-grid { grid-template-columns: 1fr; max-width: 400px; }
   .included-strip { flex-direction: column; align-items: flex-start; gap: 16px; max-width: 300px; margin: 0 auto; }
-  .trust-strip { flex-direction: column; align-items: center; gap: 16px; }
+  .trust-strip { flex-direction: column; align-items: flex-start; gap: 14px; max-width: 280px; margin: 0 auto; }
   .pf-result, .pf-result-row { flex-wrap: wrap; gap: 12px; }
   .footer-top { grid-template-columns: 1fr; gap: 24px; }
 }
