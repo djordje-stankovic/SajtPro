@@ -393,10 +393,19 @@
     flex-direction: column;
     gap: 12px;
   }
+  .packages-grid {
+    max-width: 100%;
+  }
+  .pkg-card {
+    padding: 24px 20px;
+  }
   .pkg-header h3 {
     font-size: 20px;
   }
   .pkg-amount {
     font-size: 36px;
+  }
+  .pkg-features li {
+    font-size: 13px;
   }
 }
