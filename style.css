@@ -1736,3 +1736,182 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   .build-hero-block { min-height: 80px; }
   .build-card-item { height: 40px; }
 }
+
+/* ========== CANVAS PARTICLE NETWORK ========== */
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ========== CURSOR GLOW TRAIL ========== */
+
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+  filter: blur(2px);
+  transition: opacity 0.4s, width 0.4s, height 0.4s;
+  will-change: left, top;
+  display: none;
+}
+@media (pointer: fine) {
+  .cursor-glow { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow { display: none; }
+}
+.cursor-glow.glow-active {
+  opacity: 0.15;
+  width: 400px;
+  height: 400px;
+}
+
+/* ========== SVG SELF-DRAWING ICONS ========== */
+
+.icon-draw {
+  stroke-dashoffset: var(--dash-length);
+  stroke-dasharray: var(--dash-length);
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.4,0,0.2,1);
+}
+.icon-draw.revealed {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .icon-draw { stroke-dashoffset: 0 !important; stroke-dasharray: none !important; }
+}
+
+/* ========== FLOATING CODE SNIPPETS ========== */
+
+.floating-snippet {
+  position: absolute;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  background: rgba(15,15,19,0.9);
+  border: 1px solid var(--border-h);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text-m);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  animation: snippetIn 0.6s ease forwards, snippetFloat 5s ease-in-out infinite;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+.floating-snippet .sn-tag { color: #f472b6; }
+.floating-snippet .sn-attr { color: #818cf8; }
+.floating-snippet .sn-val { color: #34d399; }
+.floating-snippet .sn-prop { color: #60a5fa; }
+.floating-snippet .sn-str { color: #fbbf24; }
+
+.snippet-1 { top: 18%; right: -40px; animation-delay: 0.8s, 0.8s; }
+.snippet-2 { bottom: 30%; right: -30px; animation-delay: 1.3s, 1.3s; }
+.snippet-3 { top: 55%; left: -30px; animation-delay: 1.8s, 1.8s; }
+
+@keyframes snippetIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes snippetFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (max-width: 1024px) {
+  .floating-snippet { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-snippet { animation: none; opacity: 1; }
+}
+
+/* ========== CONTACT PAGE ANIMATIONS ========== */
+
+/* Staggered ci-item slide-in */
+.ci-item {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.ci-item.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+.ci-item:nth-child(1) { transition-delay: 0s; }
+.ci-item:nth-child(2) { transition-delay: 0.1s; }
+.ci-item:nth-child(3) { transition-delay: 0.2s; }
+.ci-item:nth-child(4) { transition-delay: 0.3s; }
+
+/* ci-icon hover pulse */
+.ci-icon {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ci-item:hover .ci-icon {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* FAQ accordion smooth open */
+.faq-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.faq-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.faq-item:nth-child(1) { transition-delay: 0.05s; }
+.faq-item:nth-child(2) { transition-delay: 0.1s; }
+.faq-item:nth-child(3) { transition-delay: 0.15s; }
+.faq-item:nth-child(4) { transition-delay: 0.2s; }
+
+.faq-item[open] summary { color: var(--accent-l); }
+.faq-item summary {
+  position: relative;
+  padding-right: 28px;
+}
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--text-m);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+  color: var(--accent-l);
+}
+
+/* Form card slide-up */
+.contact-form-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+.contact-form-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Input focus glow animation */
+.cf-group input:focus, .cf-group select:focus, .cf-group textarea:focus {
+  animation: inputPulse 0.4s ease;
+}
+@keyframes inputPulse {
+  0% { box-shadow: 0 0 0 3px var(--accent-glow); }
+  50% { box-shadow: 0 0 0 6px var(--accent-glow); }
+  100% { box-shadow: 0 0 0 3px var(--accent-glow); }
+}
