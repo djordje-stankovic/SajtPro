@@ -105,31 +105,15 @@
   <!-- Problem Section -->
   <section class="section section-tint">
     <div class="container">
-      <div class="split split-reverse">
-        <div class="split-text">
-          <span class="tag">Problem</span>
-          <h2>Your website is the first thing<br>a client sees.</h2>
-          <p class="text-large">
-            The average person forms an opinion about your business in <strong>0.05 seconds</strong> — based on your website.
-          </p>
-          <p>
-            Outdated design, slow loading, or a site that doesn't work on mobile sends a clear message:
-            this business isn't serious. The truth is, most small businesses do great work —
-            but their website doesn't show it.
-          </p>
-        </div>
-        <div class="split-visual">
-          <div class="comparison">
-            <div class="comparison-bad">
-              <span class="comparison-label comparison-label-bad">Before</span>
-              <img src="https://picsum.photos/500/350?grayscale&random=20" alt="Old website">
-            </div>
-            <div class="comparison-good">
-              <span class="comparison-label comparison-label-good">After</span>
-              <img src="https://picsum.photos/500/350?random=21" alt="New website">
-            </div>
-          </div>
-        </div>
+      <div class="section-head text-center">
+        <span class="tag">Problem</span>
+        <h2>Your website is the first thing<br>a client sees.</h2>
+        <p class="section-sub" style="max-width:640px;margin:0 auto">
+          It only takes a few seconds for someone to form an opinion about your business — based on your website.
+          Outdated design, slow loading, or a site that doesn't work on mobile sends a clear message:
+          this business isn't serious. The truth is, most small businesses do great work —
+          but their website doesn't show it.
+        </p>
       </div>
     </div>
   </section>
@@ -170,61 +154,39 @@
     </div>
   </section>
 
-  <!-- Portfolio — Horizontal Scroll -->
-  <section class="section section-dark pf-hscroll-section" id="pfHscroll">
+  <!-- Portfolio — Before/After Slider -->
+  <section class="section section-dark">
     <div class="container">
       <div class="section-head text-center">
         <span class="tag">Portfolio</span>
-        <h2>Our work speaks<br>for itself.</h2>
-        <p class="section-sub">Every pixel is ours. Scroll and explore our projects.</p>
+        <h2>See the difference<br>yourself.</h2>
+        <p class="section-sub">Drag the slider and compare before and after. Every pixel is ours.</p>
       </div>
-    </div>
-      <div class="pf-hscroll-track" id="pfHscrollTrack">
-        <div class="pf-hscroll-item">
-          <div class="pf-hscroll-img">
-            <img src="https://picsum.photos/600/400?random=80" alt="Restaurant Bella Napoli" loading="lazy">
+      <div class="ba-slider-wrap">
+        <div class="ba-slider" id="baSlider1">
+          <div class="ba-before">
+            <img src="https://picsum.photos/900/550?grayscale&random=70" alt="Before redesign" draggable="false">
+            <span class="ba-label ba-label-before">Before</span>
           </div>
-          <div class="pf-hscroll-info">
-            <span class="pf-cat">Restaurant</span>
-            <h3>Bella Napoli</h3>
-            <p>Complete redesign for an Italian restaurant. Online menu, gallery, and reservation system.</p>
+          <div class="ba-after">
+            <img src="https://picsum.photos/900/550?random=71" alt="After redesign" draggable="false">
+            <span class="ba-label ba-label-after">After</span>
           </div>
-        </div>
-        <div class="pf-hscroll-item">
-          <div class="pf-hscroll-img">
-            <img src="https://picsum.photos/600/400?random=81" alt="Auto Service Nikolic" loading="lazy">
-          </div>
-          <div class="pf-hscroll-info">
-            <span class="pf-cat">Automotive</span>
-            <h3>AutoServis Nikolic</h3>
-            <p>Modern website with appointment booking and Google Business integration. #1 on Google.</p>
+          <div class="ba-handle" id="baHandle1">
+            <div class="ba-handle-line"></div>
+            <div class="ba-handle-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8l4 4-4 4"/><path d="M6 8l-4 4 4 4"/></svg>
+            </div>
+            <div class="ba-handle-line"></div>
           </div>
         </div>
-        <div class="pf-hscroll-item">
-          <div class="pf-hscroll-img">
-            <img src="https://picsum.photos/600/400?random=82" alt="Beauty Studio Ana" loading="lazy">
-          </div>
-          <div class="pf-hscroll-info">
-            <span class="pf-cat">Beauty & Health</span>
-            <h3>Beauty Studio Ana</h3>
-            <p>Elegant design with work gallery, treatment pricing, and online booking.</p>
-          </div>
-        </div>
-        <div class="pf-hscroll-item">
-          <div class="pf-hscroll-img">
-            <img src="https://picsum.photos/600/400?random=83" alt="Carpentry Jovic" loading="lazy">
-          </div>
-          <div class="pf-hscroll-info">
-            <span class="pf-cat">Craftsmanship</span>
-            <h3>Stolarija Jovic</h3>
-            <p>Portfolio website for a carpentry workshop with project gallery and contact form.</p>
-          </div>
+        <div class="ba-meta">
+          <span class="ba-project-name">Restoran Bella Napoli — Nis</span>
+          <a href="portfolio.html" class="btn btn-glass">View all projects
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
-    <div class="container text-center" style="padding-top:40px">
-      <a href="portfolio.html" class="btn btn-glass">View all projects
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
     </div>
   </section>
 

@@ -317,52 +317,12 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 
-// ===== Horizontal Scroll Portfolio =====
+// (Horizontal scroll removed — using before/after slider instead)
+
+// ===== Footer Reveal (desktop only) =====
 (function() {
-  var track = document.getElementById('pfHscrollTrack');
-  if (!track) return;
+  if (window.matchMedia('(max-width: 768px)').matches) return;
 
-  // Convert vertical wheel to horizontal scroll when hovering over track
-  track.addEventListener('wheel', function(e) {
-    if (window.matchMedia('(max-width: 768px)').matches) return;
-    var maxScroll = track.scrollWidth - track.clientWidth;
-    if (maxScroll <= 0) return;
-
-    // If there's room to scroll horizontally, hijack the wheel
-    var atStart = track.scrollLeft <= 0 && e.deltaY < 0;
-    var atEnd = track.scrollLeft >= maxScroll - 1 && e.deltaY > 0;
-    if (atStart || atEnd) return; // let page scroll normally at edges
-
-    e.preventDefault();
-    track.scrollLeft += e.deltaY;
-  }, { passive: false });
-
-  // Drag to scroll
-  var isDragging = false;
-  var startX = 0;
-  var scrollStart = 0;
-
-  track.addEventListener('mousedown', function(e) {
-    if (e.target.closest('a')) return;
-    isDragging = true;
-    startX = e.clientX;
-    scrollStart = track.scrollLeft;
-    track.style.cursor = 'grabbing';
-    e.preventDefault();
-  });
-  document.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    track.scrollLeft = scrollStart - (e.clientX - startX);
-  });
-  document.addEventListener('mouseup', function() {
-    if (!isDragging) return;
-    isDragging = false;
-    track.style.cursor = '';
-  });
-})();
-
-// ===== Footer Reveal =====
-(function() {
   var footer = document.querySelector('.footer');
   if (!footer) return;
 
@@ -372,6 +332,7 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
     if (!prev) return;
     prev.style.marginBottom = footerH + 'px';
     prev.classList.add('footer-reveal-spacer');
+    footer.classList.add('footer-sticky');
   }
 
   if (document.readyState === 'complete') { setupFooterReveal(); }
