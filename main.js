@@ -331,21 +331,20 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
     var scrollDistance = trackWidth - viewportWidth + 120;
     if (scrollDistance <= 0) return;
 
-    // Buffer: 1 full viewport of scroll before cards start moving
-    // + extra at end so last card stays visible
-    var buffer = window.innerHeight;
-    section.style.height = (window.innerHeight + buffer + scrollDistance + buffer) + 'px';
+    // Small buffer so heading is visible before cards start moving
+    var buffer = 300;
+    section.style.height = (window.innerHeight + scrollDistance + buffer) + 'px';
 
     var ticking = false;
     function onScroll() {
       var rect = section.getBoundingClientRect();
       var sectionTop = -rect.top;
 
-      // First buffer: heading visible, no card movement
+      // Buffer: heading visible first, then cards move
       var adjusted = sectionTop - buffer;
       if (adjusted < 0) adjusted = 0;
 
-      var progress = Math.max(0, Math.min(1, adjusted / (scrollDistance + buffer)));
+      var progress = Math.max(0, Math.min(1, adjusted / scrollDistance));
       track.style.transform = 'translateX(' + (-progress * scrollDistance) + 'px)';
     }
 
