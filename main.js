@@ -319,50 +319,45 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 
 // ===== Horizontal Scroll Portfolio =====
 (function() {
-  if (window.matchMedia('(max-width: 768px)').matches) return;
-
-  var section = document.getElementById('pfHscroll');
   var track = document.getElementById('pfHscrollTrack');
-  if (!section || !track) return;
+  if (!track) return;
 
-  function setup() {
-    var trackWidth = track.scrollWidth;
-    var viewportWidth = window.innerWidth;
-    var scrollDistance = trackWidth - viewportWidth + 120;
-    if (scrollDistance <= 0) return;
+  // Convert vertical wheel to horizontal scroll when hovering over track
+  track.addEventListener('wheel', function(e) {
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+    var maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 0) return;
 
-    // Small buffer so heading is visible before cards start moving
-    var buffer = 300;
-    section.style.height = (window.innerHeight + scrollDistance + buffer) + 'px';
+    // If there's room to scroll horizontally, hijack the wheel
+    var atStart = track.scrollLeft <= 0 && e.deltaY < 0;
+    var atEnd = track.scrollLeft >= maxScroll - 1 && e.deltaY > 0;
+    if (atStart || atEnd) return; // let page scroll normally at edges
 
-    var ticking = false;
-    function onScroll() {
-      var rect = section.getBoundingClientRect();
-      var sectionTop = -rect.top;
+    e.preventDefault();
+    track.scrollLeft += e.deltaY;
+  }, { passive: false });
 
-      // Buffer: heading visible first, then cards move
-      var adjusted = sectionTop - buffer;
-      if (adjusted < 0) adjusted = 0;
+  // Drag to scroll
+  var isDragging = false;
+  var startX = 0;
+  var scrollStart = 0;
 
-      var progress = Math.max(0, Math.min(1, adjusted / scrollDistance));
-      track.style.transform = 'translateX(' + (-progress * scrollDistance) + 'px)';
-    }
-
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        requestAnimationFrame(function() { onScroll(); ticking = false; });
-        ticking = true;
-      }
-    });
-  }
-
-  if (document.readyState === 'complete') { setup(); }
-  else { window.addEventListener('load', setup); }
-
-  var resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setup, 200);
+  track.addEventListener('mousedown', function(e) {
+    if (e.target.closest('a')) return;
+    isDragging = true;
+    startX = e.clientX;
+    scrollStart = track.scrollLeft;
+    track.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    track.scrollLeft = scrollStart - (e.clientX - startX);
+  });
+  document.addEventListener('mouseup', function() {
+    if (!isDragging) return;
+    isDragging = false;
+    track.style.cursor = '';
   });
 })();
 
