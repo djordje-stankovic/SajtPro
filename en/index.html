@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="page-transition" id="pageTransition"><span class="logo-mark pt-logo">S</span></div>
 
   <!-- Nav -->
   <nav class="nav" id="nav">
@@ -93,6 +94,14 @@
     </div>
   </section>
 
+  <!-- Marquee Strip -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-content">Web Design — Redesign — SEO — Hosting — Branding — Responsive — Performance — Web Design — Redesign — SEO — Hosting — Branding — Responsive — Performance —&nbsp;</span>
+      <span class="marquee-content" aria-hidden="true">Web Design — Redesign — SEO — Hosting — Branding — Responsive — Performance — Web Design — Redesign — SEO — Hosting — Branding — Responsive — Performance —&nbsp;</span>
+    </div>
+  </div>
+
   <!-- Problem Section -->
   <section class="section section-tint">
     <div class="container">
@@ -161,39 +170,63 @@
     </div>
   </section>
 
-  <!-- Portfolio — Before/After Slider -->
-  <section class="section section-dark">
+  <!-- Portfolio — Horizontal Scroll -->
+  <section class="section section-dark pf-hscroll-section" id="pfHscroll">
     <div class="container">
       <div class="section-head text-center">
         <span class="tag">Portfolio</span>
-        <h2>See the difference<br>yourself.</h2>
-        <p class="section-sub">Drag the slider and compare before and after. Every pixel is ours.</p>
+        <h2>Our work speaks<br>for itself.</h2>
+        <p class="section-sub">Every pixel is ours. Scroll and explore our projects.</p>
       </div>
-      <div class="ba-slider-wrap">
-        <div class="ba-slider" id="baSlider1">
-          <div class="ba-before">
-            <img src="https://picsum.photos/900/550?grayscale&random=70" alt="Before redesign" draggable="false">
-            <span class="ba-label ba-label-before">Before</span>
+    </div>
+    <div class="pf-hscroll-sticky">
+      <div class="pf-hscroll-track" id="pfHscrollTrack">
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=80" alt="Restaurant Bella Napoli" loading="lazy">
           </div>
-          <div class="ba-after">
-            <img src="https://picsum.photos/900/550?random=71" alt="After redesign" draggable="false">
-            <span class="ba-label ba-label-after">After</span>
-          </div>
-          <div class="ba-handle" id="baHandle1">
-            <div class="ba-handle-line"></div>
-            <div class="ba-handle-circle">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8l4 4-4 4"/><path d="M6 8l-4 4 4 4"/></svg>
-            </div>
-            <div class="ba-handle-line"></div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Restaurant</span>
+            <h3>Bella Napoli</h3>
+            <p>Complete redesign for an Italian restaurant. Online menu, gallery, and reservation system.</p>
           </div>
         </div>
-        <div class="ba-meta">
-          <span class="ba-project-name">Restoran Bella Napoli — Nis</span>
-          <a href="portfolio.html" class="btn btn-glass">View all projects
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=81" alt="Auto Service Nikolic" loading="lazy">
+          </div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Automotive</span>
+            <h3>AutoServis Nikolic</h3>
+            <p>Modern website with appointment booking and Google Business integration. #1 on Google.</p>
+          </div>
+        </div>
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=82" alt="Beauty Studio Ana" loading="lazy">
+          </div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Beauty & Health</span>
+            <h3>Beauty Studio Ana</h3>
+            <p>Elegant design with work gallery, treatment pricing, and online booking.</p>
+          </div>
+        </div>
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=83" alt="Carpentry Jovic" loading="lazy">
+          </div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Craftsmanship</span>
+            <h3>Stolarija Jovic</h3>
+            <p>Portfolio website for a carpentry workshop with project gallery and contact form.</p>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="container text-center" style="padding-top:40px">
+      <a href="portfolio.html" class="btn btn-glass">View all projects
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </section>
 

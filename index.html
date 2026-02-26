@@ -33,6 +33,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="page-transition" id="pageTransition"><span class="logo-mark pt-logo">S</span></div>
 
   <!-- Nav -->
   <nav class="nav" id="nav">
@@ -115,6 +116,14 @@
     </div>
   </section>
 
+  <!-- Marquee Strip -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-content">Web Dizajn — Redizajn — SEO — Hosting — Brending — Responsive — Performanse — Web Dizajn — Redizajn — SEO — Hosting — Brending — Responsive — Performanse —&nbsp;</span>
+      <span class="marquee-content" aria-hidden="true">Web Dizajn — Redizajn — SEO — Hosting — Brending — Responsive — Performanse — Web Dizajn — Redizajn — SEO — Hosting — Brending — Responsive — Performanse —&nbsp;</span>
+    </div>
+  </div>
+
   <!-- Problem Section — Why this matters -->
   <section class="section section-tint">
     <div class="container">
@@ -184,39 +193,63 @@
     </div>
   </section>
 
-  <!-- Portfolio — Before/After Slider -->
-  <section class="section section-dark">
+  <!-- Portfolio — Horizontal Scroll -->
+  <section class="section section-dark pf-hscroll-section" id="pfHscroll">
     <div class="container">
       <div class="section-head text-center">
         <span class="tag">Portfolio</span>
-        <h2>Vidite razliku<br>sami.</h2>
-        <p class="section-sub">Prevucite slider i uporedite pre i posle. Svaki piksel je nas.</p>
+        <h2>Nasi radovi<br>govore sami.</h2>
+        <p class="section-sub">Svaki piksel je nas. Skrolujte i istrazite projekte.</p>
       </div>
-      <div class="ba-slider-wrap">
-        <div class="ba-slider" id="baSlider1">
-          <div class="ba-before">
-            <img src="https://picsum.photos/900/550?grayscale&random=70" alt="Pre redizajna" draggable="false">
-            <span class="ba-label ba-label-before">Pre</span>
+    </div>
+    <div class="pf-hscroll-sticky">
+      <div class="pf-hscroll-track" id="pfHscrollTrack">
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=80" alt="Restoran Bella Napoli" loading="lazy">
           </div>
-          <div class="ba-after">
-            <img src="https://picsum.photos/900/550?random=71" alt="Posle redizajna" draggable="false">
-            <span class="ba-label ba-label-after">Posle</span>
-          </div>
-          <div class="ba-handle" id="baHandle1">
-            <div class="ba-handle-line"></div>
-            <div class="ba-handle-circle">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8l4 4-4 4"/><path d="M6 8l-4 4 4 4"/></svg>
-            </div>
-            <div class="ba-handle-line"></div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Restoran</span>
+            <h3>Bella Napoli</h3>
+            <p>Kompletan redizajn za italijanski restoran. Online meni, galerija i sistem za rezervacije.</p>
           </div>
         </div>
-        <div class="ba-meta">
-          <span class="ba-project-name">Restoran Bella Napoli — Nis</span>
-          <a href="portfolio.html" class="btn btn-glass">Pogledajte sve radove
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=81" alt="AutoServis Nikolic" loading="lazy">
+          </div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Auto servis</span>
+            <h3>AutoServis Nikolic</h3>
+            <p>Moderan sajt sa zakazivanjem termina i Google Business integracijom. #1 na Google-u.</p>
+          </div>
+        </div>
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=82" alt="Beauty Studio Ana" loading="lazy">
+          </div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Salon lepote</span>
+            <h3>Beauty Studio Ana</h3>
+            <p>Elegantan dizajn sa galerijom radova, cenama tretmana i online zakazivanjem.</p>
+          </div>
+        </div>
+        <div class="pf-hscroll-item">
+          <div class="pf-hscroll-img">
+            <img src="https://picsum.photos/600/400?random=83" alt="Stolarija Jovic" loading="lazy">
+          </div>
+          <div class="pf-hscroll-info">
+            <span class="pf-cat">Zanatstvo</span>
+            <h3>Stolarija Jovic</h3>
+            <p>Portfolio sajt za stolarsku radionicu sa galerijom projekata i kontakt formom.</p>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="container text-center" style="padding-top:40px">
+      <a href="portfolio.html" class="btn btn-glass">Pogledajte sve radove
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </section>
 
