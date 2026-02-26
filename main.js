@@ -350,17 +350,18 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   var overlay = document.getElementById('pageTransition');
   if (!overlay) return;
 
-  // On load: animate out if arriving via transition
+  // On load: slide overlay up off screen
   if (sessionStorage.getItem('pt-active') === '1') {
     sessionStorage.removeItem('pt-active');
-    overlay.classList.add('pt-leaving');
-    overlay.offsetHeight; // force reflow
-    requestAnimationFrame(function() {
-      overlay.classList.add('pt-exit');
-      setTimeout(function() {
-        overlay.classList.remove('pt-leaving', 'pt-exit');
-      }, 700);
-    });
+    overlay.style.transition = 'none';
+    overlay.style.transform = 'translateY(0)';
+    overlay.style.pointerEvents = 'auto';
+    overlay.offsetHeight;
+    overlay.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+    overlay.style.transform = 'translateY(-100%)';
+    setTimeout(function() {
+      overlay.style.cssText = '';
+    }, 700);
   }
 
   // Intercept internal link clicks
