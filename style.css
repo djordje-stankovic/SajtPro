@@ -1423,6 +1423,8 @@ a { color: inherit; text-decoration: none; }
   background: rgba(255,255,255,0.04); padding: 3px 14px; border-radius: 6px;
   margin-bottom: 0;
 }
+a.browser-bar-link { text-decoration: none; cursor: pointer; transition: color 0.2s, background 0.2s; }
+a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0.1); }
 .live-browser-wide {
   max-width: 1140px;
 }

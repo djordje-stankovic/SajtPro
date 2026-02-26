@@ -304,7 +304,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
       tabs.forEach(function(t) { t.classList.remove('active'); });
       tab.classList.add('active');
       iframe.src = tab.getAttribute('data-src');
-      if (barUrl) barUrl.textContent = tab.getAttribute('data-name');
+      if (barUrl) {
+        barUrl.textContent = tab.getAttribute('data-name');
+        if (barUrl.tagName === 'A') barUrl.href = tab.getAttribute('data-url') || '#';
+      }
     });
   });
 })();
