@@ -139,7 +139,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 // ===== Scroll Reveal =====
 (function() {
   var genericReveals = document.querySelectorAll('.reveal, .service-card, .portfolio-item, .pf-card, .test-card, .diff-card, .timeline-item, .team-card, .pf-full-card, .split, .belief-section, .ba-slider-wrap, .live-browser, .manifest-value, .pf-hscroll-item');
-  var selfAnimated = document.querySelectorAll('.hw-flow-card, .trust-item, .included-item');
+  var selfAnimated = document.querySelectorAll('.hw-flow-card, .trust-item, .trust-card, .included-item');
 
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
