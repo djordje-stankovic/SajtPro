@@ -1299,7 +1299,7 @@ button.nav-lang { cursor: pointer; background: none; font-family: inherit; }
   clip-path: inset(0 50% 0 0);
 }
 .ba-before img {
-  filter: grayscale(1) brightness(0.7);
+  /* Real before screenshots — no filter needed */
 }
 .ba-label {
   position: absolute;
@@ -1364,6 +1364,57 @@ button.nav-lang { cursor: pointer; background: none; font-family: inherit; }
   font-size: 14px;
   color: var(--text-m);
   font-weight: 500;
+}
+
+/* ========== PORTFOLIO TABS (Before/After) ========== */
+.ba-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.ba-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border-h);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-m);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.ba-tab:hover {
+  border-color: rgba(99,102,241,0.3);
+  background: rgba(255,255,255,0.06);
+  color: var(--white);
+}
+.ba-tab.active {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  color: var(--white);
+}
+.ba-tab-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent-l);
+  flex-shrink: 0;
+}
+.ba-tab.active .ba-tab-icon {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
 }
 
 /* ========== LIVE BROWSER (Pogledajte u akciji) ========== */
@@ -1734,6 +1785,10 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   /* Before/After slider mobile */
   .ba-slider { aspect-ratio: 4/3; }
   .ba-meta { flex-direction: column; gap: 12px; align-items: center; }
+  .ba-tabs { gap: 8px; }
+  .ba-tab { padding: 8px 14px; font-size: 13px; }
+  .ba-tab-label { display: none; }
+  .ba-tab-icon { width: 32px; height: 32px; font-size: 14px; }
 
   /* Live browser mobile */
   .live-browser-body { min-height: 400px; }

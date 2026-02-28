@@ -296,6 +296,47 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   });
 })();
 
+// ===== Portfolio Before/After Tabs =====
+(function() {
+  var tabs = document.querySelectorAll('.ba-tab');
+  var slider = document.getElementById('baSlider1');
+  var projectName = document.getElementById('baProjectName');
+  if (!tabs.length || !slider) return;
+
+  var beforeImg = slider.querySelector('.ba-before img');
+  var afterImg = slider.querySelector('.ba-after img');
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+
+      var beforeSrc = tab.getAttribute('data-before');
+      var afterSrc = tab.getAttribute('data-after');
+      var name = tab.getAttribute('data-name');
+      var city = tab.getAttribute('data-city');
+
+      // Fade out slider, swap, fade in
+      slider.style.transition = 'opacity 0.25s ease';
+      slider.style.opacity = '0';
+
+      setTimeout(function() {
+        if (beforeImg) beforeImg.src = beforeSrc;
+        if (afterImg) afterImg.src = afterSrc;
+        if (projectName) projectName.textContent = name + ' — ' + city;
+
+        // Reset slider handle to 50%
+        var before = slider.querySelector('.ba-before');
+        var handle = slider.querySelector('.ba-handle');
+        if (before) before.style.clipPath = 'inset(0 50% 0 0)';
+        if (handle) handle.style.left = '50%';
+
+        slider.style.opacity = '1';
+      }, 260);
+    });
+  });
+})();
+
 // ===== Live Preview Tabs =====
 (function() {
   var tabs = document.querySelectorAll('.live-tab');
