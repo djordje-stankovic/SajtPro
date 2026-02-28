@@ -158,6 +158,9 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     observer.observe(el);
   });
 
+  // Expose observer so late-added text-reveals can register
+  window._revealObserver = observer;
+
   var textReveals = document.querySelectorAll('.text-reveal');
   textReveals.forEach(function(el) { observer.observe(el); });
 
@@ -180,6 +183,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
       }).join('');
     }
     el.classList.add('text-reveal');
+    if (window._revealObserver) window._revealObserver.observe(el);
   });
 })();
 
@@ -412,23 +416,31 @@ setTimeout(function() {
   var heroVisible = true;
   var animId = null;
 
+  function initParticles() {
+    particles.length = 0;
+    for (var i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.5 + 0.5
+      });
+    }
+  }
+
   function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    var w = canvas.offsetWidth;
+    var h = canvas.offsetHeight;
+    if (w === 0 || h === 0) return;
+    canvas.width = w;
+    canvas.height = h;
+    initParticles();
   }
   resize();
+  // Fallback — ensure canvas gets proper dimensions after full page load
+  window.addEventListener('load', resize);
   window.addEventListener('resize', resize);
-
-  // Init particles
-  for (var i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 1.5 + 0.5
-    });
-  }
 
   if (!isMobile) {
     canvas.parentElement.addEventListener('mousemove', function(e) {
