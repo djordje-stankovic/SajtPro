@@ -110,42 +110,95 @@
         </div>
 
         <div class="contact-right">
-          <form class="contact-form-card" onsubmit="handleSubmit(event)">
-            <h3>Posaljite nam poruku</h3>
-            <p class="form-subtitle">Ispunite formu i javicemo vam se u roku od 24h.</p>
-            <div class="cf-row">
-              <div class="cf-group">
-                <label>Ime i prezime *</label>
-                <input type="text" name="name" required placeholder="Vase ime">
+          <div class="contact-form-card">
+            <!-- Tab switcher -->
+            <div class="cf-tabs">
+              <button type="button" class="cf-tab cf-tab-active" data-tab="new">Zelim novi sajt</button>
+              <button type="button" class="cf-tab" data-tab="return">Vec sam dobio/la preview</button>
+            </div>
+
+            <!-- Tab 1: New client -->
+            <form id="form-new" class="cf-tab-content cf-tab-visible" onsubmit="handleSubmit(event, 'new')">
+              <input type="hidden" name="formType" value="new">
+              <p class="form-subtitle">Ispunite formu i javicemo vam se u roku od 24h.</p>
+              <div class="cf-row">
+                <div class="cf-group">
+                  <label>Ime i prezime *</label>
+                  <input type="text" name="name" required placeholder="Vase ime">
+                </div>
+                <div class="cf-group">
+                  <label>Email *</label>
+                  <input type="email" name="email" required placeholder="vas@email.com">
+                </div>
               </div>
               <div class="cf-group">
-                <label>Email *</label>
-                <input type="email" name="email" required placeholder="vas@email.com">
+                <label>Telefon</label>
+                <input type="tel" name="phone" placeholder="+381 ...">
               </div>
-            </div>
-            <div class="cf-group">
-              <label>Telefon</label>
-              <input type="tel" name="phone" placeholder="+381 ...">
-            </div>
-            <div class="cf-group">
-              <label>Imate li trenutno sajt?</label>
-              <select name="hasSite">
-                <option value="">— Izaberite —</option>
-                <option value="no">Nemam sajt</option>
-                <option value="old">Imam, ali je star/los</option>
-                <option value="yes">Imam, ali zelim redizajn</option>
-              </select>
-            </div>
-            <div class="cf-group">
-              <label>Poruka *</label>
-              <textarea name="message" rows="4" required placeholder="Recite nam nesto o vasem biznisu i sta vam treba..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-glow btn-block btn-lg" id="submitBtn">
-              <span>Posaljite poruku</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            </button>
-            <p class="form-note">Vasi podaci su sigurni. Ne delimo ih ni sa kim.</p>
-          </form>
+              <div class="cf-group">
+                <label>Imate li trenutno sajt?</label>
+                <select name="hasSite" id="hasSiteSelect">
+                  <option value="">— Izaberite —</option>
+                  <option value="no">Nemam sajt</option>
+                  <option value="old">Imam, ali je star/los</option>
+                  <option value="yes">Imam, ali zelim redizajn</option>
+                </select>
+              </div>
+              <div class="cf-group" id="siteUrlGroup" style="display:none;">
+                <label>Link do vaseg sajta</label>
+                <input type="url" name="siteUrl" placeholder="https://vasafirma.rs">
+              </div>
+              <div class="cf-group">
+                <label>Poruka *</label>
+                <textarea name="message" rows="4" required placeholder="Recite nam nesto o vasem biznisu i sta vam treba..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-glow btn-block btn-lg" id="submitBtnNew">
+                <span>Posaljite poruku</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
+              <p class="form-note">Vasi podaci su sigurni. Ne delimo ih ni sa kim.</p>
+            </form>
+
+            <!-- Tab 2: Returning client -->
+            <form id="form-return" class="cf-tab-content" onsubmit="handleSubmit(event, 'return')">
+              <input type="hidden" name="formType" value="return">
+              <p class="form-subtitle">Drago nam je sto ste se vratili! Popunite kratku formu i sredimo sve.</p>
+              <div class="cf-row">
+                <div class="cf-group">
+                  <label>Ime firme ili vase ime *</label>
+                  <input type="text" name="name" required placeholder="Naziv vaseg biznisa">
+                </div>
+                <div class="cf-group">
+                  <label>Email *</label>
+                  <input type="email" name="email" required placeholder="vas@email.com">
+                </div>
+              </div>
+              <div class="cf-group">
+                <label>Telefon</label>
+                <input type="tel" name="phone" placeholder="+381 ...">
+              </div>
+              <div class="cf-group">
+                <label>Sta vas je privuklo nazad?</label>
+                <select name="returnReason" required>
+                  <option value="">— Izaberite —</option>
+                  <option value="liked">Svidja mi se predlog, zelim da nastavimo</option>
+                  <option value="changes">Svidja mi se ideja, ali bih menjao/la neke stvari</option>
+                  <option value="new-design">Zelim potpuno nov dizajn</option>
+                  <option value="timing">Tad mi nije odgovaralo, sada jesam spreman/na</option>
+                  <option value="other">Nesto drugo</option>
+                </select>
+              </div>
+              <div class="cf-group">
+                <label>Poruka</label>
+                <textarea name="message" rows="3" placeholder="Ako imate nesto da dodate — slobodno. Ako ne, javicemo vam se."></textarea>
+              </div>
+              <button type="submit" class="btn btn-glow btn-block btn-lg" id="submitBtnReturn">
+                <span>Ponovo me povezite sa mojim sajtom</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
+              <p class="form-note">Vasi podaci su sigurni. Vecina klijenata koji se vrate dobija isti preview ponovo — u roku od par sati.</p>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -186,15 +239,77 @@
 
   <div class="cursor-glow"></div>
   <script src="main.js"></script>
+  <style>
+    .cf-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .cf-tab {
+      flex: 1;
+      padding: 12px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.45);
+    }
+    .cf-tab:hover {
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.06);
+    }
+    .cf-tab-active {
+      background: rgba(99,102,241,0.15);
+      color: #a5b4fc;
+    }
+    .cf-tab-content {
+      display: none;
+    }
+    .cf-tab-visible {
+      display: block;
+      animation: cfFadeIn 0.3s ease;
+    }
+    @keyframes cfFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
   <script>
-    function handleSubmit(e) {
+    // Tab switching
+    document.querySelectorAll('.cf-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.cf-tab').forEach(function(t) { t.classList.remove('cf-tab-active'); });
+        document.querySelectorAll('.cf-tab-content').forEach(function(c) { c.classList.remove('cf-tab-visible'); });
+        tab.classList.add('cf-tab-active');
+        document.getElementById('form-' + tab.getAttribute('data-tab')).classList.add('cf-tab-visible');
+      });
+    });
+
+    // Show URL field when user has a site
+    var hasSiteSelect = document.getElementById('hasSiteSelect');
+    var siteUrlGroup = document.getElementById('siteUrlGroup');
+    if (hasSiteSelect) {
+      hasSiteSelect.addEventListener('change', function() {
+        siteUrlGroup.style.display = (this.value === 'old' || this.value === 'yes') ? 'block' : 'none';
+      });
+    }
+
+    function handleSubmit(e, type) {
       e.preventDefault();
-      var btn = document.getElementById('submitBtn');
+      var btnId = type === 'return' ? 'submitBtnReturn' : 'submitBtnNew';
+      var btn = document.getElementById(btnId);
+      var originalHTML = btn.innerHTML;
       btn.innerHTML = '<span>Poruka poslata!</span>';
       btn.style.background = '#22c55e';
       btn.style.boxShadow = '0 0 30px rgba(34,197,94,0.3)';
       setTimeout(function() {
-        btn.innerHTML = '<span>Posaljite poruku</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+        btn.innerHTML = originalHTML;
         btn.style.background = '';
         btn.style.boxShadow = '';
         e.target.reset();

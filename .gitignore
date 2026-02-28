@@ -1,0 +1,12 @@
+node_modules/
+.claude/
+
+# Interni alati i biznis logika
+reports/
+tools/arsenal.md
+tools/generators/
+tools/audits/
+tools/output/
+tools/package.json
+tools/package-lock.json
+tools/src/
