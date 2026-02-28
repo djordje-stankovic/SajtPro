@@ -35,6 +35,11 @@
   color: var(--text-m);
   letter-spacing: 0.5px;
 }
+.deck-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .deck-bar-close {
   display: flex;
   align-items: center;
