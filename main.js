@@ -376,10 +376,8 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 
 // (Horizontal scroll removed — using before/after slider instead)
 
-// ===== Footer Reveal (desktop only) =====
+// ===== Footer Reveal =====
 (function() {
-  if (window.matchMedia('(max-width: 768px)').matches) return;
-
   var footer = document.querySelector('.footer');
   if (!footer) return;
 
