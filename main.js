@@ -62,14 +62,23 @@
   };
 })();
 
-// ===== Navigation scroll effect =====
+// ===== Navigation scroll effect — progressive blur =====
 (function() {
   var nav = document.getElementById('nav');
   if (!nav) return;
-  window.addEventListener('scroll', function() {
-    nav.classList.toggle('nav-scrolled', window.scrollY > 60);
-  });
-  nav.classList.toggle('nav-scrolled', window.scrollY > 60);
+
+  function updateNav() {
+    var y = window.scrollY;
+    nav.classList.toggle('nav-scrolled', y > 60);
+    var blur = Math.min(y / 3, 24);
+    var opacity = Math.min(y / 200, 0.8);
+    nav.style.backdropFilter = 'blur(' + blur + 'px)';
+    nav.style.webkitBackdropFilter = 'blur(' + blur + 'px)';
+    nav.style.background = 'rgba(9,9,11,' + opacity + ')';
+  }
+
+  window.addEventListener('scroll', updateNav);
+  updateNav();
 })();
 
 // ===== Smooth scroll for anchor links =====
@@ -578,33 +587,56 @@ setTimeout(function() {
   }
 })();
 
-// ===== Cursor Glow Trail =====
+// ===== Cursor Glow Trail — 3 elements =====
 (function() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var glow = document.querySelector('.cursor-glow');
-  if (!glow) return;
+  // Remove old single glow if present
+  var oldGlow = document.querySelector('.cursor-glow');
+  if (oldGlow) oldGlow.style.display = 'none';
+
+  var trailConfig = [
+    { lerp: 0.15, size: 300, opacity: 0.08 },
+    { lerp: 0.08, size: 200, opacity: 0.05 },
+    { lerp: 0.04, size: 140, opacity: 0.03 }
+  ];
+
+  var trails = trailConfig.map(function(cfg) {
+    var el = document.createElement('div');
+    el.className = 'cursor-glow-trail';
+    el.style.width = cfg.size + 'px';
+    el.style.height = cfg.size + 'px';
+    el.style.opacity = cfg.opacity;
+    el.style.left = '-300px';
+    el.style.top = '-300px';
+    el.style.setProperty('--trail-size', cfg.size + 'px');
+    el.style.setProperty('--trail-opacity', cfg.opacity);
+    document.body.appendChild(el);
+    return { el: el, x: -300, y: -300, lerp: cfg.lerp, baseOpacity: cfg.opacity, baseSize: cfg.size };
+  });
 
   var mx = -300, my = -300;
-  var gx = -300, gy = -300;
-  var lerpFactor = 0.12;
   var running = false;
 
   document.addEventListener('mousemove', function(e) {
     mx = e.clientX;
     my = e.clientY;
-    if (!running) { running = true; updateGlow(); }
+    if (!running) { running = true; updateTrails(); }
   });
 
-  function updateGlow() {
-    gx += (mx - gx) * lerpFactor;
-    gy += (my - gy) * lerpFactor;
-    glow.style.left = gx + 'px';
-    glow.style.top = gy + 'px';
+  function updateTrails() {
+    var stillMoving = false;
+    trails.forEach(function(t) {
+      t.x += (mx - t.x) * t.lerp;
+      t.y += (my - t.y) * t.lerp;
+      t.el.style.left = t.x + 'px';
+      t.el.style.top = t.y + 'px';
+      if (Math.abs(mx - t.x) > 0.1 || Math.abs(my - t.y) > 0.1) stillMoving = true;
+    });
 
-    if (Math.abs(mx - gx) > 0.1 || Math.abs(my - gy) > 0.1) {
-      requestAnimationFrame(updateGlow);
+    if (stillMoving) {
+      requestAnimationFrame(updateTrails);
     } else {
       running = false;
     }
@@ -613,8 +645,12 @@ setTimeout(function() {
   // Amplify on hover over interactive elements
   var hoverTargets = document.querySelectorAll('.btn, .diff-card, .hw-flow-card');
   hoverTargets.forEach(function(el) {
-    el.addEventListener('mouseenter', function() { glow.classList.add('glow-active'); });
-    el.addEventListener('mouseleave', function() { glow.classList.remove('glow-active'); });
+    el.addEventListener('mouseenter', function() {
+      trails.forEach(function(t) { t.el.classList.add('glow-active'); });
+    });
+    el.addEventListener('mouseleave', function() {
+      trails.forEach(function(t) { t.el.classList.remove('glow-active'); });
+    });
   });
 })();
 
@@ -726,4 +762,132 @@ setTimeout(function() {
   ciItems.forEach(function(el) { contactObs.observe(el); });
   faqItems.forEach(function(el) { contactObs.observe(el); });
   if (formCard) contactObs.observe(formCard);
+})();
+
+// ===== Scroll Progress Bar =====
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  document.body.appendChild(bar);
+
+  function updateProgress() {
+    var scrollY = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    bar.style.transform = 'scaleX(' + (scrollY / docHeight) + ')';
+  }
+
+  window.addEventListener('scroll', updateProgress);
+  updateProgress();
+})();
+
+// ===== Button Ripple Effect =====
+(function() {
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.btn-glow, .btn-white');
+    if (!btn) return;
+
+    var rect = btn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height);
+    var ripple = document.createElement('span');
+    ripple.className = 'btn-ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    btn.appendChild(ripple);
+
+    ripple.addEventListener('animationend', function() {
+      ripple.remove();
+    });
+  });
+})();
+
+// ===== Testimonial Spotlight Autoplay =====
+(function() {
+  var stage = document.querySelector('.tspot-stage');
+  var slides = document.querySelectorAll('.tspot-slide');
+  var dots = document.querySelectorAll('.tspot-dot');
+  var prevBtn = document.querySelector('.tspot-prev');
+  var nextBtn = document.querySelector('.tspot-next');
+  if (!stage || slides.length < 2) return;
+
+  var INTERVAL = 6000;
+  var currentIndex = 0;
+  var timer = null;
+  var isPaused = false;
+
+  // Create progress bar
+  var nav = document.querySelector('.tspot-nav');
+  if (nav) {
+    var progressWrap = document.createElement('div');
+    progressWrap.className = 'tspot-progress';
+    var progressBar = document.createElement('div');
+    progressBar.className = 'tspot-progress-bar';
+    progressWrap.appendChild(progressBar);
+    nav.appendChild(progressWrap);
+  }
+
+  function goTo(index) {
+    slides[currentIndex].classList.remove('active');
+    dots[currentIndex].classList.remove('active');
+    currentIndex = (index + slides.length) % slides.length;
+    slides[currentIndex].classList.add('active');
+    dots[currentIndex].classList.add('active');
+    resetProgress();
+  }
+
+  function resetProgress() {
+    if (!progressBar) return;
+    progressBar.classList.remove('active');
+    progressBar.classList.add('reset');
+    // Force reflow
+    progressBar.offsetHeight;
+    progressBar.classList.remove('reset');
+    if (!isPaused) {
+      requestAnimationFrame(function() {
+        progressBar.classList.add('active');
+      });
+    }
+  }
+
+  function startAutoplay() {
+    clearInterval(timer);
+    timer = setInterval(function() {
+      if (!isPaused) goTo(currentIndex + 1);
+    }, INTERVAL);
+    resetProgress();
+  }
+
+  // Pause on hover
+  stage.addEventListener('mouseenter', function() {
+    isPaused = true;
+    if (progressBar) {
+      var w = progressBar.getBoundingClientRect().width;
+      var pw = progressWrap.getBoundingClientRect().width;
+      progressBar.classList.remove('active');
+      progressBar.style.transition = 'none';
+      progressBar.style.width = (w / pw * 100) + '%';
+    }
+  });
+  stage.addEventListener('mouseleave', function() {
+    isPaused = false;
+    if (progressBar) {
+      progressBar.style.transition = '';
+      progressBar.style.width = '';
+      requestAnimationFrame(function() {
+        progressBar.classList.add('active');
+      });
+    }
+  });
+
+  // Reset on manual nav
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentIndex - 1); startAutoplay(); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentIndex + 1); startAutoplay(); });
+  dots.forEach(function(dot, i) {
+    dot.addEventListener('click', function() { goTo(i); startAutoplay(); });
+  });
+
+  startAutoplay();
 })();

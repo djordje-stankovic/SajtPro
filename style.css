@@ -72,8 +72,6 @@ a { color: inherit; text-decoration: none; }
 }
 .nav-scrolled {
   padding: 10px 0;
-  background: rgba(9,9,11,0.8);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; }
@@ -2076,4 +2074,197 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   0% { box-shadow: 0 0 0 3px var(--accent-glow); }
   50% { box-shadow: 0 0 0 6px var(--accent-glow); }
   100% { box-shadow: 0 0 0 3px var(--accent-glow); }
+}
+
+/* ========== SCROLL PROGRESS BAR ========== */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), #c084fc, var(--accent-l));
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 10001;
+  pointer-events: none;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+}
+
+/* ========== ANIMATED GRADIENT BORDER ON CARDS ========== */
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderRotate {
+  to { --angle: 360deg; }
+}
+
+.pkg-card,
+.hw-flow-card,
+.pf-card,
+.pf-full-card {
+  position: relative;
+}
+
+.pkg-card::after,
+.hw-flow-card::after,
+.pf-card::after,
+.pf-full-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  z-index: -1;
+  padding: 2px;
+  background: conic-gradient(from var(--angle), var(--accent-l), #c084fc, var(--accent-l));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borderRotate 3s linear infinite;
+}
+
+.pkg-card:hover::after,
+.hw-flow-card:hover::after,
+.pf-card:hover::after,
+.pf-full-card:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pkg-card::after,
+  .hw-flow-card::after,
+  .pf-card::after,
+  .pf-full-card::after {
+    animation: none;
+    background: linear-gradient(135deg, var(--accent-l), #c084fc);
+  }
+}
+
+/* ========== HERO TEXT SHIMMER ========== */
+
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to { background-position: 0% center; }
+}
+
+.hero-title-accent {
+  background-size: 200% auto;
+  animation: shimmer 1.5s ease-out 0.8s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-accent { animation: none; }
+}
+
+/* ========== CTA BUTTON RIPPLE ========== */
+
+.btn-glow,
+.btn-white {
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: scale(0);
+  animation: ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  from { transform: scale(0); opacity: 0.4; }
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ========== CTA ARROW ON HOVER ========== */
+
+.btn-glow {
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1), padding-right 0.3s ease;
+}
+
+.btn-glow::after {
+  content: '\2192';
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, margin 0.3s ease;
+  margin-left: 0;
+  font-size: 16px;
+}
+
+.btn-glow:hover::after {
+  opacity: 1;
+  transform: translateX(4px);
+  margin-left: 8px;
+}
+
+
+/* ========== TESTIMONIAL AUTOPLAY PROGRESS ========== */
+
+.tspot-progress {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.tspot-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: width 6s linear;
+}
+
+.tspot-progress-bar.active {
+  width: 100%;
+}
+
+.tspot-progress-bar.reset {
+  transition: none;
+  width: 0%;
+}
+
+/* ========== CURSOR GLOW TRAIL — MULTI ELEMENT ========== */
+
+.cursor-glow-trail {
+  position: fixed;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  filter: blur(2px);
+  will-change: left, top;
+  display: none;
+  transition: opacity 0.4s, width 0.4s, height 0.4s;
+}
+@media (pointer: fine) {
+  .cursor-glow-trail { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow-trail { display: none; }
+}
+.cursor-glow-trail.glow-active {
+  opacity: calc(var(--trail-opacity) * 2);
+  width: calc(var(--trail-size) * 1.3);
+  height: calc(var(--trail-size) * 1.3);
 }
