@@ -611,9 +611,51 @@ button.nav-lang { cursor: pointer; background: none; font-family: inherit; }
   line-height: 1.7;
 }
 
-/* What-you-get 3-col → 1-col on mobile */
-.wyg-grid { grid-template-columns: repeat(3, 1fr); max-width: 1000px; }
+/* What-you-get section */
+.wyg-grid { grid-template-columns: repeat(3, 1fr); max-width: 1000px; gap: 28px; }
 @media (max-width: 768px) { .wyg-grid { grid-template-columns: 1fr; max-width: 400px; } }
+.wyg-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 36px 28px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+.wyg-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-l), #c084fc, var(--accent-l), transparent);
+  border-radius: 0 0 4px 4px;
+}
+.wyg-card:hover {
+  border-color: var(--border-h);
+  transform: translateY(-4px);
+}
+.wyg-card .wyg-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 18px;
+  border-radius: 14px;
+  background: rgba(99,102,241,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wyg-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.wyg-card p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
 
 /* ========== FLOW CARDS (Homepage) ========== */
 
