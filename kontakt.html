@@ -117,8 +117,8 @@
           <div class="contact-form-card">
             <!-- Tab switcher -->
             <div class="cf-tabs">
-              <button type="button" class="cf-tab cf-tab-active" data-tab="new" data-en="I want a new website">Zelim novi sajt</button>
-              <button type="button" class="cf-tab" data-tab="return" data-en="I already received a preview">Vec sam dobio/la preview</button>
+              <button type="button" class="cf-tab cf-tab-active" data-tab="new" data-en="New website">Novi sajt</button>
+              <button type="button" class="cf-tab" data-tab="return" data-en="Got a preview">Dobio/la sam preview</button>
             </div>
 
             <!-- Tab 1: New client -->
@@ -255,7 +255,7 @@
     }
     .cf-tab {
       flex: 1;
-      padding: 12px 8px;
+      padding: 14px 12px;
       font-size: 13px;
       font-weight: 600;
       font-family: inherit;
@@ -264,6 +264,9 @@
       transition: all 0.3s ease;
       background: rgba(255,255,255,0.03);
       color: rgba(255,255,255,0.45);
+      position: relative;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .cf-tab:hover {
       color: rgba(255,255,255,0.7);
@@ -283,6 +286,23 @@
     @keyframes cfFadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      .cf-tabs {
+        flex-direction: column;
+        border-radius: 10px;
+      }
+      .cf-tab {
+        text-align: left;
+        padding: 14px 16px;
+        border-left: 3px solid transparent;
+      }
+      .cf-tab-active {
+        border-left-color: var(--accent-l, #a5b4fc);
+      }
+      .cf-tab + .cf-tab {
+        border-top: 1px solid rgba(255,255,255,0.06);
+      }
     }
   </style>
   <script>
