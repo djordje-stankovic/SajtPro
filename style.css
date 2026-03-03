@@ -1636,7 +1636,7 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: linear-gradient(135deg, var(--accent), #7c3aed);
+  background: linear-gradient(135deg, #0c0c14, #12121f);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1653,10 +1653,50 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   opacity: 0;
   transform: scale(0.8);
   transition: all 0.3s cubic-bezier(0.16,1,0.3,1) 0.15s;
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .page-transition.pt-entering .pt-logo {
   opacity: 1;
   transform: scale(1);
+}
+/* Orbit ring */
+.pt-logo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: conic-gradient(from var(--angle, 0deg), transparent 30%, var(--accent-l), #c084fc, var(--accent-l), transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: ptOrbit 1.2s linear infinite;
+}
+/* Soft outer glow */
+.pt-logo::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%);
+  animation: ptGlow 1.5s ease-in-out infinite alternate;
+}
+@keyframes ptOrbit {
+  to { --angle: 360deg; }
+}
+@keyframes ptGlow {
+  from { opacity: 0.4; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pt-logo::before { animation: none; }
+  .pt-logo::after  { animation: none; }
 }
 
 /* ========== HORIZONTAL SCROLL PORTFOLIO ========== */
