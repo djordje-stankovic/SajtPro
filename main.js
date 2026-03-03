@@ -448,8 +448,8 @@ setTimeout(function() {
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.innerWidth < 768;
-  var particleCount = isMobile ? 30 : 70;
-  var connectionDist = 120;
+  var particleCount = isMobile ? 50 : 70;
+  var connectionDist = isMobile ? 100 : 120;
   var mouseRadius = 150;
   var particles = [];
   var mouse = { x: -9999, y: -9999 };
@@ -465,7 +465,7 @@ setTimeout(function() {
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 1.5 + 0.5
+        r: isMobile ? Math.random() * 2 + 0.8 : Math.random() * 1.5 + 0.5
       });
     }
   }
@@ -541,7 +541,7 @@ setTimeout(function() {
       // Draw particle
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(99,102,241,0.5)';
+      ctx.fillStyle = isMobile ? 'rgba(99,102,241,0.7)' : 'rgba(99,102,241,0.5)';
       ctx.fill();
 
       // Draw connections
@@ -551,7 +551,7 @@ setTimeout(function() {
         var ddy = p.y - p2.y;
         var d = Math.sqrt(ddx * ddx + ddy * ddy);
         if (d < connectionDist) {
-          var alpha = (1 - d / connectionDist) * 0.1;
+          var alpha = (1 - d / connectionDist) * (isMobile ? 0.15 : 0.1);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
@@ -561,6 +561,7 @@ setTimeout(function() {
         }
       }
     }
+
   }
 
   function loop() {
