@@ -1288,6 +1288,108 @@ button.nav-lang { cursor: pointer; background: none; font-family: inherit; }
 .cta-text p { font-size: 16px; color: rgba(255,255,255,0.8); }
 .cta-buttons { position: relative; z-index: 1; display: flex; gap: 12px; flex-shrink: 0; }
 
+/* CTA v2 — with mini browser */
+.cta-card-v2 {
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 48px;
+}
+.cta-card-v2 .cta-text { flex: 1; }
+.cta-card-v2 .cta-buttons {
+  display: flex; gap: 12px; margin-top: 24px; flex-shrink: 0;
+}
+.cta-v2-mini {
+  position: relative; z-index: 1;
+  flex-shrink: 0;
+}
+.cta-mini-browser {
+  width: 180px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  animation: ctaFloat 4s ease-in-out infinite;
+}
+@keyframes ctaFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.cta-mini-dots {
+  display: flex; gap: 4px; padding: 6px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.cta-mini-dots span {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+.cta-mini-body { padding: 8px; }
+.cta-mini-nav {
+  height: 6px; width: 100%; border-radius: 3px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 10px;
+}
+.cta-mini-hero { margin-bottom: 10px; }
+.cta-mini-line {
+  height: 5px; border-radius: 3px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 5px;
+}
+.cta-ml-lg { width: 80%; }
+.cta-ml-md { width: 55%; }
+.cta-mini-btn {
+  width: 50%; height: 10px; border-radius: 5px;
+  background: linear-gradient(90deg, var(--accent-l), #c084fc);
+  opacity: 0.6;
+  margin-top: 8px;
+}
+.cta-mini-cards {
+  display: flex; gap: 4px;
+}
+.cta-mini-card {
+  flex: 1; height: 28px; border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+/* Build animation on scroll */
+.cta-mini-nav,
+.cta-mini-line,
+.cta-mini-btn,
+.cta-mini-card {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.cta-card-v2.cta-visible .cta-mini-nav { animation: ctaBuild 0.4s ease 0.1s both; }
+.cta-card-v2.cta-visible .cta-ml-lg    { animation: ctaBuild 0.4s ease 0.25s both; }
+.cta-card-v2.cta-visible .cta-ml-md    { animation: ctaBuild 0.4s ease 0.35s both; }
+.cta-card-v2.cta-visible .cta-mini-btn { animation: ctaBuild 0.4s ease 0.5s both; }
+.cta-card-v2.cta-visible .cta-mini-card:nth-child(1) { animation: ctaBuild 0.4s ease 0.6s both; }
+.cta-card-v2.cta-visible .cta-mini-card:nth-child(2) { animation: ctaBuild 0.4s ease 0.7s both; }
+.cta-card-v2.cta-visible .cta-mini-card:nth-child(3) { animation: ctaBuild 0.4s ease 0.8s both; }
+@keyframes ctaBuild {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .cta-card-v2 {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 24px;
+    gap: 28px;
+  }
+  .cta-card-v2 .cta-buttons {
+    flex-direction: column; width: 100%;
+  }
+  .cta-mini-browser { width: 140px; margin: 0 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-mini-browser { animation: none; }
+  .cta-mini-nav, .cta-mini-line, .cta-mini-btn, .cta-mini-card {
+    opacity: 1; transform: none; animation: none !important;
+  }
+}
+
 /* ========== CONTACT PAGE ========== */
 
 .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
@@ -1360,13 +1462,6 @@ button.nav-lang { cursor: pointer; background: none; font-family: inherit; }
   position: sticky;
   bottom: 0;
   z-index: 0;
-}
-@media (max-width: 768px) {
-  .footer.footer-sticky {
-    position: relative;
-    bottom: auto;
-    z-index: auto;
-  }
 }
 .footer-reveal-spacer {
   position: relative;

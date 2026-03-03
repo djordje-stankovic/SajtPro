@@ -916,4 +916,16 @@ setTimeout(function() {
   }, { threshold: 0.3 });
 
   cards.forEach(function(c) { obs.observe(c); });
+
+  // CTA v2 scroll reveal
+  var ctaCard = document.querySelector('.cta-card-v2');
+  if (ctaCard) {
+    var ctaObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        ctaCard.classList.add('cta-visible');
+        ctaObs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    ctaObs.observe(ctaCard);
+  }
 })();
