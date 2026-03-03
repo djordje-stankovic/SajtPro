@@ -2151,6 +2151,11 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   .cta-card { flex-direction: column; text-align: center; padding: 32px 20px; }
   .cta-buttons { flex-direction: column; width: 100%; }
   .contact-layout { grid-template-columns: 1fr; gap: 32px; }
+  .contact-form-card { padding: 24px 16px; overflow: hidden; max-width: 100%; }
+  .contact-form-card form { max-width: 100%; overflow: hidden; }
+  .cf-group input, .cf-group select, .cf-group textarea { max-width: 100%; min-width: 0; }
+  .cf-group select { text-overflow: ellipsis; overflow: hidden; }
+  .contact-form-card .btn { white-space: normal; word-break: break-word; }
   .cf-row { grid-template-columns: 1fr; }
   .flow-cards-grid { grid-template-columns: 1fr; max-width: 400px; }
   .included-strip { flex-direction: column; align-items: flex-start; gap: 16px; max-width: 300px; margin: 0 auto; }
