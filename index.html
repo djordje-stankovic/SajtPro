@@ -188,23 +188,54 @@
         <p class="section-sub" data-en="Every package includes tools that give you full control — without needing a developer.">Svaki paket ukljucuje alate koji vam daju potpunu kontrolu — bez potrebe za programerom.</p>
       </div>
       <div class="wyg-grid">
+        <!-- Card 1: Dashboard -->
         <div class="wyg-card">
-          <div class="wyg-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-l)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <div class="wyg-scene wyg-scene-dash">
+            <div class="wyg-dash-bar"><span></span><span></span><span></span></div>
+            <div class="wyg-dash-body">
+              <div class="wyg-dash-bars">
+                <div class="wyg-bar" style="--h:40%;--d:0s"></div>
+                <div class="wyg-bar" style="--h:70%;--d:.1s"></div>
+                <div class="wyg-bar" style="--h:55%;--d:.2s"></div>
+                <div class="wyg-bar" style="--h:90%;--d:.3s"></div>
+                <div class="wyg-bar" style="--h:65%;--d:.4s"></div>
+                <div class="wyg-bar" style="--h:80%;--d:.5s"></div>
+              </div>
+              <svg class="wyg-dash-line" viewBox="0 0 120 40" preserveAspectRatio="none">
+                <polyline points="0,35 20,28 40,30 60,18 80,22 100,10 120,5" fill="none" stroke="var(--accent-l)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
           <h3 data-en="Client Panel">Klijentski panel</h3>
           <p data-en="Track visits, speed, and uptime of your website. Everything in one place, always available.">Pratite posete, brzinu i dostupnost vaseg sajta. Sve na jednom mestu, uvek dostupno.</p>
         </div>
+        <!-- Card 2: Live Editor -->
         <div class="wyg-card">
-          <div class="wyg-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-l)" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="wyg-scene wyg-scene-edit">
+            <div class="wyg-edit-bar"><span></span><span></span><span></span></div>
+            <div class="wyg-edit-body">
+              <div class="wyg-edit-line wyg-edit-line-1"></div>
+              <div class="wyg-edit-typing">
+                <span class="wyg-typed"></span><span class="wyg-cursor">|</span>
+              </div>
+              <div class="wyg-edit-line wyg-edit-line-3"></div>
+            </div>
           </div>
           <h3 data-en="Edit Your Website">Menjajte sajt sami</h3>
           <p data-en="Change text, images, and content directly through the platform — no coding, no waiting.">Menjajte tekst, slike i sadrzaj direktno kroz platformu — bez kodiranja, bez cekanja.</p>
         </div>
+        <!-- Card 3: Shield Orbit -->
         <div class="wyg-card">
-          <div class="wyg-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-l)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="wyg-scene wyg-scene-shield">
+            <div class="wyg-shield-center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-l)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10" stroke-width="2"/></svg>
+            </div>
+            <div class="wyg-orbit">
+              <div class="wyg-orbit-dot" style="--orbit-d:0s">SSL</div>
+              <div class="wyg-orbit-dot" style="--orbit-d:-3s">Hosting</div>
+              <div class="wyg-orbit-dot" style="--orbit-d:-6s">Backup</div>
+              <div class="wyg-orbit-dot" style="--orbit-d:-9s">Email</div>
+            </div>
           </div>
           <h3 data-en="We Handle the Rest">Mi brinemo o ostalom</h3>
           <p data-en="Hosting, SSL, domain, email, backups, updates — everything is on us. You just run your business.">Hosting, SSL, domen, email, backup, azuriranja — sve je na nama. Vi samo vodite posao.</p>

@@ -891,3 +891,29 @@ setTimeout(function() {
 
   startAutoplay();
 })();
+
+// ===== WYG Card Scroll Reveal + Typing =====
+(function() {
+  var cards = document.querySelectorAll('.wyg-card');
+  if (!cards.length) return;
+
+  var typedEl = document.querySelector('.wyg-typed');
+  var typingText = 'Dobro dosli';
+  var hasTyped = false;
+
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('wyg-visible');
+        // Typing effect for editor card
+        if (!hasTyped && typedEl && entry.target.contains(typedEl)) {
+          hasTyped = true;
+          typedEl.textContent = typingText;
+        }
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  cards.forEach(function(c) { obs.observe(c); });
+})();

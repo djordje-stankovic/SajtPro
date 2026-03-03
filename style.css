@@ -636,15 +636,147 @@ button.nav-lang { cursor: pointer; background: none; font-family: inherit; }
   border-color: var(--border-h);
   transform: translateY(-4px);
 }
-.wyg-card .wyg-icon {
-  width: 56px; height: 56px;
-  margin: 0 auto 18px;
-  border-radius: 14px;
-  background: rgba(99,102,241,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* --- Scene shared --- */
+.wyg-scene {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+  position: relative;
 }
+
+/* --- Scene 1: Dashboard --- */
+.wyg-dash-bar {
+  display: flex; gap: 4px; padding: 6px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.wyg-dash-bar span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+}
+.wyg-dash-body { position: relative; height: calc(100% - 25px); padding: 8px 10px; }
+.wyg-dash-bars {
+  display: flex; align-items: flex-end; gap: 6px;
+  height: 100%; position: relative; z-index: 1;
+}
+.wyg-bar {
+  flex: 1;
+  height: 0;
+  background: linear-gradient(to top, var(--accent), #c084fc);
+  border-radius: 3px 3px 0 0;
+  opacity: 0.7;
+}
+.wyg-card.wyg-visible .wyg-bar {
+  animation: wygBarGrow 0.8s cubic-bezier(0.16,1,0.3,1) var(--d) both;
+}
+@keyframes wygBarGrow {
+  to { height: var(--h); }
+}
+.wyg-dash-line {
+  position: absolute;
+  bottom: 8px; left: 10px; right: 10px;
+  height: 40px; z-index: 2;
+}
+.wyg-dash-line polyline {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+.wyg-card.wyg-visible .wyg-dash-line polyline {
+  animation: wygLineDraw 1.2s ease 0.4s both;
+}
+@keyframes wygLineDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* --- Scene 2: Editor --- */
+.wyg-edit-bar {
+  display: flex; gap: 4px; padding: 6px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.wyg-edit-bar span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+}
+.wyg-edit-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.wyg-edit-line {
+  height: 8px; border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+}
+.wyg-edit-line-1 { width: 60%; }
+.wyg-edit-line-3 { width: 45%; opacity: 0.5; }
+.wyg-edit-typing {
+  display: flex; align-items: center;
+  font-family: 'Courier New', monospace;
+  font-size: 13px; color: var(--accent-l);
+  height: 20px;
+}
+.wyg-typed { overflow: hidden; white-space: nowrap; width: 0; }
+.wyg-card.wyg-visible .wyg-typed {
+  animation: wygType 2s steps(16) 0.3s both;
+}
+@keyframes wygType {
+  to { width: 10ch; }
+}
+.wyg-cursor {
+  color: var(--accent-l);
+  animation: wygBlink 0.7s step-end infinite;
+  font-weight: 300;
+}
+@keyframes wygBlink {
+  50% { opacity: 0; }
+}
+
+/* --- Scene 3: Shield Orbit --- */
+.wyg-scene-shield {
+  display: flex; align-items: center; justify-content: center;
+  overflow: visible;
+}
+.wyg-shield-center {
+  position: relative; z-index: 2;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(99,102,241,0.12);
+  border-radius: 50%;
+}
+.wyg-orbit {
+  position: absolute;
+  width: 110px; height: 110px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.wyg-orbit-dot {
+  position: absolute;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--accent-l);
+  background: rgba(99,102,241,0.12);
+  padding: 3px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+  top: 50%; left: 50%;
+  animation: wygOrbit 12s linear var(--orbit-d) infinite;
+}
+.wyg-card.wyg-visible .wyg-orbit-dot {
+  opacity: 1;
+}
+@keyframes wygOrbit {
+  0%   { transform: translate(-50%,-50%) rotate(0deg)   translateX(55px) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg) translateX(55px) rotate(-360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wyg-bar { height: var(--h) !important; animation: none !important; }
+  .wyg-dash-line polyline { stroke-dashoffset: 0 !important; animation: none !important; }
+  .wyg-typed { width: 10ch !important; animation: none !important; }
+  .wyg-cursor { animation: none !important; }
+  .wyg-orbit-dot { animation: none !important; }
+}
+
 .wyg-card h3 {
   font-size: 18px;
   font-weight: 700;
