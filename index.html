@@ -48,6 +48,13 @@
         <a href="index.html" class="active" data-en="Home">Pocetna</a>
         <a href="o-nama.html" data-en="About">O nama</a>
         <a href="portfolio.html">Portfolio</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" data-en="Tools">Alati <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-dropdown-menu">
+            <a href="live-editor.html" data-en="Live Editor">Live Editor</a>
+            <a href="panel.html" data-en="Client Panel">Klijentski Panel</a>
+          </div>
+        </div>
         <a href="kako-radimo.html" data-en="How We Work">Kako radimo</a>
         <a href="cenovnik.html" data-en="Pricing">Cene</a>
         <a href="kontakt.html" data-en="Contact">Kontakt</a>
@@ -186,45 +193,51 @@
       <div class="section-head text-center">
         <span class="tag" data-en="Everything Included">Sve ukljuceno</span>
         <h2 data-en-html="Your website, our responsibility.<br>You focus on business.">Vas sajt, nasa briga.<br>Vi se bavite poslom.</h2>
-        <p class="section-sub" data-en="Every package includes tools that give you full control — without needing a developer.">Svaki paket ukljucuje alate koji vam daju potpunu kontrolu — bez potrebe za programerom.</p>
+        <p class="section-sub" data-en="Change anything yourself, see it live, and publish with a single click.">Menjajte bilo sta sami, vidite uzivo kako izgleda i pustite u produkciju jednim klikom.</p>
       </div>
       <div class="wyg-grid">
         <!-- Card 1: Dashboard -->
-        <div class="wyg-card">
-          <div class="wyg-scene wyg-scene-dash">
-            <div class="wyg-dash-bar"><span></span><span></span><span></span></div>
-            <div class="wyg-dash-body">
-              <div class="wyg-dash-bars">
-                <div class="wyg-bar" style="--h:40%;--d:0s"></div>
-                <div class="wyg-bar" style="--h:70%;--d:.1s"></div>
-                <div class="wyg-bar" style="--h:55%;--d:.2s"></div>
-                <div class="wyg-bar" style="--h:90%;--d:.3s"></div>
-                <div class="wyg-bar" style="--h:65%;--d:.4s"></div>
-                <div class="wyg-bar" style="--h:80%;--d:.5s"></div>
+        <a href="panel.html" class="wyg-card-link">
+          <div class="wyg-card">
+            <div class="wyg-scene wyg-scene-dash">
+              <div class="wyg-dash-bar"><span></span><span></span><span></span></div>
+              <div class="wyg-dash-body">
+                <div class="wyg-dash-bars">
+                  <div class="wyg-bar" style="--h:40%;--d:0s"></div>
+                  <div class="wyg-bar" style="--h:70%;--d:.1s"></div>
+                  <div class="wyg-bar" style="--h:55%;--d:.2s"></div>
+                  <div class="wyg-bar" style="--h:90%;--d:.3s"></div>
+                  <div class="wyg-bar" style="--h:65%;--d:.4s"></div>
+                  <div class="wyg-bar" style="--h:80%;--d:.5s"></div>
+                </div>
+                <svg class="wyg-dash-line" viewBox="0 0 120 40" preserveAspectRatio="none">
+                  <polyline points="0,35 20,28 40,30 60,18 80,22 100,10 120,5" fill="none" stroke="var(--accent-l)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <svg class="wyg-dash-line" viewBox="0 0 120 40" preserveAspectRatio="none">
-                <polyline points="0,35 20,28 40,30 60,18 80,22 100,10 120,5" fill="none" stroke="var(--accent-l)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
             </div>
+            <h3 data-en="Client Panel">Klijentski panel</h3>
+            <p data-en="Track visits, speed, and uptime of your website. Everything in one place, always available.">Pratite posete, brzinu i dostupnost vaseg sajta. Sve na jednom mestu, uvek dostupno.</p>
+            <span class="wyg-link-text" data-en="Learn more &rarr;">Saznajte vise &rarr;</span>
           </div>
-          <h3 data-en="Client Panel">Klijentski panel</h3>
-          <p data-en="Track visits, speed, and uptime of your website. Everything in one place, always available.">Pratite posete, brzinu i dostupnost vaseg sajta. Sve na jednom mestu, uvek dostupno.</p>
-        </div>
+        </a>
         <!-- Card 2: Live Editor -->
-        <div class="wyg-card">
-          <div class="wyg-scene wyg-scene-edit">
-            <div class="wyg-edit-bar"><span></span><span></span><span></span></div>
-            <div class="wyg-edit-body">
-              <div class="wyg-edit-line wyg-edit-line-1"></div>
-              <div class="wyg-edit-typing">
-                <span class="wyg-typed"></span><span class="wyg-cursor">|</span>
+        <a href="live-editor.html" class="wyg-card-link">
+          <div class="wyg-card">
+            <div class="wyg-scene wyg-scene-edit">
+              <div class="wyg-edit-bar"><span></span><span></span><span></span></div>
+              <div class="wyg-edit-body">
+                <div class="wyg-edit-line wyg-edit-line-1"></div>
+                <div class="wyg-edit-typing">
+                  <span class="wyg-typed"></span><span class="wyg-cursor">|</span>
+                </div>
+                <div class="wyg-edit-line wyg-edit-line-3"></div>
               </div>
-              <div class="wyg-edit-line wyg-edit-line-3"></div>
             </div>
+            <h3 data-en="Edit Your Website">Menjajte sajt sami</h3>
+            <p data-en="Change text, images, and content directly through the platform — no coding, no waiting.">Menjajte tekst, slike i sadrzaj direktno kroz platformu — bez kodiranja, bez cekanja.</p>
+            <span class="wyg-link-text" data-en="Learn more &rarr;">Saznajte vise &rarr;</span>
           </div>
-          <h3 data-en="Edit Your Website">Menjajte sajt sami</h3>
-          <p data-en="Change text, images, and content directly through the platform — no coding, no waiting.">Menjajte tekst, slike i sadrzaj direktno kroz platformu — bez kodiranja, bez cekanja.</p>
-        </div>
+        </a>
         <!-- Card 3: Shield Orbit -->
         <div class="wyg-card">
           <div class="wyg-scene wyg-scene-shield">
@@ -394,6 +407,8 @@
           <a href="o-nama.html" data-en="About">O nama</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="kako-radimo.html" data-en="How We Work">Kako radimo</a>
+          <a href="live-editor.html" data-en="Live Editor">Live Editor</a>
+          <a href="panel.html" data-en="Client Panel">Klijentski Panel</a>
           <a href="cenovnik.html" data-en="Pricing">Cene</a>
           <a href="kontakt.html" data-en="Contact">Kontakt</a>
         </div>
