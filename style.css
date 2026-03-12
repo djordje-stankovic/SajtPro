@@ -5,6 +5,7 @@
 :root {
   --bg: #09090b;
   --bg-2: #0f0f13;
+  --bg-lift: #10121a;
   --bg-card: #131318;
   --bg-card-h: #1a1a22;
   --text: #d4d4d8;
@@ -426,9 +427,9 @@ a.wyg-card-link:hover .wyg-link-text {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(600px, 80%);
+  width: min(700px, 85%);
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.15) 30%, rgba(139,92,246,0.2) 50%, rgba(99,102,241,0.15) 70%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25) 30%, rgba(139,92,246,0.35) 50%, rgba(99,102,241,0.25) 70%, transparent);
 }
 
 /* Dark tint section — slightly lighter bg with top/bottom glow edges */
@@ -461,6 +462,13 @@ a.wyg-card-link:hover .wyg-link-text {
   background: #0a0a10;
 }
 
+/* Lifted section — noticeably different dark-indigo bg to break monotony */
+.section-lift {
+  background: var(--bg-lift);
+  border-top: 1px solid rgba(99,102,241,0.06);
+  border-bottom: 1px solid rgba(99,102,241,0.06);
+}
+
 /* Glow section — radial ambient light in background */
 .section-glow {
   overflow: hidden;
@@ -473,7 +481,7 @@ a.wyg-card-link:hover .wyg-link-text {
   transform: translate(-50%, -50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(ellipse, rgba(99,102,241,0.04), transparent 70%);
+  background: radial-gradient(ellipse, rgba(99,102,241,0.06), transparent 70%);
   pointer-events: none;
 }
 .section-glow-green::after {
