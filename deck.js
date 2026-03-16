@@ -71,10 +71,8 @@
 
     // Exit current
     currentSlide.classList.remove('active');
-    currentSlide.classList.add(direction > 0 ? 'exit-left' : '');
-    if (direction < 0) {
-      currentSlide.style.transform = 'translateX(60px)';
-      currentSlide.style.opacity = '0';
+    if (direction > 0) {
+      currentSlide.classList.add('exit-left');
     }
 
     // Prepare next
