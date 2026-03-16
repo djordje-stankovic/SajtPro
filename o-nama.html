@@ -565,8 +565,27 @@
       requestAnimationFrame(draw);
     }
 
-    resize(); draw();
+    resize();
     window.addEventListener('resize', function() { resize(); });
+
+    // Start animation only when section is visible, reset on each entry
+    var running = false;
+    var origDraw = draw;
+    // Replace the RAF call inside draw so we control the loop
+    draw = function() {
+      if (!running) return;
+      origDraw();
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        time = 0;
+        if (!running) { running = true; draw(); }
+      } else {
+        running = false;
+      }
+    }, { threshold: 0.15 });
+    observer.observe(canvas.parentElement);
   })();
   </script>
 
