@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-en="Contact — SajtPro">Kontakt — SajtPro</title>
+  <title data-en="Contact | Get a Free Quote — SajtPro">Kontakt | Zatrazite Besplatnu Ponudu — SajtPro</title>
   <meta name="description" content="Kontaktirajte SajtPro tim. Zatrazite ponudu za vas novi sajt — odgovaramo u roku od 24h.">
   <link rel="canonical" href="https://sajtpro.rs/kontakt.html">
   <link rel="alternate" hreflang="sr" href="https://sajtpro.rs/kontakt.html">
@@ -144,8 +144,9 @@
             </div>
 
             <!-- Tab 1: New client -->
-            <form id="form-new" class="cf-tab-content cf-tab-visible" onsubmit="handleSubmit(event, 'new')">
+            <form id="form-new" class="cf-tab-content cf-tab-visible" action="https://formspree.io/f/mkoqqjww" method="POST" onsubmit="handleSubmit(event, 'new')">
               <input type="hidden" name="formType" value="new">
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
               <p class="form-subtitle" data-en="Fill out the form and we'll get back to you within 24 hours.">Ispunite formu i javicemo vam se u roku od 24h.</p>
               <div class="cf-row">
                 <div class="cf-group">
@@ -186,8 +187,9 @@
             </form>
 
             <!-- Tab 2: Returning client -->
-            <form id="form-return" class="cf-tab-content" onsubmit="handleSubmit(event, 'return')">
+            <form id="form-return" class="cf-tab-content" action="https://formspree.io/f/mkoqqjww" method="POST" onsubmit="handleSubmit(event, 'return')">
               <input type="hidden" name="formType" value="return">
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
               <p class="form-subtitle" data-en="Glad you're back! Fill out the short form and we'll take care of everything.">Drago nam je sto ste se vratili! Popunite kratku formu i sredimo sve.</p>
               <div class="cf-row">
                 <div class="cf-group">
@@ -348,20 +350,63 @@
       });
     }
 
+    var lastSubmitTime = 0;
+    var submitCount = parseInt(sessionStorage.getItem('formSubmits') || '0');
+
     function handleSubmit(e, type) {
       e.preventDefault();
+      var form = e.target;
       var btnId = type === 'return' ? 'submitBtnReturn' : 'submitBtnNew';
       var btn = document.getElementById(btnId);
       var originalHTML = btn.innerHTML;
-      btn.innerHTML = '<span>Poruka poslata!</span>';
-      btn.style.background = '#22c55e';
-      btn.style.boxShadow = '0 0 30px rgba(34,197,94,0.3)';
-      setTimeout(function() {
-        btn.innerHTML = originalHTML;
-        btn.style.background = '';
-        btn.style.boxShadow = '';
-        e.target.reset();
-      }, 3000);
+
+      // Rate limit: max 3 submissions per session
+      if (submitCount >= 3) {
+        btn.innerHTML = '<span data-en="Too many messages. Try later.">Previse poruka. Pokusajte kasnije.</span>';
+        btn.style.background = '#ef4444';
+        btn.style.boxShadow = '0 0 30px rgba(239,68,68,0.3)';
+        setTimeout(function() { btn.innerHTML = originalHTML; btn.style.background = ''; btn.style.boxShadow = ''; }, 3000);
+        return;
+      }
+
+      // Cooldown: 30 seconds between submissions
+      var now = Date.now();
+      if (now - lastSubmitTime < 30000) {
+        btn.innerHTML = '<span data-en="Please wait before sending again.">Sacekajte pre nego sto posaljete ponovo.</span>';
+        btn.style.background = '#f59e0b';
+        btn.style.boxShadow = '0 0 30px rgba(245,158,11,0.3)';
+        setTimeout(function() { btn.innerHTML = originalHTML; btn.style.background = ''; btn.style.boxShadow = ''; }, 3000);
+        return;
+      }
+
+      // Honeypot check
+      if (form.querySelector('[name="_gotcha"]').value) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span data-en="Sending...">Slanje...</span>';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res) {
+        if (res.ok) {
+          lastSubmitTime = Date.now();
+          submitCount++;
+          sessionStorage.setItem('formSubmits', submitCount.toString());
+          btn.innerHTML = '<span data-en="Message sent!">Poruka poslata!</span>';
+          btn.style.background = '#22c55e';
+          btn.style.boxShadow = '0 0 30px rgba(34,197,94,0.3)';
+          setTimeout(function() { btn.innerHTML = originalHTML; btn.style.background = ''; btn.style.boxShadow = ''; btn.disabled = false; form.reset(); }, 3000);
+        } else {
+          throw new Error('fail');
+        }
+      }).catch(function() {
+        btn.innerHTML = '<span data-en="Error. Try again.">Greska. Pokusajte ponovo.</span>';
+        btn.style.background = '#ef4444';
+        btn.style.boxShadow = '0 0 30px rgba(239,68,68,0.3)';
+        setTimeout(function() { btn.innerHTML = originalHTML; btn.style.background = ''; btn.style.boxShadow = ''; btn.disabled = false; }, 3000);
+      });
     }
   </script>
 </body>
