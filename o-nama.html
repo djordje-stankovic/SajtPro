@@ -138,7 +138,7 @@
 
   <!-- Our Belief -->
   <section class="section section-glow" style="position:relative;overflow:hidden;">
-    <canvas id="beliefCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.4;"></canvas>
+    <canvas id="beliefCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.85;"></canvas>
     <div class="container" style="position:relative;z-index:1;">
       <div class="belief-section text-center">
         <span class="tag" data-en="Our Belief">Naš stav</span>
@@ -153,15 +153,14 @@
       </div>
     </div>
   </section>
-  <!-- Story Canvas: Search → Design → Launch flow -->
+  <!-- Story Canvas: Animated search → design → launch with flowing particles -->
   <script>
   (function() {
     var canvas = document.getElementById('storyCanvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
-    var w, h, time = 0;
-    var particles = [];
-    var dpr = window.devicePixelRatio || 1;
+    var w, h, time = 0, dpr = window.devicePixelRatio || 1;
+    var bgParticles = [], flowDots = [];
 
     function resize() {
       var rect = canvas.getBoundingClientRect();
@@ -172,60 +171,96 @@
 
     function init() {
       resize();
-      particles = [];
+      bgParticles = [];
+      flowDots = [];
       var rw = w / dpr, rh = h / dpr;
-      for (var i = 0; i < 60; i++) {
-        particles.push({
+      for (var i = 0; i < 80; i++) {
+        bgParticles.push({
           x: Math.random() * rw, y: Math.random() * rh,
-          vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
-          r: Math.random() * 1.5 + 0.5, phase: Math.random() * Math.PI * 2
+          vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6,
+          r: Math.random() * 2 + 0.5, phase: Math.random() * Math.PI * 2
         });
+      }
+      // Flowing dots between icons
+      for (var i = 0; i < 30; i++) {
+        flowDots.push({ t: Math.random(), speed: 0.003 + Math.random() * 0.004, seg: Math.floor(Math.random() * 2), size: 1.5 + Math.random() * 2 });
       }
     }
 
-    function drawIcon(x, y, type, alpha, scale) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(scale, scale);
-      ctx.globalAlpha = alpha;
-      ctx.strokeStyle = 'rgba(129,140,248,0.9)';
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
+    function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
 
-      if (type === 'search') {
-        ctx.beginPath();
-        ctx.arc(-4, -4, 12, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(5, 5);
-        ctx.lineTo(14, 14);
-        ctx.stroke();
-      } else if (type === 'design') {
-        ctx.strokeStyle = 'rgba(99,102,241,0.9)';
-        ctx.strokeRect(-16, -12, 32, 20);
-        ctx.beginPath();
-        ctx.moveTo(-16, -6);
-        ctx.lineTo(16, -6);
-        ctx.stroke();
-        ctx.fillStyle = 'rgba(129,140,248,0.3)';
-        ctx.fillRect(-12, -2, 10, 6);
-        ctx.fillRect(2, -2, 10, 3);
-      } else if (type === 'launch') {
-        ctx.beginPath();
-        ctx.moveTo(0, -16);
-        ctx.lineTo(8, 0);
-        ctx.lineTo(4, 0);
-        ctx.lineTo(4, 10);
-        ctx.lineTo(-4, 10);
-        ctx.lineTo(-4, 0);
-        ctx.lineTo(-8, 0);
-        ctx.closePath();
-        ctx.strokeStyle = 'rgba(34,197,94,0.8)';
-        ctx.stroke();
-        ctx.fillStyle = 'rgba(34,197,94,0.15)';
-        ctx.fill();
+    function drawCircleIcon(x, y, s) {
+      // Search magnifier
+      ctx.beginPath(); ctx.arc(x - 3 * s, y - 3 * s, 14 * s, 0, Math.PI * 2); ctx.strokeStyle = '#818cf8'; ctx.lineWidth = 2.5 * s; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x + 7 * s, y + 7 * s); ctx.lineTo(x + 16 * s, y + 16 * s); ctx.stroke();
+      // Animated scan line
+      var scanY = Math.sin(time * 3) * 10 * s;
+      ctx.globalAlpha = 0.4;
+      ctx.beginPath(); ctx.moveTo(x - 14 * s, y - 3 * s + scanY); ctx.lineTo(x + 8 * s, y - 3 * s + scanY);
+      ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    function drawMonitorIcon(x, y, s) {
+      // Monitor with animated content building
+      var mw = 36 * s, mh = 24 * s;
+      ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 2 * s;
+      ctx.strokeRect(x - mw / 2, y - mh / 2 - 4 * s, mw, mh);
+      // Stand
+      ctx.beginPath(); ctx.moveTo(x, y + mh / 2 - 4 * s); ctx.lineTo(x, y + mh / 2 + 4 * s); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x - 8 * s, y + mh / 2 + 4 * s); ctx.lineTo(x + 8 * s, y + mh / 2 + 4 * s); ctx.stroke();
+      // Animated content blocks appearing
+      var buildPhase = (time * 0.8) % 3;
+      var blocks = [
+        { x: x - mw / 2 + 3 * s, y: y - mh / 2 - 1 * s, w: mw - 6 * s, h: 3 * s, c: 'rgba(99,102,241,0.6)', d: 0 },
+        { x: x - mw / 2 + 3 * s, y: y - mh / 2 + 5 * s, w: mw * 0.6, h: 8 * s, c: 'rgba(129,140,248,0.3)', d: 0.4 },
+        { x: x + 2 * s, y: y - mh / 2 + 5 * s, w: mw * 0.3, h: 8 * s, c: 'rgba(129,140,248,0.2)', d: 0.8 },
+        { x: x - mw / 2 + 3 * s, y: y - mh / 2 + 16 * s, w: mw - 6 * s, h: 4 * s, c: 'rgba(34,197,94,0.25)', d: 1.2 }
+      ];
+      for (var i = 0; i < blocks.length; i++) {
+        var b = blocks[i];
+        var ba = Math.min(Math.max((buildPhase - b.d) * 2, 0), 1);
+        if (ba <= 0) continue;
+        ctx.globalAlpha = ba;
+        ctx.fillStyle = b.c;
+        ctx.fillRect(b.x, b.y, b.w * easeInOut(ba), b.h);
       }
+      ctx.globalAlpha = 1;
+    }
+
+    function drawRocketIcon(x, y, s) {
+      // Rocket with animated flame
+      ctx.save(); ctx.translate(x, y);
+      var hover = Math.sin(time * 2.5) * 4 * s;
+      ctx.translate(0, hover);
+      ctx.strokeStyle = '#22c55e'; ctx.lineWidth = 2 * s; ctx.lineCap = 'round';
+      // Body
+      ctx.beginPath();
+      ctx.moveTo(0, -18 * s); ctx.bezierCurveTo(10 * s, -12 * s, 10 * s, 4 * s, 6 * s, 10 * s);
+      ctx.lineTo(-6 * s, 10 * s); ctx.bezierCurveTo(-10 * s, 4 * s, -10 * s, -12 * s, 0, -18 * s);
+      ctx.stroke(); ctx.fillStyle = 'rgba(34,197,94,0.1)'; ctx.fill();
+      // Window
+      ctx.beginPath(); ctx.arc(0, -4 * s, 4 * s, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(34,197,94,0.6)'; ctx.stroke();
+      // Flame - animated
+      var flameH = 8 + Math.sin(time * 8) * 4;
+      var flameW = 4 + Math.sin(time * 6) * 2;
+      ctx.beginPath();
+      ctx.moveTo(-flameW * s, 10 * s); ctx.quadraticCurveTo(0, (10 + flameH) * s, flameW * s, 10 * s);
+      ctx.fillStyle = 'rgba(245,158,11,0.5)'; ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(-flameW * 0.5 * s, 10 * s); ctx.quadraticCurveTo(0, (10 + flameH * 0.7) * s, flameW * 0.5 * s, 10 * s);
+      ctx.fillStyle = 'rgba(239,68,68,0.4)'; ctx.fill();
+      // Exhaust particles
+      for (var i = 0; i < 5; i++) {
+        var py = 12 * s + (time * 80 + i * 15) % 30 * s;
+        var px = (Math.sin(time * 5 + i * 3)) * 6 * s;
+        var pa = 1 - ((time * 80 + i * 15) % 30) / 30;
+        ctx.globalAlpha = pa * 0.4;
+        ctx.beginPath(); ctx.arc(px, py, 1.5 * s, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(245,158,11,0.6)'; ctx.fill();
+      }
+      ctx.globalAlpha = 1;
       ctx.restore();
     }
 
@@ -234,97 +269,102 @@
       ctx.clearRect(0, 0, rw, rh);
       time += 0.016;
 
-      // Background gradient
-      var bg = ctx.createRadialGradient(rw / 2, rh / 2, 0, rw / 2, rh / 2, rw * 0.6);
-      bg.addColorStop(0, 'rgba(99,102,241,0.08)');
-      bg.addColorStop(1, 'rgba(15,15,30,0.95)');
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, rw, rh);
+      // Background
+      var bg = ctx.createRadialGradient(rw / 2, rh / 2, 0, rw / 2, rh / 2, rw * 0.7);
+      bg.addColorStop(0, 'rgba(99,102,241,0.06)');
+      bg.addColorStop(1, 'rgba(10,10,25,0.95)');
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, rw, rh);
 
-      // Particles
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
+      // Background particles with connections
+      for (var i = 0; i < bgParticles.length; i++) {
+        var p = bgParticles[i];
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0 || p.x > rw) p.vx *= -1;
         if (p.y < 0 || p.y > rh) p.vy *= -1;
-        var flicker = 0.3 + Math.sin(time * 2 + p.phase) * 0.2;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(129,140,248,' + flicker + ')';
-        ctx.fill();
+        var a = 0.15 + Math.sin(time * 1.5 + p.phase) * 0.1;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(129,140,248,' + a + ')'; ctx.fill();
       }
 
-      // Three icons with flow arrows
-      var cx = rw / 2, cy = rh / 2;
-      var spacing = Math.min(rw * 0.28, 140);
-      var positions = [
-        { x: cx - spacing, y: cy, type: 'search' },
-        { x: cx, y: cy, type: 'design' },
-        { x: cx + spacing, y: cy, type: 'launch' }
+      // Icon positions
+      var cx = rw / 2, cy = rh / 2 - 8;
+      var spacing = Math.min(rw * 0.3, 160);
+      var icons = [
+        { x: cx - spacing, y: cy },
+        { x: cx, y: cy },
+        { x: cx + spacing, y: cy }
       ];
 
-      // Draw connecting arrows with animated dashes
-      ctx.setLineDash([4, 6]);
-      ctx.lineDashOffset = -time * 30;
-      for (var i = 0; i < positions.length - 1; i++) {
-        var from = positions[i], to = positions[i + 1];
-        var gap = 28;
-        ctx.beginPath();
-        ctx.moveTo(from.x + gap, from.y);
-        ctx.lineTo(to.x - gap, to.y);
-        ctx.strokeStyle = 'rgba(99,102,241,0.3)';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+      // Glowing circles behind icons
+      for (var i = 0; i < 3; i++) {
+        var ic = icons[i];
+        var pulse = 1 + Math.sin(time * 1.8 + i * 2) * 0.15;
+        var gr = ctx.createRadialGradient(ic.x, ic.y, 0, ic.x, ic.y, 50 * pulse);
+        gr.addColorStop(0, i === 2 ? 'rgba(34,197,94,0.12)' : 'rgba(99,102,241,0.12)');
+        gr.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = gr;
+        ctx.beginPath(); ctx.arc(ic.x, ic.y, 50 * pulse, 0, Math.PI * 2); ctx.fill();
+
+        // Orbit ring
+        ctx.beginPath(); ctx.arc(ic.x, ic.y, 38 * pulse, 0, Math.PI * 2);
+        ctx.strokeStyle = i === 2 ? 'rgba(34,197,94,0.1)' : 'rgba(99,102,241,0.1)';
+        ctx.lineWidth = 1; ctx.stroke();
       }
-      ctx.setLineDash([]);
-      ctx.lineDashOffset = 0;
 
-      // Draw icons with breathing animation
-      for (var i = 0; i < positions.length; i++) {
-        var pos = positions[i];
-        var breathe = 1 + Math.sin(time * 1.5 + i * 1.2) * 0.08;
-        var alpha = 0.7 + Math.sin(time * 1.2 + i * 0.8) * 0.15;
-
-        // Glow behind icon
-        var glow = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 35 * breathe);
-        glow.addColorStop(0, 'rgba(99,102,241,0.12)');
-        glow.addColorStop(1, 'rgba(99,102,241,0)');
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 35 * breathe, 0, Math.PI * 2);
+      // Flowing dots between icons
+      for (var i = 0; i < flowDots.length; i++) {
+        var fd = flowDots[i];
+        fd.t += fd.speed;
+        if (fd.t > 1) { fd.t = 0; fd.seg = (fd.seg + 1) % 2; }
+        var from = icons[fd.seg], to = icons[fd.seg + 1];
+        var t = easeInOut(fd.t);
+        var dx = from.x + (to.x - from.x) * t;
+        var dy = from.y + (to.y - from.y) * t + Math.sin(t * Math.PI) * -15;
+        var da = Math.sin(t * Math.PI) * 0.7;
+        ctx.beginPath(); ctx.arc(dx, dy, fd.size, 0, Math.PI * 2);
+        ctx.fillStyle = fd.seg === 1 ? 'rgba(34,197,94,' + da + ')' : 'rgba(129,140,248,' + da + ')';
         ctx.fill();
-
-        drawIcon(pos.x, pos.y, pos.type, alpha, breathe);
       }
 
-      // Labels
-      ctx.font = '11px Inter, sans-serif';
+      // Draw icons
+      var s = Math.min(rw / 500, 1.3);
+      drawCircleIcon(icons[0].x, icons[0].y, s);
+      drawMonitorIcon(icons[1].x, icons[1].y, s);
+      drawRocketIcon(icons[2].x, icons[2].y, s);
+
+      // Step numbers and labels
       ctx.textAlign = 'center';
-      ctx.fillStyle = 'rgba(255,255,255,0.45)';
-      var labels = ['Pretraga', 'Dizajn', 'Lansiranje'];
-      for (var i = 0; i < positions.length; i++) {
-        ctx.fillText(labels[i], positions[i].x, positions[i].y + 32);
+      var labels = ['Pronalazimo', 'Dizajniramo', 'Lansiramo'];
+      for (var i = 0; i < 3; i++) {
+        // Step number circle
+        ctx.beginPath(); ctx.arc(icons[i].x, icons[i].y - 36 * s, 10, 0, Math.PI * 2);
+        ctx.fillStyle = i === 2 ? 'rgba(34,197,94,0.15)' : 'rgba(99,102,241,0.15)';
+        ctx.fill();
+        ctx.font = 'bold 11px Inter, sans-serif';
+        ctx.fillStyle = i === 2 ? 'rgba(34,197,94,0.8)' : 'rgba(129,140,248,0.8)';
+        ctx.fillText((i + 1).toString(), icons[i].x, icons[i].y - 32 * s);
+        // Label
+        ctx.font = '600 12px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.55)';
+        ctx.fillText(labels[i], icons[i].x, icons[i].y + 40 * s);
       }
 
       requestAnimationFrame(draw);
     }
 
-    init();
-    draw();
+    init(); draw();
     window.addEventListener('resize', function() { init(); });
   })();
   </script>
 
-  <!-- Belief Canvas: Code morphing into website layout -->
+  <!-- Belief Canvas: Vivid code morphing into website -->
   <script>
   (function() {
     var canvas = document.getElementById('beliefCanvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
-    var w, h, time = 0;
-    var dpr = window.devicePixelRatio || 1;
-    var codeLines = [];
-    var layoutBlocks = [];
+    var w, h, time = 0, dpr = window.devicePixelRatio || 1;
+    var sparks = [];
 
     function resize() {
       var rect = canvas.parentElement.getBoundingClientRect();
@@ -333,158 +373,199 @@
       canvas.style.width = rect.width + 'px';
       canvas.style.height = rect.height + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildElements();
-    }
-
-    function buildElements() {
+      sparks = [];
       var rw = w / dpr, rh = h / dpr;
-      codeLines = [];
-      layoutBlocks = [];
-
-      // Code lines on the left side
-      var lineCount = 14;
-      var startY = rh * 0.15;
-      var lineH = (rh * 0.7) / lineCount;
-      for (var i = 0; i < lineCount; i++) {
-        var indent = (i % 3 === 0) ? 0 : (i % 5 === 0) ? 2 : 1;
-        codeLines.push({
-          x: rw * 0.08 + indent * 12,
-          y: startY + i * lineH,
-          w: 30 + Math.random() * 60,
-          color: i % 4 === 0 ? 'rgba(99,102,241,0.5)' : i % 3 === 0 ? 'rgba(34,197,94,0.4)' : 'rgba(129,140,248,0.3)',
-          delay: i * 0.15
+      for (var i = 0; i < 50; i++) {
+        sparks.push({
+          x: Math.random() * rw, y: Math.random() * rh,
+          vx: (Math.random() - 0.5) * 1.2, vy: -0.3 - Math.random() * 0.8,
+          life: Math.random(), size: 1 + Math.random() * 2
         });
       }
-
-      // Website layout blocks on the right side
-      var bx = rw * 0.58;
-      var bw = rw * 0.34;
-      layoutBlocks = [
-        { x: bx, y: rh * 0.15, w: bw, h: 8, label: 'nav', color: 'rgba(99,102,241,0.4)' },
-        { x: bx, y: rh * 0.25, w: bw, h: rh * 0.18, label: 'hero', color: 'rgba(99,102,241,0.15)' },
-        { x: bx, y: rh * 0.48, w: bw * 0.3, h: rh * 0.12, label: '', color: 'rgba(129,140,248,0.12)' },
-        { x: bx + bw * 0.35, y: rh * 0.48, w: bw * 0.3, h: rh * 0.12, label: '', color: 'rgba(129,140,248,0.12)' },
-        { x: bx + bw * 0.7, y: rh * 0.48, w: bw * 0.3, h: rh * 0.12, label: '', color: 'rgba(129,140,248,0.12)' },
-        { x: bx, y: rh * 0.66, w: bw, h: rh * 0.08, label: 'cta', color: 'rgba(34,197,94,0.15)' },
-        { x: bx, y: rh * 0.78, w: bw, h: 6, label: 'footer', color: 'rgba(99,102,241,0.25)' }
-      ];
     }
 
     function draw() {
       var rw = w / dpr, rh = h / dpr;
       ctx.clearRect(0, 0, rw, rh);
-      time += 0.012;
+      time += 0.014;
 
-      // Cycle: 0-1 = code appears, 1-2 = morph/transfer, 2-3 = layout appears, 3-4 = fade and restart
-      var cycle = (time % 8) / 2; // 0-4 over 8 seconds
-      var phase = cycle % 4;
+      var cx = rw / 2, cy = rh / 2;
+      // 10-second cycle
+      var phase = (time % 10) / 10; // 0-1
 
-      // Floating particles
-      for (var i = 0; i < 20; i++) {
-        var px = (Math.sin(time * 0.3 + i * 1.7) * 0.5 + 0.5) * rw;
-        var py = (Math.cos(time * 0.2 + i * 2.3) * 0.5 + 0.5) * rh;
-        ctx.beginPath();
-        ctx.arc(px, py, 1, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(99,102,241,0.15)';
-        ctx.fill();
-      }
+      // === LEFT SIDE: Code editor ===
+      var codeX = cx - Math.min(rw * 0.22, 180);
+      var codeY = cy;
+      var edW = Math.min(rw * 0.3, 200), edH = Math.min(rh * 0.6, 180);
 
-      // Code lines (visible in phase 0-2)
-      var codeAlpha = phase < 1 ? Math.min(phase * 2, 1) : phase < 2.5 ? 1 - (phase - 1.5) : 0;
-      if (codeAlpha > 0) {
-        for (var i = 0; i < codeLines.length; i++) {
-          var cl = codeLines[i];
-          var lineAlpha = codeAlpha * Math.min(Math.max((phase * 3 - cl.delay) * 2, 0), 1);
-          if (lineAlpha <= 0) continue;
-          ctx.globalAlpha = lineAlpha;
-          ctx.fillStyle = cl.color;
+      // Code fades in phase 0-0.3, visible 0.1-0.5, fades out 0.4-0.55
+      var codeA = phase < 0.1 ? phase / 0.1 : phase < 0.4 ? 1 : phase < 0.55 ? 1 - (phase - 0.4) / 0.15 : 0;
+      if (codeA > 0) {
+        ctx.globalAlpha = codeA * 0.7;
+        // Editor background
+        ctx.fillStyle = 'rgba(15,15,35,0.6)';
+        ctx.beginPath(); ctx.roundRect(codeX - edW / 2, codeY - edH / 2, edW, edH, 8); ctx.fill();
+        ctx.strokeStyle = 'rgba(99,102,241,0.3)'; ctx.lineWidth = 1;
+        ctx.stroke();
 
-          // During morph phase, lines move toward right side
-          var morphT = phase > 1 ? Math.min((phase - 1) * 1.5, 1) : 0;
-          var mx = cl.x + morphT * (rw * 0.5 - cl.x + 40);
-          var my = cl.y;
+        // Title bar dots
+        ctx.globalAlpha = codeA * 0.8;
+        var dotC = ['#ef4444', '#f59e0b', '#22c55e'];
+        for (var d = 0; d < 3; d++) {
+          ctx.beginPath(); ctx.arc(codeX - edW / 2 + 14 + d * 11, codeY - edH / 2 + 10, 3, 0, Math.PI * 2);
+          ctx.fillStyle = dotC[d]; ctx.fill();
+        }
 
-          ctx.fillRect(mx, my, cl.w * (1 - morphT * 0.3), 3);
-
-          // Code syntax coloring dots
-          if (morphT < 0.5) {
-            ctx.beginPath();
-            ctx.arc(mx - 6, my + 1.5, 2, 0, Math.PI * 2);
-            ctx.fillStyle = i % 3 === 0 ? 'rgba(99,102,241,0.6)' : 'rgba(34,197,94,0.5)';
-            ctx.globalAlpha = lineAlpha * (1 - morphT * 2);
-            ctx.fill();
+        // Code lines typing in
+        ctx.globalAlpha = codeA;
+        var lineData = [
+          { indent: 0, w: 0.5, c: '#6366f1' },
+          { indent: 1, w: 0.7, c: '#818cf8' },
+          { indent: 2, w: 0.4, c: '#22c55e' },
+          { indent: 2, w: 0.6, c: '#818cf8' },
+          { indent: 1, w: 0.3, c: '#6366f1' },
+          { indent: 0, w: 0.55, c: '#f59e0b' },
+          { indent: 1, w: 0.65, c: '#818cf8' },
+          { indent: 2, w: 0.35, c: '#22c55e' },
+          { indent: 1, w: 0.5, c: '#818cf8' },
+          { indent: 0, w: 0.4, c: '#6366f1' }
+        ];
+        var lineStartY = codeY - edH / 2 + 24;
+        var lineH = (edH - 34) / lineData.length;
+        for (var i = 0; i < lineData.length; i++) {
+          var ld = lineData[i];
+          var typeProgress = Math.min(Math.max((phase * 5 - i * 0.15), 0), 1);
+          if (typeProgress <= 0) continue;
+          var lx = codeX - edW / 2 + 12 + ld.indent * 14;
+          var ly = lineStartY + i * lineH;
+          var lw = (edW - 30 - ld.indent * 14) * ld.w * typeProgress;
+          ctx.fillStyle = ld.c;
+          ctx.globalAlpha = codeA * 0.7;
+          ctx.fillRect(lx, ly, lw, 3);
+          // Cursor blink at end of current typing line
+          if (typeProgress < 1 && typeProgress > 0.1) {
+            ctx.globalAlpha = codeA * (Math.sin(time * 8) > 0 ? 0.9 : 0);
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(lx + lw + 1, ly - 1, 2, 5);
           }
         }
       }
 
-      // Transfer particles (phase 1-2)
-      if (phase > 0.8 && phase < 2.5) {
-        var transferAlpha = phase < 1.5 ? (phase - 0.8) * 1.4 : 1 - (phase - 1.8) * 1.4;
-        transferAlpha = Math.max(0, Math.min(1, transferAlpha));
-        for (var i = 0; i < 15; i++) {
-          var t = (phase - 0.8 + i * 0.06) % 1.5;
-          var tx = rw * 0.2 + t * rw * 0.5;
-          var ty = rh * (0.25 + Math.sin(i * 2.1) * 0.2);
-          ctx.globalAlpha = transferAlpha * (1 - t / 1.5) * 0.7;
-          ctx.beginPath();
-          ctx.arc(tx, ty, 2, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(129,140,248,0.8)';
+      // === TRANSFER: Particles flying from code to website ===
+      var transferA = phase > 0.3 && phase < 0.65 ? Math.min((phase - 0.3) / 0.1, 1) * Math.min((0.65 - phase) / 0.1, 1) : 0;
+      if (transferA > 0) {
+        ctx.globalAlpha = transferA;
+        for (var i = 0; i < 25; i++) {
+          var t = ((phase - 0.3) * 4 + i * 0.04) % 1;
+          var fromX = codeX + edW / 2;
+          var toX = cx + Math.min(rw * 0.22, 180) - edW / 2;
+          var px = fromX + (toX - fromX) * t;
+          var py = cy + Math.sin(t * Math.PI * 2 + i) * 30;
+          var pa = Math.sin(t * Math.PI) * 0.8;
+          ctx.beginPath(); ctx.arc(px, py, 2 + Math.sin(i) * 1, 0, Math.PI * 2);
+          ctx.fillStyle = i % 3 === 0 ? 'rgba(34,197,94,' + pa + ')' : 'rgba(129,140,248,' + pa + ')';
           ctx.fill();
+          // Trail
+          ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px - (toX - fromX) * 0.04, py + Math.cos(t * Math.PI * 2 + i) * 3);
+          ctx.strokeStyle = 'rgba(129,140,248,' + (pa * 0.3) + ')';
+          ctx.lineWidth = 1; ctx.stroke();
         }
       }
 
-      // Layout blocks (visible in phase 1.5-4)
-      var layoutAlpha = phase < 1.5 ? 0 : phase < 2.5 ? (phase - 1.5) : phase < 3.5 ? 1 : Math.max(0, 1 - (phase - 3.5) * 2);
-      if (layoutAlpha > 0) {
-        for (var i = 0; i < layoutBlocks.length; i++) {
-          var bl = layoutBlocks[i];
-          var blockDelay = i * 0.12;
-          var blockAlpha = layoutAlpha * Math.min(Math.max(((phase - 1.5) * 2 - blockDelay) * 3, 0), 1);
-          if (blockAlpha <= 0) continue;
+      // === RIGHT SIDE: Website layout building ===
+      var siteX = cx + Math.min(rw * 0.22, 180);
+      var siteA = phase < 0.45 ? 0 : phase < 0.6 ? (phase - 0.45) / 0.15 : phase < 0.9 ? 1 : 1 - (phase - 0.9) / 0.1;
+      siteA = Math.max(0, Math.min(1, siteA));
 
-          ctx.globalAlpha = blockAlpha;
-          ctx.fillStyle = bl.color;
+      if (siteA > 0) {
+        ctx.globalAlpha = siteA * 0.8;
+        // Browser frame
+        ctx.fillStyle = 'rgba(15,15,35,0.6)';
+        ctx.beginPath(); ctx.roundRect(siteX - edW / 2, codeY - edH / 2, edW, edH, 8); ctx.fill();
+        ctx.strokeStyle = 'rgba(99,102,241,0.4)'; ctx.lineWidth = 1.5; ctx.stroke();
 
-          // Slight scale-in animation
-          var scaleT = Math.min(blockAlpha * 1.2, 1);
-          var sx = bl.x + bl.w * (1 - scaleT) * 0.5;
-          var sw = bl.w * scaleT;
-
-          ctx.fillRect(sx, bl.y, sw, bl.h);
-          ctx.strokeStyle = 'rgba(99,102,241,0.2)';
-          ctx.lineWidth = 0.5;
-          ctx.strokeRect(sx, bl.y, sw, bl.h);
+        // Browser dots
+        ctx.globalAlpha = siteA;
+        for (var d = 0; d < 3; d++) {
+          ctx.beginPath(); ctx.arc(siteX - edW / 2 + 14 + d * 11, codeY - edH / 2 + 10, 3, 0, Math.PI * 2);
+          ctx.fillStyle = dotC[d]; ctx.fill();
         }
 
-        // Browser chrome outline
-        if (layoutAlpha > 0.3) {
-          ctx.globalAlpha = layoutAlpha * 0.4;
-          var bx2 = rw * 0.55, by2 = rh * 0.08;
-          var bw2 = rw * 0.4, bh2 = rh * 0.82;
-          ctx.strokeStyle = 'rgba(99,102,241,0.25)';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.roundRect(bx2, by2, bw2, bh2, 8);
-          ctx.stroke();
+        // URL bar
+        ctx.globalAlpha = siteA * 0.5;
+        ctx.fillStyle = 'rgba(99,102,241,0.2)';
+        ctx.beginPath(); ctx.roundRect(siteX - edW / 2 + 50, codeY - edH / 2 + 5, edW - 64, 10, 4); ctx.fill();
 
-          // Dots
-          ctx.globalAlpha = layoutAlpha * 0.5;
-          var dotColors = ['rgba(239,68,68,0.6)', 'rgba(245,158,11,0.6)', 'rgba(34,197,94,0.6)'];
-          for (var d = 0; d < 3; d++) {
-            ctx.beginPath();
-            ctx.arc(bx2 + 14 + d * 12, by2 + 10, 3, 0, Math.PI * 2);
-            ctx.fillStyle = dotColors[d];
-            ctx.fill();
+        // Layout blocks appearing one by one
+        var bStartY = codeY - edH / 2 + 22;
+        var bW = edW - 16;
+        var bX = siteX - edW / 2 + 8;
+        var blocks = [
+          { y: bStartY, h: 6, c: 'rgba(99,102,241,0.5)', d: 0 },
+          { y: bStartY + 12, h: edH * 0.25, c: 'rgba(99,102,241,0.2)', d: 0.05 },
+          { y: bStartY + 16 + edH * 0.25, h: edH * 0.12, c: 'rgba(129,140,248,0.15)', d: 0.1, split: 3 },
+          { y: bStartY + 22 + edH * 0.37, h: edH * 0.1, c: 'rgba(34,197,94,0.2)', d: 0.15 },
+          { y: bStartY + 28 + edH * 0.47, h: 4, c: 'rgba(99,102,241,0.3)', d: 0.2 }
+        ];
+
+        for (var i = 0; i < blocks.length; i++) {
+          var bl = blocks[i];
+          var buildT = Math.min(Math.max(((phase - 0.5) * 5 - bl.d * 5), 0), 1);
+          if (buildT <= 0) continue;
+          ctx.globalAlpha = siteA * buildT;
+
+          if (bl.split) {
+            var gap = 6;
+            var cardW = (bW - gap * (bl.split - 1)) / bl.split;
+            for (var s = 0; s < bl.split; s++) {
+              var cardT = Math.min(Math.max(buildT - s * 0.15, 0) * 2, 1);
+              ctx.fillStyle = bl.c;
+              ctx.fillRect(bX + s * (cardW + gap), bl.y, cardW * cardT, bl.h);
+            }
+          } else {
+            ctx.fillStyle = bl.c;
+            ctx.fillRect(bX, bl.y, bW * buildT, bl.h);
           }
         }
+
+        // Checkmark appears when complete
+        if (phase > 0.75 && phase < 0.92) {
+          var checkA = Math.min((phase - 0.75) / 0.05, 1) * Math.min((0.92 - phase) / 0.05, 1);
+          ctx.globalAlpha = checkA;
+          ctx.beginPath();
+          ctx.arc(siteX, codeY + edH / 2 + 20, 14, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(34,197,94,0.2)'; ctx.fill();
+          ctx.strokeStyle = '#22c55e'; ctx.lineWidth = 2; ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(siteX - 5, codeY + edH / 2 + 20);
+          ctx.lineTo(siteX - 1, codeY + edH / 2 + 24);
+          ctx.lineTo(siteX + 6, codeY + edH / 2 + 15);
+          ctx.strokeStyle = '#22c55e'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+          ctx.stroke();
+        }
+      }
+
+      // Rising sparks (always visible, subtle)
+      for (var i = 0; i < sparks.length; i++) {
+        var sp = sparks[i];
+        sp.x += sp.vx; sp.y += sp.vy;
+        sp.life -= 0.004;
+        if (sp.life <= 0 || sp.y < 0) {
+          sp.x = Math.random() * rw; sp.y = rh + 10;
+          sp.life = 0.5 + Math.random() * 0.5;
+          sp.vx = (Math.random() - 0.5) * 1;
+          sp.vy = -0.3 - Math.random() * 0.6;
+        }
+        ctx.globalAlpha = sp.life * 0.25;
+        ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(129,140,248,0.6)'; ctx.fill();
       }
 
       ctx.globalAlpha = 1;
       requestAnimationFrame(draw);
     }
 
-    resize();
-    draw();
+    resize(); draw();
     window.addEventListener('resize', function() { resize(); });
   })();
   </script>
