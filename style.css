@@ -2173,13 +2173,13 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   /* Unified mobile typography scale */
   .hero-title { font-size: 28px; }
   .hero-eyebrow { font-size: 12px; letter-spacing: 1.5px; margin-bottom: 12px; }
-  .hero-desc { font-size: 16px; line-height: 1.6; margin-bottom: 0; }
+  .hero-desc { font-size: 16px; line-height: 1.6; margin-bottom: 0; text-align: justify; }
   .page-hero h1 { font-size: 26px; }
-  .page-hero-sub { font-size: 16px; }
+  .page-hero-sub { font-size: 16px; text-align: justify; }
   .section-head h2, .section-header h2 { font-size: 24px; }
-  .section-sub { font-size: 15px; }
+  .section-sub { font-size: 15px; text-align: justify; }
   .split-text h2 { font-size: 24px; }
-  .split-text p, .text-large { font-size: 15px; }
+  .split-text p, .text-large { font-size: 15px; text-align: justify; }
   .quote-heading { font-size: 21px; line-height: 1.5; }
   .mission-desc { font-size: 15px; line-height: 1.6; }
   .m-stat-num { font-size: 32px; letter-spacing: -1px; }
@@ -2198,18 +2198,31 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   .test-author strong { font-size: 14px; }
   .test-author span { font-size: 12px; }
   .diff-card h3 { font-size: 18px; }
-  .diff-card p { font-size: 15px; }
+  .diff-card p { font-size: 15px; text-align: justify; }
   .team-card h3 { font-size: 19px; }
   .team-card > p { font-size: 14px; }
   .cta-text h2 { font-size: 22px; }
-  .cta-text p { font-size: 15px; }
+  .cta-text p { font-size: 15px; text-align: justify; }
   .contact-form-card h3 { font-size: 20px; }
   .contact-faq h3 { font-size: 19px; }
   .faq-item summary { font-size: 15px; }
-  .faq-item p { font-size: 14px; }
+  .faq-item p { font-size: 14px; text-align: justify; }
   .footer-brand p { font-size: 14px; }
   .footer-col a, .footer-col span { font-size: 14px; }
   .footer-bottom span { font-size: 13px; }
+
+  /* Justify paragraphs on mobile */
+  .manifest-value p,
+  .trust-card p,
+  .wyg-card p,
+  .guarantee-card p,
+  .belief-conclusion,
+  .pf-full-info p,
+  .detail-footnote,
+  .cost-saving,
+  .pkg-contract,
+  .legal-text p,
+  .ns-card p { text-align: justify; }
 
   /* Hero mobile layout */
   .hero-scroll-hint { display: none; }

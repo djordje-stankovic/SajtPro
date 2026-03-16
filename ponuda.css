@@ -641,6 +641,11 @@
     flex-direction: column;
     gap: 12px;
   }
+  .ns-card p,
+  .legal-text p,
+  .preview-card p,
+  .pkg-desc,
+  .pkg-contract { text-align: justify; }
   .packages-grid {
     max-width: 100%;
   }

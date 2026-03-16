@@ -614,7 +614,7 @@
   .deck-slide { padding: 70px 16px 80px; }
 
   .slide-inner h2 { font-size: 26px; }
-  .slide-inner p { font-size: 15px; max-width: 100%; }
+  .slide-inner p { font-size: 15px; max-width: 100%; text-align: justify; }
 
   .flow-picker {
     grid-template-columns: 1fr;

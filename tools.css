@@ -293,4 +293,6 @@
   .tool-panel-mockup,
   .screenshot-slot { max-width: 100%; }
   .split .tool-split-visual { margin-top: 20px; }
+  .tool-feature-card p,
+  .tool-step p { text-align: justify; }
 }
