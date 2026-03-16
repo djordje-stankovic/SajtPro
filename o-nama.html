@@ -89,7 +89,7 @@
           </p>
         </div>
         <div class="split-visual">
-          <img src="https://picsum.photos/600/500?random=40" alt="Tim na poslu" class="rounded-img" loading="lazy">
+          <canvas id="storyCanvas" class="rounded-img" style="width:100%;max-width:600px;aspect-ratio:6/5;border-radius:16px;"></canvas>
         </div>
       </div>
     </div>
@@ -153,87 +153,337 @@
       </div>
     </div>
   </section>
+  <!-- Story Canvas: Search → Design → Launch flow -->
   <script>
   (function() {
-    var canvas = document.getElementById('beliefCanvas');
+    var canvas = document.getElementById('storyCanvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
-    var nodes = [];
-    var nodeCount = 40;
-    var connectDist = 120;
-    var w, h;
+    var w, h, time = 0;
+    var particles = [];
+    var dpr = window.devicePixelRatio || 1;
 
     function resize() {
-      var rect = canvas.parentElement.getBoundingClientRect();
-      w = canvas.width = rect.width * devicePixelRatio;
-      h = canvas.height = rect.height * devicePixelRatio;
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
-      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-      connectDist = Math.min(rect.width * 0.15, 140);
+      var rect = canvas.getBoundingClientRect();
+      w = canvas.width = rect.width * dpr;
+      h = canvas.height = rect.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function init() {
       resize();
-      nodes = [];
-      var rw = w / devicePixelRatio;
-      var rh = h / devicePixelRatio;
-      for (var i = 0; i < nodeCount; i++) {
-        nodes.push({
-          x: Math.random() * rw,
-          y: Math.random() * rh,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          r: Math.random() * 2 + 1
+      particles = [];
+      var rw = w / dpr, rh = h / dpr;
+      for (var i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * rw, y: Math.random() * rh,
+          vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+          r: Math.random() * 1.5 + 0.5, phase: Math.random() * Math.PI * 2
         });
       }
     }
 
-    function draw() {
-      var rw = w / devicePixelRatio;
-      var rh = h / devicePixelRatio;
-      ctx.clearRect(0, 0, rw, rh);
+    function drawIcon(x, y, type, alpha, scale) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = 'rgba(129,140,248,0.9)';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
 
-      // Move nodes
-      for (var i = 0; i < nodes.length; i++) {
-        var n = nodes[i];
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > rw) n.vx *= -1;
-        if (n.y < 0 || n.y > rh) n.vy *= -1;
-      }
-
-      // Draw connections
-      for (var i = 0; i < nodes.length; i++) {
-        for (var j = i + 1; j < nodes.length; j++) {
-          var dx = nodes[i].x - nodes[j].x;
-          var dy = nodes[i].y - nodes[j].y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < connectDist) {
-            var alpha = (1 - dist / connectDist) * 0.35;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = 'rgba(99,102,241,' + alpha + ')';
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw nodes
-      for (var i = 0; i < nodes.length; i++) {
-        var n = nodes[i];
+      if (type === 'search') {
         ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(129,140,248,0.6)';
+        ctx.arc(-4, -4, 12, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(5, 5);
+        ctx.lineTo(14, 14);
+        ctx.stroke();
+      } else if (type === 'design') {
+        ctx.strokeStyle = 'rgba(99,102,241,0.9)';
+        ctx.strokeRect(-16, -12, 32, 20);
+        ctx.beginPath();
+        ctx.moveTo(-16, -6);
+        ctx.lineTo(16, -6);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(129,140,248,0.3)';
+        ctx.fillRect(-12, -2, 10, 6);
+        ctx.fillRect(2, -2, 10, 3);
+      } else if (type === 'launch') {
+        ctx.beginPath();
+        ctx.moveTo(0, -16);
+        ctx.lineTo(8, 0);
+        ctx.lineTo(4, 0);
+        ctx.lineTo(4, 10);
+        ctx.lineTo(-4, 10);
+        ctx.lineTo(-4, 0);
+        ctx.lineTo(-8, 0);
+        ctx.closePath();
+        ctx.strokeStyle = 'rgba(34,197,94,0.8)';
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(34,197,94,0.15)';
         ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function draw() {
+      var rw = w / dpr, rh = h / dpr;
+      ctx.clearRect(0, 0, rw, rh);
+      time += 0.016;
+
+      // Background gradient
+      var bg = ctx.createRadialGradient(rw / 2, rh / 2, 0, rw / 2, rh / 2, rw * 0.6);
+      bg.addColorStop(0, 'rgba(99,102,241,0.08)');
+      bg.addColorStop(1, 'rgba(15,15,30,0.95)');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, rw, rh);
+
+      // Particles
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > rw) p.vx *= -1;
+        if (p.y < 0 || p.y > rh) p.vy *= -1;
+        var flicker = 0.3 + Math.sin(time * 2 + p.phase) * 0.2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(129,140,248,' + flicker + ')';
+        ctx.fill();
+      }
+
+      // Three icons with flow arrows
+      var cx = rw / 2, cy = rh / 2;
+      var spacing = Math.min(rw * 0.28, 140);
+      var positions = [
+        { x: cx - spacing, y: cy, type: 'search' },
+        { x: cx, y: cy, type: 'design' },
+        { x: cx + spacing, y: cy, type: 'launch' }
+      ];
+
+      // Draw connecting arrows with animated dashes
+      ctx.setLineDash([4, 6]);
+      ctx.lineDashOffset = -time * 30;
+      for (var i = 0; i < positions.length - 1; i++) {
+        var from = positions[i], to = positions[i + 1];
+        var gap = 28;
+        ctx.beginPath();
+        ctx.moveTo(from.x + gap, from.y);
+        ctx.lineTo(to.x - gap, to.y);
+        ctx.strokeStyle = 'rgba(99,102,241,0.3)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+      ctx.lineDashOffset = 0;
+
+      // Draw icons with breathing animation
+      for (var i = 0; i < positions.length; i++) {
+        var pos = positions[i];
+        var breathe = 1 + Math.sin(time * 1.5 + i * 1.2) * 0.08;
+        var alpha = 0.7 + Math.sin(time * 1.2 + i * 0.8) * 0.15;
+
+        // Glow behind icon
+        var glow = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 35 * breathe);
+        glow.addColorStop(0, 'rgba(99,102,241,0.12)');
+        glow.addColorStop(1, 'rgba(99,102,241,0)');
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 35 * breathe, 0, Math.PI * 2);
+        ctx.fill();
+
+        drawIcon(pos.x, pos.y, pos.type, alpha, breathe);
+      }
+
+      // Labels
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
+      var labels = ['Pretraga', 'Dizajn', 'Lansiranje'];
+      for (var i = 0; i < positions.length; i++) {
+        ctx.fillText(labels[i], positions[i].x, positions[i].y + 32);
       }
 
       requestAnimationFrame(draw);
     }
 
     init();
+    draw();
+    window.addEventListener('resize', function() { init(); });
+  })();
+  </script>
+
+  <!-- Belief Canvas: Code morphing into website layout -->
+  <script>
+  (function() {
+    var canvas = document.getElementById('beliefCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var w, h, time = 0;
+    var dpr = window.devicePixelRatio || 1;
+    var codeLines = [];
+    var layoutBlocks = [];
+
+    function resize() {
+      var rect = canvas.parentElement.getBoundingClientRect();
+      w = canvas.width = rect.width * dpr;
+      h = canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildElements();
+    }
+
+    function buildElements() {
+      var rw = w / dpr, rh = h / dpr;
+      codeLines = [];
+      layoutBlocks = [];
+
+      // Code lines on the left side
+      var lineCount = 14;
+      var startY = rh * 0.15;
+      var lineH = (rh * 0.7) / lineCount;
+      for (var i = 0; i < lineCount; i++) {
+        var indent = (i % 3 === 0) ? 0 : (i % 5 === 0) ? 2 : 1;
+        codeLines.push({
+          x: rw * 0.08 + indent * 12,
+          y: startY + i * lineH,
+          w: 30 + Math.random() * 60,
+          color: i % 4 === 0 ? 'rgba(99,102,241,0.5)' : i % 3 === 0 ? 'rgba(34,197,94,0.4)' : 'rgba(129,140,248,0.3)',
+          delay: i * 0.15
+        });
+      }
+
+      // Website layout blocks on the right side
+      var bx = rw * 0.58;
+      var bw = rw * 0.34;
+      layoutBlocks = [
+        { x: bx, y: rh * 0.15, w: bw, h: 8, label: 'nav', color: 'rgba(99,102,241,0.4)' },
+        { x: bx, y: rh * 0.25, w: bw, h: rh * 0.18, label: 'hero', color: 'rgba(99,102,241,0.15)' },
+        { x: bx, y: rh * 0.48, w: bw * 0.3, h: rh * 0.12, label: '', color: 'rgba(129,140,248,0.12)' },
+        { x: bx + bw * 0.35, y: rh * 0.48, w: bw * 0.3, h: rh * 0.12, label: '', color: 'rgba(129,140,248,0.12)' },
+        { x: bx + bw * 0.7, y: rh * 0.48, w: bw * 0.3, h: rh * 0.12, label: '', color: 'rgba(129,140,248,0.12)' },
+        { x: bx, y: rh * 0.66, w: bw, h: rh * 0.08, label: 'cta', color: 'rgba(34,197,94,0.15)' },
+        { x: bx, y: rh * 0.78, w: bw, h: 6, label: 'footer', color: 'rgba(99,102,241,0.25)' }
+      ];
+    }
+
+    function draw() {
+      var rw = w / dpr, rh = h / dpr;
+      ctx.clearRect(0, 0, rw, rh);
+      time += 0.012;
+
+      // Cycle: 0-1 = code appears, 1-2 = morph/transfer, 2-3 = layout appears, 3-4 = fade and restart
+      var cycle = (time % 8) / 2; // 0-4 over 8 seconds
+      var phase = cycle % 4;
+
+      // Floating particles
+      for (var i = 0; i < 20; i++) {
+        var px = (Math.sin(time * 0.3 + i * 1.7) * 0.5 + 0.5) * rw;
+        var py = (Math.cos(time * 0.2 + i * 2.3) * 0.5 + 0.5) * rh;
+        ctx.beginPath();
+        ctx.arc(px, py, 1, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(99,102,241,0.15)';
+        ctx.fill();
+      }
+
+      // Code lines (visible in phase 0-2)
+      var codeAlpha = phase < 1 ? Math.min(phase * 2, 1) : phase < 2.5 ? 1 - (phase - 1.5) : 0;
+      if (codeAlpha > 0) {
+        for (var i = 0; i < codeLines.length; i++) {
+          var cl = codeLines[i];
+          var lineAlpha = codeAlpha * Math.min(Math.max((phase * 3 - cl.delay) * 2, 0), 1);
+          if (lineAlpha <= 0) continue;
+          ctx.globalAlpha = lineAlpha;
+          ctx.fillStyle = cl.color;
+
+          // During morph phase, lines move toward right side
+          var morphT = phase > 1 ? Math.min((phase - 1) * 1.5, 1) : 0;
+          var mx = cl.x + morphT * (rw * 0.5 - cl.x + 40);
+          var my = cl.y;
+
+          ctx.fillRect(mx, my, cl.w * (1 - morphT * 0.3), 3);
+
+          // Code syntax coloring dots
+          if (morphT < 0.5) {
+            ctx.beginPath();
+            ctx.arc(mx - 6, my + 1.5, 2, 0, Math.PI * 2);
+            ctx.fillStyle = i % 3 === 0 ? 'rgba(99,102,241,0.6)' : 'rgba(34,197,94,0.5)';
+            ctx.globalAlpha = lineAlpha * (1 - morphT * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      // Transfer particles (phase 1-2)
+      if (phase > 0.8 && phase < 2.5) {
+        var transferAlpha = phase < 1.5 ? (phase - 0.8) * 1.4 : 1 - (phase - 1.8) * 1.4;
+        transferAlpha = Math.max(0, Math.min(1, transferAlpha));
+        for (var i = 0; i < 15; i++) {
+          var t = (phase - 0.8 + i * 0.06) % 1.5;
+          var tx = rw * 0.2 + t * rw * 0.5;
+          var ty = rh * (0.25 + Math.sin(i * 2.1) * 0.2);
+          ctx.globalAlpha = transferAlpha * (1 - t / 1.5) * 0.7;
+          ctx.beginPath();
+          ctx.arc(tx, ty, 2, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(129,140,248,0.8)';
+          ctx.fill();
+        }
+      }
+
+      // Layout blocks (visible in phase 1.5-4)
+      var layoutAlpha = phase < 1.5 ? 0 : phase < 2.5 ? (phase - 1.5) : phase < 3.5 ? 1 : Math.max(0, 1 - (phase - 3.5) * 2);
+      if (layoutAlpha > 0) {
+        for (var i = 0; i < layoutBlocks.length; i++) {
+          var bl = layoutBlocks[i];
+          var blockDelay = i * 0.12;
+          var blockAlpha = layoutAlpha * Math.min(Math.max(((phase - 1.5) * 2 - blockDelay) * 3, 0), 1);
+          if (blockAlpha <= 0) continue;
+
+          ctx.globalAlpha = blockAlpha;
+          ctx.fillStyle = bl.color;
+
+          // Slight scale-in animation
+          var scaleT = Math.min(blockAlpha * 1.2, 1);
+          var sx = bl.x + bl.w * (1 - scaleT) * 0.5;
+          var sw = bl.w * scaleT;
+
+          ctx.fillRect(sx, bl.y, sw, bl.h);
+          ctx.strokeStyle = 'rgba(99,102,241,0.2)';
+          ctx.lineWidth = 0.5;
+          ctx.strokeRect(sx, bl.y, sw, bl.h);
+        }
+
+        // Browser chrome outline
+        if (layoutAlpha > 0.3) {
+          ctx.globalAlpha = layoutAlpha * 0.4;
+          var bx2 = rw * 0.55, by2 = rh * 0.08;
+          var bw2 = rw * 0.4, bh2 = rh * 0.82;
+          ctx.strokeStyle = 'rgba(99,102,241,0.25)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.roundRect(bx2, by2, bw2, bh2, 8);
+          ctx.stroke();
+
+          // Dots
+          ctx.globalAlpha = layoutAlpha * 0.5;
+          var dotColors = ['rgba(239,68,68,0.6)', 'rgba(245,158,11,0.6)', 'rgba(34,197,94,0.6)'];
+          for (var d = 0; d < 3; d++) {
+            ctx.beginPath();
+            ctx.arc(bx2 + 14 + d * 12, by2 + 10, 3, 0, Math.PI * 2);
+            ctx.fillStyle = dotColors[d];
+            ctx.fill();
+          }
+        }
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+
+    resize();
     draw();
     window.addEventListener('resize', function() { resize(); });
   })();
