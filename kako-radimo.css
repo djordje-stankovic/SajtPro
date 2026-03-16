@@ -7,9 +7,9 @@
 
 .deck {
   position: fixed;
-  inset: 0;
+  top: 64px; left: 0; right: 0; bottom: 0;
   background: var(--bg);
-  z-index: 2000;
+  z-index: 900;
   overflow: hidden;
 }
 
@@ -21,8 +21,8 @@
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 18px 28px;
+  justify-content: center;
+  padding: 14px 28px;
 }
 .deck-bar-logo {
   display: flex;
@@ -608,10 +608,11 @@
 /* ========== RESPONSIVE ========== */
 
 @media (max-width: 768px) {
-  .deck-bar { padding: 14px 16px; }
+  .deck { top: 56px; }
+  .deck-bar { padding: 10px 16px; }
   .deck-bar-step { font-size: 12px; }
 
-  .deck-slide { padding: 70px 16px 80px; }
+  .deck-slide { padding: 60px 16px 80px; }
 
   .slide-inner h2 { font-size: 26px; }
   .slide-inner p { font-size: 15px; max-width: 100%; text-align: justify; }
@@ -659,8 +660,7 @@
 @media (max-width: 480px) {
   .slide-inner h2 { font-size: 21px; letter-spacing: -0.5px; }
   .slide-inner p { font-size: 14px; }
-  .deck-bar-logo { display: none; }
-  .deck-bar-close { font-size: 12px; padding: 5px 10px; }
+  .deck { top: 50px; }
   .deck-slide { padding: 60px 14px 75px; }
   .flow-card { padding: 20px 16px; }
   .flow-card h3 { font-size: 16px; }

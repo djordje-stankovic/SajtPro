@@ -32,25 +32,43 @@
 <body style="overflow:hidden;">
   <div class="page-transition" id="pageTransition"><span class="logo-mark pt-logo">S</span></div>
 
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner container">
+      <a href="/" class="nav-logo">
+        <span class="logo-mark">S</span>
+        <span class="logo-word">SajtPro<span class="logo-dot">.</span></span>
+      </a>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger"><span></span><span></span><span></span></label>
+      <div class="nav-links">
+        <a href="/" data-en="Home">Početna</a>
+        <a href="o-nama.html" data-en="About">O nama</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" data-en="Tools">Alati <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-dropdown-menu">
+            <a href="live-editor.html" data-en="Live Editor">Live Editor</a>
+            <a href="panel.html" data-en="Client Panel">Klijentski Panel</a>
+          </div>
+        </div>
+        <a href="kako-radimo.html" class="active" data-en="How We Work">Kako radimo</a>
+        <a href="cenovnik.html" data-en="Pricing">Cene</a>
+        <a href="kontakt.html" data-en="Contact">Kontakt</a>
+        <a href="kontakt.html" class="nav-cta" data-en="Free Quote">Kontaktirajte nas</a>
+        <a href="https://panel.sajtpro.rs/" class="nav-login" data-en="Login" target="_blank">Login</a>
+        <a href="en/how-we-work.html" class="nav-lang">EN</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="deck" id="deck">
 
     <!-- Progress Bar -->
     <div class="deck-progress" id="deckProgress"></div>
 
-    <!-- Top Bar -->
+    <!-- Step indicator -->
     <div class="deck-bar">
-      <a href="/" class="deck-bar-logo">
-        <span class="logo-mark">S</span>
-        <span class="logo-word">SajtPro<span class="logo-dot">.</span></span>
-      </a>
       <span class="deck-bar-step" id="deckStep"></span>
-      <div class="deck-bar-right">
-        <button type="button" class="nav-lang lang-toggle" id="deckLangToggle">EN</button>
-        <a href="/" class="deck-bar-close">
-          <span data-en="Close">Zatvori</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </a>
-      </div>
     </div>
 
     <!-- Slides -->
