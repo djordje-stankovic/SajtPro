@@ -41,6 +41,8 @@
 
   // Keyboard scroll support
   window.addEventListener('keydown', function(e) {
+    var tag = e.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || e.target.isContentEditable) return;
     var scrollKeys = { 32: 400, 33: -400, 34: 400, 38: -120, 40: 120 };
     if (e.keyCode === 36) { target = 0; }
     else if (e.keyCode === 35) { target = getMaxScroll(); }
