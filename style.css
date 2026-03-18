@@ -2328,9 +2328,9 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   .ba-tab-label { display: none; }
   .ba-tab-icon { width: 32px; height: 32px; font-size: 14px; }
 
-  /* Live browser mobile */
-  .live-browser-body { min-height: 400px; }
-  .live-iframe { height: 400px; }
+  /* Live browser mobile — disable iframe touch so page can scroll */
+  .live-browser-body { min-height: 400px; position: relative; }
+  .live-iframe { height: 400px; pointer-events: none; }
   .live-tabs { gap: 8px; }
   .live-tab { padding: 8px 14px; font-size: 13px; }
   .live-tab-label { display: none; }
