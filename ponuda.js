@@ -33,10 +33,16 @@
     firmaName.textContent = displayName + '.';
   }
 
-  // Set preview link
+  // Set preview link (only allow trusted hosting domain)
   var previewLink = document.getElementById('preview-link');
   if (previewLink && params.preview) {
-    previewLink.href = decodeURIComponent(params.preview);
+    var decoded = decodeURIComponent(params.preview);
+    try {
+      var urlObj = new URL(decoded);
+      if (urlObj.hostname === 'hostsite-production.up.railway.app' || urlObj.hostname === 'localhost') {
+        previewLink.href = decoded;
+      }
+    } catch (e) { /* invalid URL — ignore */ }
   }
 
   // Add firma name to package links as query param
