@@ -383,6 +383,10 @@
   border-radius: var(--r-lg);
   overflow: hidden;
 }
+.detail-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .detail-cat-header {
   display: flex;
   align-items: center;
@@ -405,6 +409,7 @@
   grid-template-columns: 1fr 100px 100px 100px;
   align-items: center;
   border-bottom: 1px solid rgba(255,255,255,0.03);
+  min-width: 480px;
 }
 .detail-row:last-child {
   border-bottom: none;
