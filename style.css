@@ -1955,6 +1955,9 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   border: none;
   display: block;
 }
+.live-iframe-overlay {
+  display: none;
+}
 .live-placeholder {
   text-align: center;
   padding: 60px 20px;
@@ -2328,9 +2331,16 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   .ba-tab-label { display: none; }
   .ba-tab-icon { width: 32px; height: 32px; font-size: 14px; }
 
-  /* Live browser mobile — disable iframe touch so page can scroll */
+  /* Live browser mobile — overlay blocks iframe touch so page can scroll */
   .live-browser-body { min-height: 400px; position: relative; }
-  .live-iframe { height: 400px; pointer-events: none; }
+  .live-iframe { height: 400px; }
+  .live-iframe-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: transparent;
+  }
   .live-tabs { gap: 8px; }
   .live-tab { padding: 8px 14px; font-size: 13px; }
   .live-tab-label { display: none; }
