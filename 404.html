@@ -7,145 +7,239 @@
   <meta name="description" content="Stranica koju tražite ne postoji ili je premeštena.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
   <style>
-    .notfound-wrap {
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(99,102,241,0.4) transparent;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #09090b;
+      color: #d4d4d8;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- Nav (minimal) --- */
+    .nf-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+    }
+    .nf-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .nf-logo-mark {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff;
+    }
+    .nf-logo-word {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fafafa;
+      letter-spacing: -0.5px;
+    }
+    .nf-logo-dot { color: #6366f1; }
+
+    /* --- Main content --- */
+    .nf-page {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 40px 20px;
+      padding: 100px 24px 60px;
       position: relative;
     }
-    .notfound-code {
-      font-size: clamp(120px, 20vw, 220px);
-      font-weight: 900;
-      line-height: 1;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-l) 50%, rgba(99,102,241,0.3) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0.9;
-      letter-spacing: -6px;
-      margin-bottom: 16px;
-      animation: float404 3s ease-in-out infinite;
-    }
-    @keyframes float404 {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .notfound-code { animation: none; }
-    }
-    .notfound-title {
-      font-family: var(--display);
-      font-size: clamp(24px, 4vw, 36px);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 12px;
-    }
-    .notfound-title em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--accent-l), #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .notfound-desc {
-      font-size: 16px;
-      color: var(--text-m);
-      max-width: 440px;
-      line-height: 1.7;
-      margin-bottom: 36px;
-    }
-    .notfound-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .notfound-glow {
+
+    /* Glow */
+    .nf-glow {
       position: absolute;
-      top: 30%;
+      top: 35%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 65%);
       pointer-events: none;
-      z-index: 0;
     }
-    .notfound-wrap > * {
+
+    .nf-content {
       position: relative;
       z-index: 1;
+      text-align: center;
+      max-width: 480px;
     }
-    .notfound-links {
-      margin-top: 48px;
+
+    .nf-code {
+      font-size: 100px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -4px;
+      background: linear-gradient(135deg, #6366f1 0%, #818cf8 40%, rgba(99,102,241,0.2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .nf-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fafafa;
+      margin-bottom: 12px;
+    }
+    .nf-title em {
+      font-style: italic;
+      background: linear-gradient(135deg, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nf-desc {
+      font-size: 15px;
+      color: #71717a;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Buttons */
+    .nf-actions {
       display: flex;
-      gap: 32px;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .nf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .nf-btn-primary {
+      background: #6366f1;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(99,102,241,0.3);
+    }
+    .nf-btn-primary:hover {
+      background: #818cf8;
+      box-shadow: 0 0 30px rgba(99,102,241,0.4);
+      transform: translateY(-2px);
+    }
+    .nf-btn-ghost {
+      background: rgba(255,255,255,0.04);
+      color: #d4d4d8;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .nf-btn-ghost:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    /* Quick links */
+    .nf-links {
+      display: flex;
+      gap: 24px;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .notfound-link {
+    .nf-link {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text-m);
+      gap: 6px;
+      color: #71717a;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       transition: color 0.2s;
     }
-    .notfound-link:hover {
-      color: var(--accent-l);
-    }
-    .notfound-link svg {
-      opacity: 0.5;
-      transition: opacity 0.2s;
-    }
-    .notfound-link:hover svg {
-      opacity: 1;
+    .nf-link:hover { color: #818cf8; }
+    .nf-link svg { opacity: 0.5; transition: opacity 0.2s; }
+    .nf-link:hover svg { opacity: 1; }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      .nf-nav { padding: 16px 20px; }
+      .nf-code { font-size: 72px; letter-spacing: -3px; }
+      .nf-title { font-size: 22px; }
+      .nf-desc { font-size: 14px; }
+      .nf-links { gap: 16px; }
+      .nf-btn { padding: 11px 22px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
-  <div class="notfound-wrap">
-    <div class="notfound-glow"></div>
-    <div class="notfound-code">404</div>
-    <h1 class="notfound-title">Ova stranica <em>ne postoji.</em></h1>
-    <p class="notfound-desc">Stranica koju tražite je premeštena, obrisana ili nikada nije ni postojala. Ali ne brinite — lako ćete se vratiti na pravi put.</p>
-    <div class="notfound-actions">
-      <a href="/" class="btn btn-glow btn-lg">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Početna stranica
-      </a>
-      <a href="/kontakt.html" class="btn btn-glass btn-lg">Kontaktirajte nas</a>
-    </div>
-    <div class="notfound-links">
-      <a href="/cenovnik.html" class="notfound-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        Cenovnik
-      </a>
-      <a href="/portfolio.html" class="notfound-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Portfolio
-      </a>
-      <a href="/o-nama.html" class="notfound-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        O nama
-      </a>
-      <a href="/kako-radimo.html" class="notfound-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Kako radimo
-      </a>
+
+  <nav class="nf-nav">
+    <a href="/" class="nf-logo">
+      <span class="nf-logo-mark">S</span>
+      <span class="nf-logo-word">SajtPro<span class="nf-logo-dot">.</span></span>
+    </a>
+  </nav>
+
+  <div class="nf-page">
+    <div class="nf-glow"></div>
+    <div class="nf-content">
+      <div class="nf-code">404</div>
+      <h1 class="nf-title">Stranica <em>ne postoji.</em></h1>
+      <p class="nf-desc">Tražena stranica je premeštena ili obrisana. Vratite se na početnu ili nas kontaktirajte ako vam nešto treba.</p>
+      <div class="nf-actions">
+        <a href="/" class="nf-btn nf-btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Početna
+        </a>
+        <a href="/kontakt.html" class="nf-btn nf-btn-ghost">Kontakt</a>
+      </div>
+      <div class="nf-links">
+        <a href="/cenovnik.html" class="nf-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Cenovnik
+        </a>
+        <a href="/portfolio.html" class="nf-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Portfolio
+        </a>
+        <a href="/o-nama.html" class="nf-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          O nama
+        </a>
+        <a href="/kako-radimo.html" class="nf-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Kako radimo
+        </a>
+      </div>
     </div>
   </div>
-  <div class="cursor-glow"></div>
-  <script src="/main.js"></script>
+
 </body>
 </html>
