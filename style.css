@@ -4,19 +4,19 @@
 
 :root {
   --bg: #09090b;
-  --bg-2: #0f0f13;
-  --bg-lift: #10121a;
-  --bg-card: #131318;
-  --bg-card-h: #1a1a22;
+  --bg-2: #13131a;
+  --bg-lift: #141520;
+  --bg-card: #16161d;
+  --bg-card-h: #1e1e28;
   --text: #d4d4d8;
   --text-m: #71717a;
   --white: #fafafa;
   --accent: #6366f1;
   --accent-l: #818cf8;
-  --accent-glow: rgba(99,102,241,0.12);
+  --accent-glow: rgba(99,102,241,0.15);
   --green: #22c55e;
-  --border: rgba(255,255,255,0.06);
-  --border-h: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.10);
+  --border-h: rgba(255,255,255,0.18);
   --r: 14px;
   --r-lg: 20px;
   --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -429,21 +429,21 @@ a.wyg-card-link:hover .wyg-link-text {
   transform: translateX(-50%);
   width: min(700px, 85%);
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25) 30%, rgba(139,92,246,0.35) 50%, rgba(99,102,241,0.25) 70%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.35) 30%, rgba(139,92,246,0.45) 50%, rgba(99,102,241,0.35) 70%, transparent);
 }
 
 /* Dark tint section — slightly lighter bg with top/bottom glow edges */
 .section-dark {
   background: var(--bg-2);
-  border-top: 1px solid rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 /* Accent section — gradient bg with subtle ambient orb */
 .section-accent {
-  background: linear-gradient(180deg, #0c0b14 0%, var(--bg) 100%);
-  border-top: 1px solid rgba(99,102,241,0.08);
-  border-bottom: 1px solid rgba(99,102,241,0.08);
+  background: linear-gradient(180deg, #0e0d18 0%, var(--bg) 100%);
+  border-top: 1px solid rgba(99,102,241,0.12);
+  border-bottom: 1px solid rgba(99,102,241,0.12);
 }
 .section-accent::after {
   content: '';
@@ -453,20 +453,20 @@ a.wyg-card-link:hover .wyg-link-text {
   transform: translateX(-50%);
   width: 700px;
   height: 400px;
-  background: radial-gradient(ellipse, rgba(99,102,241,0.035), transparent 70%);
+  background: radial-gradient(ellipse, rgba(99,102,241,0.06), transparent 70%);
   pointer-events: none;
 }
 
 /* Tinted section — subtle blue-shifted background */
 .section-tint {
-  background: #0a0a10;
+  background: #0e0e18;
 }
 
 /* Lifted section — noticeably different dark-indigo bg to break monotony */
 .section-lift {
   background: var(--bg-lift);
-  border-top: 1px solid rgba(99,102,241,0.06);
-  border-bottom: 1px solid rgba(99,102,241,0.06);
+  border-top: 1px solid rgba(99,102,241,0.10);
+  border-bottom: 1px solid rgba(99,102,241,0.10);
 }
 
 /* Glow section — radial ambient light in background */
@@ -481,11 +481,11 @@ a.wyg-card-link:hover .wyg-link-text {
   transform: translate(-50%, -50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(ellipse, rgba(99,102,241,0.06), transparent 70%);
+  background: radial-gradient(ellipse, rgba(99,102,241,0.09), transparent 70%);
   pointer-events: none;
 }
 .section-glow-green::after {
-  background: radial-gradient(ellipse, rgba(34,197,94,0.03), transparent 70%);
+  background: radial-gradient(ellipse, rgba(34,197,94,0.05), transparent 70%);
 }
 
 .section-head { margin-bottom: 60px; }
