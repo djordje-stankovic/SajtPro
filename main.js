@@ -15,6 +15,8 @@
   function getMaxScroll() { return document.documentElement.scrollHeight - window.innerHeight; }
 
   function onWheel(e) {
+    // Don't hijack scroll when hovering over live preview iframe
+    if (e.target.closest && e.target.closest('.live-browser-body')) return;
     e.preventDefault();
     target = clamp(target + e.deltaY, 0, getMaxScroll());
     if (!isRunning) { isRunning = true; requestAnimationFrame(update); }
