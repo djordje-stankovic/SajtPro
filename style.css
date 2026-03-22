@@ -1965,7 +1965,16 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   height: 700px;
   border: none;
   display: block;
-  pointer-events: auto;
+}
+.live-iframe-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+  cursor: pointer;
+}
+.live-iframe-overlay.active {
+  display: none;
 }
 .live-placeholder {
   text-align: center;

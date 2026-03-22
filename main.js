@@ -15,8 +15,9 @@
   function getMaxScroll() { return document.documentElement.scrollHeight - window.innerHeight; }
 
   function onWheel(e) {
-    // Don't hijack scroll when hovering over live preview iframe
-    if (e.target.closest && e.target.closest('.live-browser-body')) return;
+    // Don't hijack scroll when overlay is removed (user clicked to interact with iframe)
+    var overlay = document.getElementById('iframeOverlay');
+    if (overlay && overlay.classList.contains('active')) return;
     e.preventDefault();
     target = clamp(target + e.deltaY, 0, getMaxScroll());
     if (!isRunning) { isRunning = true; requestAnimationFrame(update); }
@@ -929,5 +930,19 @@ setTimeout(function() {
       }
     }, { threshold: 0.3 });
     ctaObs.observe(ctaCard);
+  }
+
+  // ===== Iframe overlay — click to interact, click outside to restore scroll =====
+  var iframeOverlay = document.getElementById('iframeOverlay');
+  if (iframeOverlay) {
+    iframeOverlay.addEventListener('click', function() {
+      this.classList.add('active'); // hide overlay, let user interact with iframe
+    });
+    // Restore overlay when user clicks outside the iframe area
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.live-browser-body')) {
+        iframeOverlay.classList.remove('active');
+      }
+    });
   }
 })();
