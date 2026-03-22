@@ -1965,7 +1965,7 @@ a.browser-bar-link:hover { color: var(--accent-l); background: rgba(99,102,241,0
   height: 700px;
   border: none;
   display: block;
-  touch-action: none;
+  pointer-events: none;
 }
 .live-placeholder {
   text-align: center;
