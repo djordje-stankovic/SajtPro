@@ -37,14 +37,11 @@
     if (!isRunning) { current = window.scrollY; target = window.scrollY; }
   });
 
-  var iframeActive = false;
+  var iframeHover = false;
   window.addEventListener('wheel', function(e) {
-    if (iframeActive) return; // let browser handle scroll naturally when iframe is active
+    if (iframeHover) return; // let browser scroll naturally over iframe
     onWheel(e);
   }, { passive: false });
-
-  // Expose for iframe overlay toggle
-  window._setIframeActive = function(val) { iframeActive = val; };
 
   // Keyboard scroll support
   window.addEventListener('keydown', function(e) {
@@ -936,19 +933,17 @@ setTimeout(function() {
     ctaObs.observe(ctaCard);
   }
 
-  // ===== Iframe overlay — click to interact, click outside to restore scroll =====
+  // ===== Iframe hover — hide overlay on hover so iframe gets scroll =====
   var iframeOverlay = document.getElementById('iframeOverlay');
-  if (iframeOverlay) {
-    iframeOverlay.addEventListener('click', function() {
-      this.classList.add('active'); // hide overlay, let user interact with iframe
-      if (window._setIframeActive) window._setIframeActive(true);
+  var liveBrowserBody = iframeOverlay ? iframeOverlay.parentElement : null;
+  if (liveBrowserBody) {
+    liveBrowserBody.addEventListener('mouseenter', function() {
+      iframeOverlay.classList.add('active');
+      iframeHover = true;
     });
-    // Restore overlay when user clicks outside the iframe area
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.live-browser-body')) {
-        iframeOverlay.classList.remove('active');
-        if (window._setIframeActive) window._setIframeActive(false);
-      }
+    liveBrowserBody.addEventListener('mouseleave', function() {
+      iframeOverlay.classList.remove('active');
+      iframeHover = false;
     });
   }
 })();
