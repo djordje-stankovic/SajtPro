@@ -15,6 +15,9 @@
   function getMaxScroll() { return document.documentElement.scrollHeight - window.innerHeight; }
 
   function onWheel(e) {
+    // Don't hijack scroll when overlay is removed (user clicked to interact with iframe)
+    var overlay = document.getElementById('iframeOverlay');
+    if (overlay && overlay.classList.contains('active')) return;
     e.preventDefault();
     target = clamp(target + e.deltaY, 0, getMaxScroll());
     if (!isRunning) { isRunning = true; requestAnimationFrame(update); }
@@ -37,11 +40,7 @@
     if (!isRunning) { current = window.scrollY; target = window.scrollY; }
   });
 
-  var iframeHover = false;
-  window.addEventListener('wheel', function(e) {
-    if (iframeHover) return; // let browser scroll naturally over iframe
-    onWheel(e);
-  }, { passive: false });
+  window.addEventListener('wheel', onWheel, { passive: false });
 
   // Keyboard scroll support
   window.addEventListener('keydown', function(e) {
@@ -933,17 +932,13 @@ setTimeout(function() {
     ctaObs.observe(ctaCard);
   }
 
-  // ===== Iframe hover — hide overlay on hover so iframe gets scroll =====
-  var iframeOverlay = document.getElementById('iframeOverlay');
-  var liveBrowserBody = iframeOverlay ? iframeOverlay.parentElement : null;
-  if (liveBrowserBody) {
-    liveBrowserBody.addEventListener('mouseenter', function() {
-      iframeOverlay.classList.add('active');
-      iframeHover = true;
-    });
-    liveBrowserBody.addEventListener('mouseleave', function() {
-      iframeOverlay.classList.remove('active');
-      iframeHover = false;
-    });
-  }
+  // ===== Iframe scroll forwarding =====
+  // Aurum (in iframe) forwards wheel events via postMessage
+  // We feed them into smooth scroll so page scrolls naturally
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'aegis-iframe-wheel') {
+      target = clamp(target + e.data.deltaY, 0, getMaxScroll());
+      if (!isRunning) { isRunning = true; requestAnimationFrame(update); }
+    }
+  });
 })();
