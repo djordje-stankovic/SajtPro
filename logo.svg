@@ -1,0 +1,19 @@
+<svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="100" fill="none"/>
+
+  <g transform="translate(10, 20) scale(0.8)">
+    <path d="M45 10 C45 10 70 20 70 50 C70 80 45 90 45 90 C45 90 20 80 20 50 C20 20 45 10 45 10Z" fill="#0056b3"/>
+    <path d="M45 15 L55 40 L45 35 L35 40 Z" fill="white"/>
+    <path d="M30 75 L20 85 L20 65 Z" fill="#ff7f00"/>
+    <path d="M60 75 L70 85 L70 65 Z" fill="#ff7f00"/>
+    <path d="M45 85 Q45 100 35 110 M45 85 Q45 100 55 110" stroke="#ff7f00" stroke-width="3" fill="none"/>
+  </g>
+
+  <text x="85" y="55" font-family="Arial, sans-serif" font-weight="bold" font-size="32" fill="#333">
+    Sajt<tspan fill="#0056b3">Pro</tspan><tspan font-size="18" fill="#777">.rs</tspan>
+  </text>
+
+  <text x="85" y="78" font-family="Arial, sans-serif" font-size="12" fill="#666" letter-spacing="1">
+    PROFESIONALNA IZRADA SAJTOVA
+  </text>
+</svg>
