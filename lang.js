@@ -65,10 +65,13 @@
       el.textContent = lang === 'en' ? el.getAttribute('data-en') : originals.get(el);
     });
 
-    // Swap HTML content
+    // Swap HTML content (sanitize — strip script/event handlers)
     document.querySelectorAll('[data-en-html]').forEach(function(el) {
       if (!originalsHtml.has(el)) originalsHtml.set(el, el.innerHTML);
-      el.innerHTML = lang === 'en' ? el.getAttribute('data-en-html') : originalsHtml.get(el);
+      var raw = lang === 'en' ? el.getAttribute('data-en-html') : originalsHtml.get(el);
+      // Strip any script tags or event handlers that shouldn't be in translations
+      var clean = raw.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/\son\w+\s*=/gi, ' data-removed=');
+      el.innerHTML = clean;
     });
 
     // Swap placeholders

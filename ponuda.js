@@ -39,7 +39,8 @@
     var decoded = decodeURIComponent(params.preview);
     try {
       var urlObj = new URL(decoded);
-      if (urlObj.hostname === 'hostsite-production.up.railway.app' || urlObj.hostname === 'localhost') {
+      if ((urlObj.protocol === 'https:' || urlObj.protocol === 'http:') &&
+          (urlObj.hostname === 'hostsite-production.up.railway.app' || urlObj.hostname === 'localhost')) {
         previewLink.href = decoded;
       }
     } catch (e) { /* invalid URL — ignore */ }
