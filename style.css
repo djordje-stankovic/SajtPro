@@ -1594,7 +1594,7 @@ a.wyg-card-link:hover .wyg-link-text {
 .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
 .footer-col a, .footer-col span { display: block; font-size: 14px; color: var(--text-m); padding: 3px 0; transition: color 0.2s; }
 .footer-col a:hover { color: var(--white); }
-.footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); }
+.footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .footer-bottom span { font-size: 13px; color: var(--text-m); }
 
 /* ========== CUSTOM CURSOR ========== */
