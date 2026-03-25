@@ -10,3 +10,4 @@ tools/output/
 tools/package.json
 tools/package-lock.json
 tools/src/
+preview/
