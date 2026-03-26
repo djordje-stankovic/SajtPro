@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- D letter - solid filled white for dark backgrounds -->
+  <path d="M20 10h30c22 0 40 18 40 40s-18 40-40 40H20V10z" fill="#f1f5f9"/>
+  <!-- D inner cutout - transparent to show dark bg through -->
+  <path d="M34 24h16c14.4 0 26 11.6 26 26s-11.6 26-26 26H34V24z" fill="#0f172a"/>
+  <!-- Circuit traces on left -->
+  <rect x="8" y="32" width="14" height="3" rx="1.5" fill="#f1f5f9"/>
+  <rect x="10" y="32" width="3" height="22" rx="1.5" fill="#f1f5f9"/>
+  <rect x="10" y="52" width="12" height="3" rx="1.5" fill="#f1f5f9"/>
+  <!-- Circuit dots -->
+  <circle cx="10" cy="33" r="4" fill="#f1f5f9"/>
+  <circle cx="10" cy="54" r="4" fill="#f1f5f9"/>
+  <!-- Sun symbol - filled circle -->
+  <circle cx="55" cy="50" r="7" fill="#10b981"/>
+  <!-- Sun rays -->
+  <rect x="53.5" y="34" width="3" height="7" rx="1.5" fill="#10b981"/>
+  <rect x="53.5" y="59" width="3" height="7" rx="1.5" fill="#10b981"/>
+  <rect x="39" y="48.5" width="7" height="3" rx="1.5" fill="#10b981"/>
+  <rect x="64" y="48.5" width="7" height="3" rx="1.5" fill="#10b981"/>
+  <!-- Diagonal rays -->
+  <rect x="42.5" y="37" width="3" height="7" rx="1.5" fill="#10b981" transform="rotate(-45 44 40.5)"/>
+  <rect x="64.5" y="56" width="3" height="7" rx="1.5" fill="#10b981" transform="rotate(-45 66 59.5)"/>
+  <rect x="42.5" y="56" width="3" height="7" rx="1.5" fill="#10b981" transform="rotate(45 44 59.5)"/>
+  <rect x="64.5" y="37" width="3" height="7" rx="1.5" fill="#10b981" transform="rotate(45 66 40.5)"/>
+</svg>
